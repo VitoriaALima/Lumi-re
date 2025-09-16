@@ -1,0 +1,203 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: url("fundo.login.png") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.cabecalho {
+  background-color: #533130;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.menu {
+  display: flex;
+  gap: 3rem;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.menu a:hover {
+  color: #f5d6d6;
+}
+
+
+/* Header */
+.navbar {
+  background-color: #5d3a3a;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img { height: 40px; }
+
+.brand h1 { margin: 0; font-size: 1rem; letter-spacing: 2px; }
+.brand span { font-size: 0.75rem; color: #ddd; }
+
+.menu {
+  display: flex;
+  gap: 3rem;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+.menu a:hover { color: #f5d6d6; }
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+  background: url("assets/img/fundo.login.png") no-repeat center center;
+  background-size: cover;
+}
+
+.login-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 3rem;
+  max-width: 400px;
+  width: 100%;
+  background: transparent; 
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  color: aliceblue;
+  margin-left: 120px;
+  gap: 30px;
+  
+}
+
+.login-area h2 {
+  font-family: "Georgia", serif;
+  font-size: 55px;
+  margin: 0 0 0.5rem;
+}
+
+.login-area p {
+  margin: 0 0 2rem;
+  font-size: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+label {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+input {
+  padding: 0.7rem;
+  border: 1px solid #cbb;
+  border-radius: 6px;
+  outline: none;
+  background: transparent;
+  width: 100%;
+    padding-right: 2.5rem;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: -40px;
+    top: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.signup {
+  font-size: 0.8rem;
+}
+.signup a { color: #fff; font-weight: bold; text-decoration: underline; }
+
+.btn {
+  background: transparent;
+  border: 1px solid #fff;
+  padding: 0.6rem;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: #fff;
+  color: #5d3a3a;
+}
+
+/* Imagem direita */
+.image-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Rodapé */
+.footer {
+  background: #000;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+.footer-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+.footer-logo {
+  margin-bottom: 1rem;
+}
+.rights {
+  font-size: 0.8rem;
+  color: #aaa;
+}
