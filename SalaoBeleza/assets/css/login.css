@@ -18,66 +18,35 @@ body {
   padding: 0.5rem 2rem;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.logo{
+    width: 150px;
+    padding-top: 10px;
 }
 
-.logo img {
-  height: 40px;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5b3b3a;
+    padding: 0px 40px;
+    height: 60px;
 }
 
-.menu {
-  display: flex;
-  gap: 3rem;
+nav a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #fff;
 }
 
-.menu a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s;
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
 }
-
-.menu a:hover {
-  color: #f5d6d6;
-}
-
-
-/* Header */
-.navbar {
-  background-color: #5d3a3a;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 2rem;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.logo img { height: 40px; }
-
-.brand h1 { margin: 0; font-size: 1rem; letter-spacing: 2px; }
-.brand span { font-size: 0.75rem; color: #ddd; }
-
-.menu {
-  display: flex;
-  gap: 3rem;
-}
-
-.menu a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-.menu a:hover { color: #f5d6d6; }
 
 .container {
   display: grid;
