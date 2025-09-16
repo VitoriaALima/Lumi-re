@@ -30,5 +30,55 @@ body {
   opacity: 0.8;
 }
 
+.footer {
+  background-color: #000; /* preto, igual a imagem */
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.footer1 {
+  display: flex;            /* coloca footer-left e footer-center na mesma linha */
+  align-items: center;      /* alinha verticalmente */
+  justify-content: center;   /* você pode mudar para space-between se quiser mais espaçamento */
+  position: relative;
+  gap: 50px;                /* espaço entre footer-left e footer-center */
+  padding: 25px;
+}
+
+
+.footer-left {
+  display: flex;
+  flex-direction: column; /* faz os itens ficarem um embaixo do outro */
+  gap: 10px; /* espaço entre cada contato, opcional */
+  padding-bottom: 10px;
+  position: absolute;      /* tira do fluxo para não atrapalhar a centralização */
+  left: 0;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+}
+
+.footer-center {
+  margin: 0 auto;
+}
+
+.logo {
+  height: 80px; /* ajusta o tamanho da logo central */
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  font-size: 16px;
+}
 
 
