@@ -187,3 +187,162 @@ input {
   font-size: 0.8rem;
   color: #aaa;
 }
+
+
+/* ================= RESPONSIVIDADE ================= */
+
+/* Telas pequenas - até 480px */
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    height: auto;
+    width: 109%;
+    
+  }
+
+  .btn {
+    margin-right: -25px;
+  }
+
+  .logo {
+    width: 120px;
+  }
+
+  nav a {
+    margin: 0 10px;
+    font-size: 14px;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .login-area {
+    margin: 0 auto;
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .login-area h2 {
+    font-size: 32px;
+    margin: 0 0 1rem;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .toggle-password {
+    right: 15px;
+  }
+
+  .signup-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .image-area {
+    display: none;
+  }
+}
+
+/* Tablets - entre 481px e 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  header {
+    padding: 0.5rem 2rem;
+  }
+
+  .logo {
+    width: 140px;
+  }
+
+  nav a {
+    margin-left: 20px;
+    font-size: 15px;
+  }
+
+  .container {
+    grid-template-columns: 0fr;
+    padding: 2rem;
+  }
+
+  .login-area {
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .login-area h2 {
+    font-size: 40px;
+  }
+
+  .subtitle {
+    font-size: 24px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .image-area {
+    display: none;
+  }
+}
+
+/* Laptops médios - entre 769px e 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .login-area {
+    margin-left: 60px;
+    padding: 2rem;
+  }
+
+  .login-area h2 {
+    font-size: 45px;
+  }
+
+  .subtitle {
+    font-size: 26px;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  .toggle-password {
+    right: 30px;
+  }
+}
+
+/* Laptops grandes - entre 1025px e 1440px */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .login-area {
+    margin-left: 100px;
+    max-width: 420px;
+  }
+
+  .login-area h2 {
+    font-size: 50px;
+  }
+
+  .subtitle {
+    font-size: 30px;
+  }
+
+  input {
+    width: 85%;
+  }
+}
+
