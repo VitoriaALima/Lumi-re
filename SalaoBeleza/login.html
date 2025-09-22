@@ -6,28 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/login.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    <img src="assets/img/fundo.login.png" alt="" class="background">    
+    <img src="assets/img/fundo.login.png" alt="" class="background">
+
     <header>
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
-            <a href="#">LOGIN</a>
             <a href="cadastro.html">CADASTRO</a>
             <a href="painel_administrativo.html">RELATÓRIO</a>
         </nav>
     </header>
+
     <main class="container">
         <section class="login-area">
             <h2 class="containerh2"><em>Seja bem-vindo(a)!</em></h2>
-            <p>Faça seu login</p>
-            <form>
+            <p class="subtitle">Faça seu login</p>
+
+            <form id="loginForm">
                 <div class="form-group">
                     <label for="email">E-MAIL</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+
                 <div class="form-group">
                     <label for="senha">SENHA</label>
                     <div class="password-wrapper">
@@ -35,18 +38,69 @@
                         <button type="button" class="toggle-password">👁</button>
                     </div>
                 </div>
-                <p class="signup">Não possui uma conta? <a href="#">Cadastre-se</a></p>
-                <button type="submit" class="btn">ENTRAR</button>
+
+                <div class="signup-container">
+                    <p class="signup">Não possui uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+                    <button type="submit" class="btn">ENTRAR</button>
+                </div>
             </form>
         </section>
     </main>
 
-
     <script>
+        // Mostrar/ocultar senha
         const toggle = document.querySelector(".toggle-password");
         const senha = document.getElementById("senha");
         toggle.addEventListener("click", () => {
             senha.type = senha.type === "password" ? "text" : "password";
+        });
+
+        // Função de login
+        document.getElementById("loginForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+
+            try {
+                const response = await fetch("http://10.92.3.225:5000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, senha })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: "Sucesso!",
+                        text: data.message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#3085d6"
+                    }).then(() => {
+                        // Redireciona se for login válido
+                        window.location.href = "index.cadastroservico.html";
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Erro!",
+                        text: data.error,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#d33"
+                    });
+                }
+
+            } catch (error) {
+                Swal.fire({
+                    title: "Erro!",
+                    text: "Falha na comunicação com o servidor.",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#d33"
+                });
+            }
         });
     </script>
 </body>
