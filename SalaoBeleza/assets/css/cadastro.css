@@ -1,3 +1,4 @@
+/* CSS Base (já existente) */
 body {
     margin: 0;
     font-family: 'Lato', sans-serif;
@@ -36,7 +37,6 @@ nav a {
 }
 
 /* Conteúdo central */
-
 .cadastro-container {
     margin: 50px auto;
     padding: 40px;
@@ -119,7 +119,6 @@ small {
     color: #ddd;
 }
 
-
 /* Rodapé do formulário */
 .form-footer {
     margin-top: 30px;
@@ -149,12 +148,10 @@ button:hover {
     color: #5b3b3a;
 }
 
-
 /* Campo senha com olho */
 .senha-container {
     position: relative;
     width: 90%;
- 
 }
 
 .senha-container input {
@@ -169,4 +166,248 @@ button:hover {
     width: 30px;
     height: 30px;
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 479px) {
+    header {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .logo {
+        width: 120px;
+        padding-top: 5px;
+    }
+    
+    nav {
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav a {
+        margin: 0 10px;
+        font-size: 14px;
+    }
+    
+    .cadastro-container {
+        margin: 20px auto;
+        padding: 20px 15px;
+    }
+    
+    .cadastro-container div h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+    
+    .decorative-line {
+        padding-right: 0;
+        padding-bottom: 20px;
+    }
+    
+    .subtitulo {
+        font-size: 18px;
+        text-align: center;
+        margin: 10px 0 30px;
+    }
+    
+    form {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+    
+    form input,
+    form select,
+    .senha-container {
+        width: 100%;
+    }
+    
+    .senha-container input {
+        width: calc(100% - 2px);
+    }
+    
+    small {
+        width: 100%;
+    }
+    
+    .form-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    button {
+        margin-right: 0;
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    header {
+        padding: 15px 20px;
+    }
+    
+    .logo {
+        width: 130px;
+    }
+    
+    nav a {
+        margin-left: 20px;
+        font-size: 15px;
+    }
+    
+    .cadastro-container {
+        margin: 30px auto;
+        padding: 30px 20px;
+    }
+    
+    .cadastro-container div h1 {
+        font-size: 35px;
+        text-align: center;
+    }
+    
+    .decorative-line {
+        padding-right: 0;
+        padding-bottom: 30px;
+    }
+    
+    .subtitulo {
+        font-size: 20px;
+        text-align: center;
+    }
+    
+    form {
+        flex-direction: column;
+        gap: 0;
+        max-width: 400px;
+    }
+    
+    form input,
+    form select,
+    .senha-container {
+        width: 100%;
+    }
+    
+    .senha-container input {
+        width: calc(100% - 20px);
+    }
+    
+    small {
+        width: 100%;
+    }
+    
+    .form-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    button {
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    header {
+        padding: 15px 30px;
+    }
+    
+    .logo {
+        width: 140px;
+    }
+    
+    nav a {
+        margin-left: 25px;
+    }
+    
+    .cadastro-container {
+        margin: 40px auto;
+        padding: 35px 30px;
+        max-width: 700px;
+    }
+    
+    .cadastro-container div h1 {
+        font-size: 38px;
+        text-align: center;
+    }
+    
+    .decorative-line {
+        padding-right: 0;
+        padding-bottom: 35px;
+    }
+    
+    .subtitulo {
+        font-size: 21px;
+        text-align: center;
+    }
+    
+    form {
+        gap: 80px;
+        max-width: 600px;
+    }
+    
+    .form-footer {
+        justify-content: center;
+        gap: 30px;
+    }
+    
+    button {
+        margin-right: 0;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+    header {
+        padding: 0px 35px;
+    }
+    
+    .cadastro-container {
+        max-width: 900px;
+    }
+    
+    .decorative-line {
+        padding-right: 400px;
+    }
+    
+    form {
+        gap: 100px;
+        max-width: 800px;
+    }
+    
+    button {
+        margin-right: 30px;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1439px) {
+    .decorative-line {
+        padding-right: 500px;
+    }
+    
+    form {
+        gap: 120px;
+    }
+    
+    button {
+        margin-right: 40px;
+    }
+}
+
+/* Desktop Large - 1440px e acima */
+@media screen and (min-width: 1440px) {
+    .decorative-line {
+        padding-right: 700px;
+    }
+    
+    form {
+        gap: 150px;
+    }
+    
+    button {
+        margin-right: 50px;
+    }
 }
