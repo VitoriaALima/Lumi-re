@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumiére - Cadastro</title>
     <link rel="stylesheet" href="assets/css/cadastro.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
@@ -59,7 +61,24 @@
 
                     <div class="form-footer">
                         <span>Já possui uma conta? <a href="login.html" style="font-weight: bold;">Login</a></span>
-                        <button type="submit">CADASTRAR</button>
+                        <button id="btn" type="submit">CADASTRAR</button>
+
+                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#btn").on("click", function () {
+                                let token = "TOKEN_AQUI"; // Troque isso pelo token real, se necessário
+
+                                // Salva o token no localStorage
+                                localStorage.setItem("token", token);
+
+                                // Redireciona para a página de login
+                                window.location.href = "login.html";
+                            });
+                        });
+                    </script>
+
                     </div>
                 </div>
             </form>
