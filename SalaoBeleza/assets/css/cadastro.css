@@ -222,6 +222,15 @@ button:hover {
         padding: 10px 15px;
         flex-direction: column;
         gap: 10px;
+        width: 93%;
+    }
+
+    .footer-center {
+    margin-left: -5px;
+}
+
+    .footer{
+        width: 102%;
     }
     
     .logo {
