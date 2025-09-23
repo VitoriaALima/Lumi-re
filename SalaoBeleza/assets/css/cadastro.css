@@ -1,4 +1,3 @@
-/* CSS Base (já existente) */
 body {
     margin: 0;
     font-family: 'Lato', sans-serif;
@@ -16,7 +15,6 @@ body {
     object-fit: cover;
 }
 
-/* Topo */
 .logo{
     width: 150px;
     padding-top: 10px;
@@ -36,7 +34,6 @@ nav a {
     color: #fff;
 }
 
-/* Conteúdo central */
 .cadastro-container {
     margin: 50px auto;
     padding: 40px;
@@ -67,7 +64,6 @@ nav a {
     font-style: italic;
 }
 
-/* Formulário */
 form {
     display: flex;
     gap: 150px;
@@ -119,7 +115,6 @@ small {
     color: #ddd;
 }
 
-/* Rodapé do formulário */
 .form-footer {
     margin-top: 30px;
     display: flex;
@@ -148,7 +143,6 @@ button:hover {
     color: #5b3b3a;
 }
 
-/* Campo senha com olho */
 .senha-container {
     position: relative;
     width: 90%;
