@@ -64,7 +64,6 @@ nav a {
   max-width: 400px;
   width: 100%;
   background: transparent;
-  backdrop-filter: blur(6px);
   border-radius: 12px;
   color: aliceblue;
   margin-left: 120px;
