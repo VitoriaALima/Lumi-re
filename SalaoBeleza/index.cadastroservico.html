@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <!-- aqui eu já tirei os parênteses do nome do CSS -->
   <link rel="stylesheet" href="assets/css/index.cadastroservico.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -36,33 +37,64 @@
       <span>© 2025. Todos os direitos reservados.</span>
     </div>
   </footer>
-  <script>
-    document.querySelector(".btn-logout").addEventListener("click", function () {
-      Swal.fire({
-        title: "Deseja realmente sair?",
-        text: "Você precisará fazer login novamente.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sim, sair",
-        cancelButtonText: "Não, ficar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // 🔹 Remove token ou dados de sessão
-          localStorage.removeItem("token");
+<div class="center-temp">
+  <button class="btn-logout">Logout</button>
+</div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const logoutBtn = document.querySelector('.btn-logout');
+
+  if (!logoutBtn) {
+    console.error('Botão de logout não encontrado (seletor .btn-logout).');
+    return;
+  }
+
+  logoutBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Confirmação com SweetAlert2
+    Swal.fire({
+      title: 'Deseja realmente sair?',
+      text: 'Você precisará fazer login novamente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'SIM',
+      cancelButtonText: 'NÃO',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          // Remova o token onde você o guarda
+          localStorage.removeItem('token');        // chave mais comum
+          sessionStorage.removeItem('token');      // caso use sessionStorage
+          // se quiser apagar tudo:
+          // localStorage.clear();
+
+          // Apagar cookie de sessão (opcional — modifica conforme o nome do cookie)
+          document.cookie = 'session=; Max-Age=0; path=/;';
+
+          // Mensagem de sucesso curta e redirecionamento
           Swal.fire({
-            icon: "success",
-            title: "Logout realizado!",
+            icon: 'success',
+            title: 'Desconectado',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1200
           }).then(() => {
-            // Redireciona para login
-            window.location.href = "login.html";
+            window.location.href = 'login.html';
           });
+        } catch (err) {
+          console.error('Erro ao efetuar logout:', err);
+          Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
         }
-      });
+      } else {
+        // usuário cancelou — não faz nada
+      }
     });
-  </script>
+  });
+});
+</script>
+
 
 
 </body>
