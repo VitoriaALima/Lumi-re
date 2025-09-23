@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,28 +15,56 @@
     <button class="btn-logout">Logout</button>
   </div>
 
-<footer class="footer">
-  <div class="footer1">
-    <div class="footer-left">
-      <div class="contact">
-        <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
-        <span>(18)000000000</span>
+  <footer class="footer">
+    <div class="footer1">
+      <div class="footer-left">
+        <div class="contact">
+          <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+          <span>(18)000000000</span>
+        </div>
+        <div class="contact">
+          <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+          <span>Avenida das flores</span>
+        </div>
       </div>
-      <div class="contact">
-        <img src="assets/img/location-icon.png" alt="Localização" class="icon">
-        <span>Avenida das flores</span>
-      </div>
-    </div>
 
-    <div class="footer-center">
-      <img src="assets/img/logo.png" alt="Logo Lumiére" class="logo">
+      <div class="footer-center">
+        <img src="assets/img/logo.png" alt="Logo Lumiére" class="logo">
+      </div>
     </div>
-  </div>  
-  <div class="footer-bottom">
-    <span>© 2025. Todos os direitos reservados.</span>
-  </div>
-</footer>
+    <div class="footer-bottom">
+      <span>© 2025. Todos os direitos reservados.</span>
+    </div>
+  </footer>
+  <script>
+    document.querySelector(".btn-logout").addEventListener("click", function () {
+      Swal.fire({
+        title: "Deseja realmente sair?",
+        text: "Você precisará fazer login novamente.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim, sair",
+        cancelButtonText: "Não, ficar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // 🔹 Remove token ou dados de sessão
+          localStorage.removeItem("token");
+
+          Swal.fire({
+            icon: "success",
+            title: "Logout realizado!",
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            // Redireciona para login
+            window.location.href = "login.html";
+          });
+        }
+      });
+    });
+  </script>
 
 
 </body>
+
 </html>
