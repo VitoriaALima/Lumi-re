@@ -4,26 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lumiére - Login</title>
     <link rel="stylesheet" href="assets/css/login.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-     <link
+    <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <img src="assets/img/fundo.login.png" alt="" class="background">
-
     <header>
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
             <a href="cadastro.html">CADASTRO</a>
             <a href="painel_administrativo.html">RELATÓRIO</a>
         </nav>
-    </header>
+    </header>       
 
     <main class="container">
+         <img src="assets/img/fundo.login.png" alt="" class="background">
         <section class="login-area">
             <h2 class="containerh2"><em>Seja bem-vindo(a)!</em></h2>
             <p class="subtitle">Faça seu login</p>
@@ -40,7 +39,7 @@
                         <input type="password" id="senha" name="senha" required>
                         <button type="button" class="toggle-password">
                             <img src="assets/img/olhosenha_branco.png" alt="Mostrar senha" class="toggle-senha"
-                            onclick="toggleSenha()">
+                                onclick="toggleSenha()">
                         </button>
                     </div>
                 </div>
@@ -51,8 +50,30 @@
                 </div>
             </form>
         </section>
-    </main>
 
+    </main>
+        <footer class="footer">
+            <div class="footer1">
+                <div class="footer-left">
+                    <div class="contact">
+                        <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+                        <span>(18)000000000</span>
+                    </div>
+                    <div class="contact">
+                        <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+                        <span>Avenida das flores</span>
+                    </div>
+                </div>
+
+                <div class="footer-center">
+                    <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>© 2025. Todos os direitos reservados.</span>
+            </div>
+        </footer>
     <script>
         // Mostrar/ocultar senha
         const toggle = document.querySelector(".toggle-password");
