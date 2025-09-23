@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
   min-height: 100vh;
   background: url("fundo.login.png") no-repeat center center fixed;
   background-size: cover;
@@ -122,15 +122,25 @@ input {
 .toggle-password {
   position: absolute;
   right: 42px;
-  top: 10px;
+  top: 18px;
   background: none;
   border: none;
   color: #fff;
   cursor: pointer;
 }
 
+.toggle-senha {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
 .signup {
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 0;
 }
 .signup a {
@@ -256,6 +266,16 @@ input {
   .image-area {
     display: none;
   }
+
+  .toggle-senha {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -297,6 +317,15 @@ input {
   .image-area {
     display: none;
   }
+  .toggle-senha {
+    position: absolute;
+    right: -68px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
