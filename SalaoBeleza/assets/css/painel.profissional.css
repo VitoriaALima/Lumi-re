@@ -1,4 +1,206 @@
-body {
+html, body {
     margin: 0;
     font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
+
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+
+.logo{
+    width: 150px;
+    padding-top: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5b3b3a;
+    padding: 0px 40px;
+}
+
+nav a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.cadastro-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastro-container div h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 45px;
+    margin: 0;
+    color: #fff;
+}
+
+.decorative-line {
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+
+.subtitulo {
+    margin: 10px;
+    font-size: 23px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #fff;
+}
+
+
+
+.footer {
+  background-color: #000;
+  color: white;
+  text-align: center;
+  margin-top: auto; /* empurra para o fim da tela */
+  padding-bottom: 20px;
+}
+
+
+.footer1 {
+  display: flex;
+  align-items: center;      
+  justify-content: space-between; /* espaço entre esquerda e centro */
+  flex-wrap: wrap; /* garante que se ajuste no mobile */
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-center {
+  flex: 1; /* ocupa o espaço central */
+  display: flex;
+  justify-content: center;
+  margin-left: -150px;
+}
+
+.logorodape {
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+.footer-bottom {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+
+/* ===== TABELA ===== */
+.tabela-servicos {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 0 auto 40px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabela-servicos th, .tabela-servicos td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.tabela-servicos th {
+  background-color: #5b3b3a;
+  color: white;
+}
+
+.tabela-servicos td img {
+  width: 20px;
+  cursor: pointer;
+}
+
+/* ===== BOTÕES ===== */
+.botoes-acao {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn-acao {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btn-acao:hover {
+  background: white;
+  color: #5b3b3a;
+}
+
+/* Botão logout */
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btn-logout img {
+  width: 18px;
+}
+
+.btn-logout:hover img {
+  filter: invert(1);
+}
+
+.btn-logout:hover {
+  background: white;
+  color: #5b3b3a;
 }
