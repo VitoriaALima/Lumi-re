@@ -7,7 +7,13 @@
   <title>Home</title>
   <link rel="stylesheet" href="assets/css/index.cadastroservico.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+      <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
+        rel="stylesheet">
+        
 </head>
 
 <body>
@@ -40,6 +46,33 @@
 <div class="center-temp">
   <button class="btn-logout">Logout</button>
 </div>
+
+<script>
+$(document).ready(function () {
+    let token = localStorage.getItem("token");
+    let tipo = localStorage.getItem("tipo");
+
+    if (!token) {
+        Swal.fire({
+            icon: "error",
+            title: "Acesso negado!",
+            text: "Você precisa estar logado para acessar esta página.",
+            confirmButtonText: "Ir para Login"
+        }).then(() => {
+            window.location.href = "login.html";
+        });
+    } else if (tipo != 3) {
+        Swal.fire({
+            icon: "warning",
+            title: "Permissão insuficiente!",
+            text: "Seu perfil não pode acessar esta página.",
+            confirmButtonText: "Voltar"
+        }).then(() => {
+            window.location.href = "pagina-erro.html";
+        });
+    }
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
