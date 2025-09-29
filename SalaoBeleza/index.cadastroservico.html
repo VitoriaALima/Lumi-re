@@ -12,13 +12,11 @@
       <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
-        rel="stylesheet">
-        
-     
+        rel="stylesheet">   
+          
+    <script src="assets/js/seguranca.js" defer></script>  
 
 </head>
-
-<body>
 
   
 <body>
@@ -31,10 +29,49 @@
         </nav>
     </header>
 
+ <section class="cadastro-container">
+    <div class="decorative-line">
+      <h1><span style="color:#fff;">Sucesso!</span></h1>
+      <p class="subtitulo">Realize aqui o cadastro de seus serviços</p>
+    </div>
 
-  <div class="center-temp">
-    <button class="btn-logout">Logout</button>
+    <!-- Formulário -->
+<form class="form-cadastro">
+  <div class="form-group">
+    <label for="descricao">DESCRIÇÃO</label>
+    <input type="text" id="descricao" placeholder="EX: Corte de cabelo" required>
   </div>
+
+  <div class="form-group">
+    <label for="preco">PREÇO</label>
+    <div class="input-wrapper">
+      <span>R$</span>
+      <input class="input_preco" type="number" id="preco" placeholder="80,00" step="0.01" min="0" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="duracao">DURAÇÃO</label>
+    <input type="text" id="duracao" placeholder="EX: 2 horas" required>
+  </div>
+
+  <div class="form-group">
+    <label for="data">DATA</label>
+    <input type="date" id="data" required>
+  </div>
+
+  <div class="form-group">
+    <label for="horario">HORÁRIO</label>
+    <input type="time" id="horario" required>
+  </div>
+
+  <!-- Agora o aviso+botão ficam só na 2ª coluna -->
+  <div class="form-actions">
+    <p class="aviso">*Verifique se todos os dados foram informados corretamente antes de enviar.</p>
+    <button type="submit" class="btn-enviar">ENVIAR</button>
+  </div>
+</form>
+  </section>
 
   <footer class="footer">
     <div class="footer1">
@@ -57,65 +94,56 @@
       <span>© 2025. Todos os direitos reservados.</span>
     </div>
   </footer>
-<div class="center-temp">
-  <button class="btn-logout">Logout</button>
-</div>
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const logoutBtn = document.querySelector('.btn-logout');
-
-  if (!logoutBtn) {
-    console.error('Botão de logout não encontrado (seletor .btn-logout).');
-    return;
-  }
-
-  logoutBtn.addEventListener('click', function (e) {
+  document.querySelector(".form-cadastro").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Confirmação com SweetAlert2
-    Swal.fire({
-      title: 'Deseja realmente sair?',
-      text: 'Você precisará fazer login novamente.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'SIM',
-      cancelButtonText: 'NÃO',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        try {
-          // Remova o token onde você o guarda
-          localStorage.removeItem('token');        // chave mais comum
-          sessionStorage.removeItem('token');      // caso use sessionStorage
-          // se quiser apagar tudo:
-          // localStorage.clear();
+    const descricao = document.getElementById("descricao").value;
+    const preco = document.getElementById("preco").value;
+    const duracao = document.getElementById("duracao").value;
+    const data = document.getElementById("data").value;
+    const horario = document.getElementById("horario").value;
 
-          // Apagar cookie de sessão (opcional — modifica conforme o nome do cookie)
-          document.cookie = 'session=; Max-Age=0; path=/;';
+    // 🔹 Dados prontos para enviar
+    const dados = { descricao, preco, duracao, data, horario, tipo: "profissional" };
 
-          // Mensagem de sucesso curta e redirecionamento
-          Swal.fire({
-            icon: 'success',
-            title: 'Desconectado',
-            showConfirmButton: false,
-            timer: 1200
-          }).then(() => {
-            window.location.href = 'login.html';
-          });
-        } catch (err) {
-          console.error('Erro ao efetuar logout:', err);
-          Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
-        }
+    try {
+      const response = await fetch("http://10.92.3.149:5000/cadastro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        Swal.fire({
+          icon: "success",
+          title: "Sucesso!",
+          text: result.message
+        }).then(() => {
+          window.location.href = "painel_profissional.html"; // 🔹 redireciona
+        });
       } else {
-        // usuário cancelou — não faz nada
+        const error = await response.json();
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.error || "Erro ao cadastrar serviço!"
+        });
       }
-    });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Falha na conexão",
+        text: "Não foi possível conectar ao servidor."
+      });
+    }
   });
-});
 </script>
-
 
 
 </body>

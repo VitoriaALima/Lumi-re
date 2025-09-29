@@ -21,29 +21,106 @@ nav a {
     color: #fff;
 }
 
-/* Centralização do botão */
-.center-temp {
+
+.decorative-line {
+    padding-left: 185px;
+
+}
+
+.subtitulo {
+    margin: 10px 0 40px;
+    font-size: 23px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #fff;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 45px;
+    margin: 0;
+    color: #fff;
+    margin-top: 60px;
+}
+
+.form-cadastro {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* duas colunas */
+  gap: 20px 40px;
+}
+
+.form-group {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #3E1617;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #3E1617;
+  border-radius: 5px;
+}
+
+/* Input com R$ */
+.input-wrapper {
+  display: flex;
   align-items: center;
-  height: 100vh;
+  gap: 5px;
 }
 
-/* Estilo do botão */
-.btn-logout {
-  background-color: #4c181a;
-  color: white;
-  padding: 12px 24px;
+.input-wrapper span {
+  font-weight: bold;
+  color: #3E1617;
+}
+
+/* Última linha agora só na segunda coluna */
+.form-actions {
+  grid-column: 2;          /* fica só na coluna da direita */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding-top: 10px;
+}
+
+.aviso {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  flex: 1;  /* ocupa espaço para o botão ficar alinhado */
+}
+
+.btn-enviar {
+  background-color: #3E1617;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s ease;
+  white-space: nowrap; /* evita quebrar o texto */
 }
 
-.btn-logout:hover {
-  opacity: 0.8;
+.btn-enviar:hover {
+  background-color: #3a2424;
 }
+
+.input_preco {
+  width: 500px;
+}
+
 
 .footer {
   background-color: #000; /* preto, igual a imagem */
