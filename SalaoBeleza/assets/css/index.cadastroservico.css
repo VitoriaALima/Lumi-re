@@ -173,4 +173,102 @@ input {
   font-size: 16px;
 }
 
+@media (max-width: 1024px) {
+  .form-cadastro {
+    grid-template-columns: 1fr;
+    width: 90%;
+    padding: 20px;
+  }
+
+  .form-actions {
+    grid-column: 1;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .input_preco {
+    width: 100%;
+  }
+
+  .decorative-line,
+  h1,
+  .subtitulo {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+  }
+
+  nav a {
+    margin: 10px;
+  }
+
+  .footer1 {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .footer-left {
+    position: static;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-center {
+    margin: 0;
+  }
+
+  .form-cadastro {
+    gap: 15px;
+  }
+
+  .btn-enviar {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .subtitulo {
+    font-size: 18px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  input {
+    padding: 8px;
+  }
+
+  .btn-enviar {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .footer-bottom {
+    font-size: 14px;
+  }
+
+  .logo {
+    height: 60px;
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+}
 
