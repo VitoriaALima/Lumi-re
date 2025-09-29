@@ -19,10 +19,10 @@
             <a href="cadastro.html">CADASTRO</a>
             <a href="painel_administrativo.html">RELATÓRIO</a>
         </nav>
-    </header>       
+    </header>
 
     <main class="container">
-         <img src="assets/img/fundo.login.png" alt="" class="background">
+        <img src="assets/img/fundo.login.png" alt="" class="background">
         <section class="login-area">
             <h2 class="containerh2"><em>Seja bem-vindo(a)!</em></h2>
             <p class="subtitle">Faça seu login</p>
@@ -52,28 +52,28 @@
         </section>
 
     </main>
-        <footer class="footer">
-            <div class="footer1">
-                <div class="footer-left">
-                    <div class="contact">
-                        <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
-                        <span>(18)000000000</span>
-                    </div>
-                    <div class="contact">
-                        <img src="assets/img/location-icon.png" alt="Localização" class="icon">
-                        <span>Avenida das flores</span>
-                    </div>
+    <footer class="footer">
+        <div class="footer1">
+            <div class="footer-left">
+                <div class="contact">
+                    <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+                    <span>(18)000000000</span>
                 </div>
-
-                <div class="footer-center">
-                    <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+                <div class="contact">
+                    <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+                    <span>Avenida das flores</span>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <span>© 2025. Todos os direitos reservados.</span>
+            <div class="footer-center">
+                <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
             </div>
-        </footer>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025. Todos os direitos reservados.</span>
+        </div>
+    </footer>
     <script>
         // Mostrar/ocultar senha
         const toggle = document.querySelector(".toggle-password");
@@ -90,7 +90,7 @@
             const senha = document.getElementById("senha").value;
 
             try {
-                const response = await fetch("http://10.92.3.225:5000/login", {
+                const response = await fetch("http://10.92.3.219:5000/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, senha })
@@ -99,6 +99,9 @@
                 const data = await response.json();
 
                 if (response.ok) {
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("tipo", data.tipo);
+
                     Swal.fire({
                         title: "Sucesso!",
                         text: data.message,
@@ -106,7 +109,6 @@
                         confirmButtonText: "OK",
                         confirmButtonColor: "#3085d6"
                     }).then(() => {
-                        // Redireciona se for login válido
                         window.location.href = "index.cadastroservico.html";
                     });
                 } else {
@@ -130,6 +132,15 @@
             }
         });
     </script>
+
+    <script>
+        //limpar token ao acessar a página de login
+        document.addEventListener("DOMContentLoaded", function () {
+            localStorage.removeItem("token");
+            localStorage.removeItem("tipo");
+        });
+    </script>
+
 </body>
 
 </html>

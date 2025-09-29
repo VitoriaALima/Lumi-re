@@ -13,7 +13,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
-        
+
+    <script src="assets/js/seguranca.js" defer></script>
+
 </head>
 
 <body>
@@ -46,89 +48,6 @@
 <div class="center-temp">
   <button class="btn-logout">Logout</button>
 </div>
-
-<script>
-$(document).ready(function () {
-    let token = localStorage.getItem("token");
-    let tipo = localStorage.getItem("tipo");
-
-    if (!token) {
-        Swal.fire({
-            icon: "error",
-            title: "Acesso negado!",
-            text: "Você precisa estar logado para acessar esta página.",
-            confirmButtonText: "Ir para Login"
-        }).then(() => {
-            window.location.href = "login.html";
-        });
-    } else if (tipo != 3) {
-        Swal.fire({
-            icon: "warning",
-            title: "Permissão insuficiente!",
-            text: "Seu perfil não pode acessar esta página.",
-            confirmButtonText: "Voltar"
-        }).then(() => {
-            window.location.href = "pagina-erro.html";
-        });
-    }
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const logoutBtn = document.querySelector('.btn-logout');
-
-  if (!logoutBtn) {
-    console.error('Botão de logout não encontrado (seletor .btn-logout).');
-    return;
-  }
-
-  logoutBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // Confirmação com SweetAlert2
-    Swal.fire({
-      title: 'Deseja realmente sair?',
-      text: 'Você precisará fazer login novamente.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'SIM',
-      cancelButtonText: 'NÃO',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        try {
-          // Remova o token onde você o guarda
-          localStorage.removeItem('token');        // chave mais comum
-          sessionStorage.removeItem('token');      // caso use sessionStorage
-          // se quiser apagar tudo:
-          // localStorage.clear();
-
-          // Apagar cookie de sessão (opcional — modifica conforme o nome do cookie)
-          document.cookie = 'session=; Max-Age=0; path=/;';
-
-          // Mensagem de sucesso curta e redirecionamento
-          Swal.fire({
-            icon: 'success',
-            title: 'Desconectado',
-            showConfirmButton: false,
-            timer: 1200
-          }).then(() => {
-            window.location.href = 'login.html';
-          });
-        } catch (err) {
-          console.error('Erro ao efetuar logout:', err);
-          Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
-        }
-      } else {
-        // usuário cancelou — não faz nada
-      }
-    });
-  });
-});
-</script>
-
-
 
 </body>
 
