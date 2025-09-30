@@ -204,6 +204,7 @@ input {
     flex-direction: column;
     padding: 20px;
     text-align: center;
+    width: 95%;
   }
 
   nav a {
@@ -228,6 +229,7 @@ input {
 
   .form-cadastro {
     gap: 15px;
+    width: 67%;
   }
 
   .btn-enviar {
@@ -244,6 +246,13 @@ input {
   .subtitulo {
     font-size: 18px;
   }
+
+   .form-cadastro {
+    gap: 15px;
+    width: 67%;
+    margin-left: 47px;
+  }
+
 
   label {
     font-size: 14px;
@@ -269,6 +278,11 @@ input {
   .icon {
     width: 22px;
     height: 22px;
+  }
+
+
+  .footer {
+    width: 95%;
   }
 }
 
