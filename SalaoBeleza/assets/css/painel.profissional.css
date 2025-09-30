@@ -154,7 +154,6 @@ nav a {
   cursor: pointer;
 }
 
-/* ===== BOTÕES ===== */
 .botoes-acao {
   display: flex;
   justify-content: center;
@@ -203,4 +202,193 @@ nav a {
 .btn-logout:hover {
   background: white;
   color: #5b3b3a;
+}
+
+
+/* ===== MEDIA QUERIES - RESPONSIVO ===== */
+
+/* Tablets e telas médias */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px 20px;
+        gap: 15px;
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        flex-direction: row-reverse;
+    }
+
+    nav a {
+        margin-left: 0;
+    }
+
+    .cadastro-container div h1 {
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .subtitulo {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .tabela-servicos {
+        width: 95%;
+        font-size: 14px;
+    }
+
+    .tabela-servicos th, .tabela-servicos td {
+        padding: 8px;
+    }
+
+    .botoes-acao {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-acao, .btn-logout {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .footer {
+        width: 100%;
+    }
+
+    .footer1 {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .footer-center {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .footer-left {
+        align-items: center;
+        width: 100%;
+    }
+}
+
+/* Smartphones */
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        width: 95%;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .cadastro-container {
+        padding: 20px 15px;
+    }
+
+    .cadastro-container div h1 {
+        font-size: 28px;
+    }
+
+    .subtitulo {
+        font-size: 18px;
+    }
+
+    .decorative-line {
+        padding-bottom: 20px;
+        margin-left: 24px;
+    }
+
+    .tabela-servicos {
+        width: 98%;
+        font-size: 12px;
+    }
+
+    .tabela-servicos th, .tabela-servicos td {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .tabela-servicos td img {
+        width: 16px;
+    }
+
+    .btn-acao, .btn-logout {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+
+    .btn-logout{
+      width: 116%;
+    }
+
+    .btn-logout img {
+        width: 16px;
+    }
+
+    .footer {
+        width: 100%;
+    }
+
+    .footer1 {
+        width: 100%;
+    }
+
+    .logorodape {
+        height: 50px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+
+    .icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .contact {
+        font-size: 14px;
+    }
+
+
+    
+}
+
+/* Telas muito pequenas */
+@media (max-width: 360px) {
+    .cadastro-container div h1 {
+        font-size: 24px;
+    }
+
+    .subtitulo {
+        font-size: 16px;
+    }
+
+    .tabela-servicos {
+        font-size: 11px;
+    }
+
+    .tabela-servicos th, .tabela-servicos td {
+        padding: 2px;
+    }
+
+    .footer {
+        width: 108%;
+    }
 }
