@@ -22,7 +22,7 @@
     <header>
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
-            <a href="login.html">LOGIN</a>
+            <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
             <a href="painel_profissional.html">PAINEL PROFISSIONAL</a>
             <a href="painel_administrativo.html">RELATÓRIO</a>
         </nav>
@@ -183,6 +183,59 @@
             }
         } 
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const logoutBtn = document.querySelector('.btn-logout');
+
+  if (!logoutBtn) {
+    console.error('Botão de logout não encontrado (seletor .btn-logout).');
+    return;
+  }
+
+  logoutBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Confirmação com SweetAlert2
+    Swal.fire({
+      title: 'Deseja realmente sair?',
+      text: 'Você precisará fazer login novamente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'SIM',
+      cancelButtonText: 'NÃO',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          // Remova o token onde você o guarda
+          localStorage.removeItem('token');        // chave mais comum
+          sessionStorage.removeItem('token');      // caso use sessionStorage
+          // se quiser apagar tudo:
+          // localStorage.clear();
+
+          // Apagar cookie de sessão (opcional — modifica conforme o nome do cookie)
+          document.cookie = 'session=; Max-Age=0; path=/;';
+
+          // Mensagem de sucesso curta e redirecionamento
+          Swal.fire({
+            icon: 'success',
+            title: 'Desconectado',
+            showConfirmButton: false,
+            timer: 1200
+          }).then(() => {
+            window.location.href = 'login.html';
+          });
+        } catch (err) {
+          console.error('Erro ao efetuar logout:', err);
+          Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
+        }
+      } else {
+        // usuário cancelou — não faz nada
+      }
+    });
+  });
+});
+</script>
 
 </body>
 
