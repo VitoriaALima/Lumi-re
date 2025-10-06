@@ -99,8 +99,8 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    localStorage.setItem("token", data.token);
-                    localStorage.setItem("tipo", data.tipo);
+                    localStorage.setItem("token", data.usuario.token);
+                    localStorage.setItem("tipo", data.usuario.tipo);
 
                     Swal.fire({
                         title: "Sucesso!",
