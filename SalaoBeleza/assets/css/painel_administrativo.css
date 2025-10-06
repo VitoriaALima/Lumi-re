@@ -1,4 +1,349 @@
-body {
+html, body {
     margin: 0;
     font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
+
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+
+.logo{
+    width: 150px;
+    padding-top: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5b3b3a;
+    padding: 0px 40px;
+}
+
+nav a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.cadastro-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastro-container div h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 45px;
+    margin: 0;
+    color: #fff;
+}
+
+.decorative-line {
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+
+.subtitulo {
+    margin: 10px;
+    font-size: 23px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #fff;
+}
+
+
+
+.footer {
+  background-color: #000;
+  color: white;
+  text-align: center;
+  margin-top: auto; /* empurra para o fim da tela */
+  padding-bottom: 20px;
+}
+
+
+.footer1 {
+  display: flex;
+  align-items: center;      
+  justify-content: space-between; /* espaço entre esquerda e centro */
+  flex-wrap: wrap; /* garante que se ajuste no mobile */
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-center {
+  flex: 1; /* ocupa o espaço central */
+  display: flex;
+  justify-content: center;
+  margin-left: -150px;
+}
+
+.logorodape {
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+.footer-bottom {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+
+/* ======== SEÇÃO DO PAINEL ======== */
+main {
+  flex: 1;
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.painel-glitter {
+  position: relative;
+  margin: 0 auto;
+  max-width: 90%;
+  border-radius: 10px;
+  overflow: hidden; /* impede que a imagem vaze das bordas */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.img-glitter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.cards-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 40px 20px;
+}
+
+.titulo {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.card {
+  background-color: #4a1e1e;
+  border-radius: 10px;
+  padding: 30px;
+  width: 260px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.card h2 {
+  font-size: 1em;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.valor {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.botao-relatorio {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.botao-relatorio img {
+  width: 30px;
+  height: 30px;
+}
+
+
+
+/* ===== MEDIA QUERIES - RESPONSIVO ===== */
+
+/* Tablets e telas médias */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px 20px;
+        gap: 15px;
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        flex-direction: row-reverse;
+    }
+
+    nav a {
+        margin-left: 0;
+    }
+
+    .cadastro-container div h1 {
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .subtitulo {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .footer {
+        width: 100%;
+    }
+
+    .footer1 {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .footer-center {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .footer-left {
+        align-items: center;
+        width: 100%;
+    }
+}
+
+/* Smartphones */
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        width: 95%;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .cadastro-container {
+        padding: 20px 15px;
+    }
+
+    .cadastro-container div h1 {
+        font-size: 28px;
+    }
+
+    .subtitulo {
+        font-size: 18px;
+    }
+
+    .decorative-line {
+        padding-bottom: 20px;
+        margin-left: 24px;
+    }
+
+    .footer {
+        width: 100%;
+    }
+
+    .footer1 {
+        width: 100%;
+    }
+
+    .logorodape {
+        height: 50px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+
+    .icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .contact {
+        font-size: 14px;
+    }
+
+
+    
+}
+
+/* Telas muito pequenas */
+@media (max-width: 360px) {
+    .cadastro-container div h1 {
+        font-size: 24px;
+    }
+
+    .subtitulo {
+        font-size: 16px;
+    }
+
+    .footer {
+        width: 108%;
+    }
 }
