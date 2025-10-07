@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumiére - Painel administrativo</title>
-    <link rel="stylesheet" href="assets/css/painel_administrativo.css">
+    <title>Lumiére - Painel profissional</title>
+    <link rel="stylesheet" href="assets/css/painel.profissional.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -14,9 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
 
-    <script src="assets/js/seguranca.js" defer></script> 
-
-    
+     <!-- <script src="assets/js/seguranca.js" defer></script> -->
 </head>
 
 <body>
@@ -33,44 +31,37 @@
     </header>
 
 <main>
-  <h1 class="titulo">Painel Administrativo</h1>
-
-  <div class="painel-glitter">
-    <!-- imagem de fundo glitter -->
-    <img src="assets/img/fundo_cadastroservico.png" alt="background de glitter" class="img-glitter">
-
-    <!-- conteúdo sobre a imagem -->
-    <div class="cards-container">
-      <div class="card">
-        <h2>NÚMERO DE AGENDAMENTOS</h2>
-        <p class="valor">10</p>
-        <button class="botao-relatorio">
-          GERAR RELATÓRIO
-          <img src="assets/img/baixar.png" alt="Baixar">
-        </button>
-      </div>
-
-      <div class="card">
-        <h2>FATURAMENTO</h2>
-        <p class="valor">R$ 650,00</p>
-        <button class="botao-relatorio">
-          GERAR RELATÓRIO
-          <img src="assets/img/baixar.png" alt="Baixar">
-        </button>
-      </div>
-
-      <div class="card">
-        <h2>QUANTIDADE DE CLIENTES</h2>
-        <p class="valor">10</p>
-        <button class="botao-relatorio">
-          GERAR RELATÓRIO
-          <img src="assets/img/baixar.png" alt="Baixar">
-        </button>
-      </div>
+  <section class="cadastro-container">
+    <div class="decorative-line">
+      <h1>Bem-vindo(a) <span>Nome!</span></h1>
+      <p class="subtitulo">Veja as informações dos clientes.</p>
     </div>
-  </div>
-</main>
 
+    <!-- TABELA -->
+    <table class="tabela-servicos">
+      <thead>
+        <tr>
+          <th>NOME</th>
+          <th>EMAIL</th>
+          <th>TELEFONE</th>
+          <th>ATIVIDADE</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-body">
+
+      </tbody>
+    </table>
+
+    
+    <div class="botoes-acao">
+      <a href="edicao_dados.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+ EDITAR DADOS PESSOAIS</a>
+      <button class="btn-logout">
+        <img src="assets/img/ÍconeLogout.png" alt="Sair">
+        DESLOGAR
+      </button>
+    </div>
+  </section>
+</main>
 
   <footer class="footer">
     <div class="footer1">
@@ -94,7 +85,52 @@
       <span>© 2025. Todos os direitos reservados.</span>
     </div>
   </footer>
-  <script>
+
+<script>
+  const tabela = document.getElementById("tabela-body");
+
+  // Exemplo inicial: sem dados, mas você pode popular via backend
+
+  // Função para adicionar linha manual (exemplo)
+  function adicionarServico(data, descricao, horario, duracao) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td contenteditable="false">${data}</td>
+      <td contenteditable="false">${descricao}</td>
+      <td contenteditable="false">${horario}</td>
+      <td contenteditable="false">${duracao}</td>
+      <td><img src="assets/img/editar.png" class="editar"></td>
+    `;
+    tabela.appendChild(row);
+  }
+
+  // Exemplo de teste
+  adicionarServico("Amélia Gonçalves", "ameliagon@gmail.com", "18---------", "ativa");
+
+  // Tornar editável ao clicar no ícone
+  tabela.addEventListener("click", (e) => {
+    if (e.target.classList.contains("editar")) {
+      const row = e.target.closest("tr");
+      const editando = row.getAttribute("data-editando") === "true";
+
+      if (!editando) {
+        // Ativar edição
+        row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = "true");
+        e.target.src = "assets/img/salvar.png";
+        row.setAttribute("data-editando", "true");
+      } else {
+        // Salvar edição
+        row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = "false");
+        e.target.src = "assets/img/editar.png";
+        row.setAttribute("data-editando", "false");
+
+        const valores = Array.from(row.children).slice(0,4).map(td => td.innerText);
+        console.log("Salvo:", valores);
+      }
+    }
+  });
+</script>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
   const logoutBtn = document.querySelector('.btn-logout');
 
@@ -147,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
 
 </body>
 
