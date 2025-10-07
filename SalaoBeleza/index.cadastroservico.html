@@ -14,7 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">   
           
-    <script src="assets/js/seguranca.js" defer></script> 
+    <script src="assets/js/seguranca.js" defer></script>
 
 </head>
 
@@ -57,15 +57,6 @@
     <input type="text" id="duracao" placeholder="EX: 2 horas" required>
   </div>
 
-  <div class="form-group">
-    <label for="data">DATA</label>
-    <input type="date" id="data" required>
-  </div>
-
-  <div class="form-group">
-    <label for="horario">HORÁRIO</label>
-    <input type="time" id="horario" required>
-  </div>
 
   <!-- Agora o aviso+botão ficam só na 2ª coluna -->
   <div class="form-actions">
@@ -105,11 +96,10 @@
     const descricao = document.getElementById("descricao").value;
     const preco = document.getElementById("preco").value;
     const duracao = document.getElementById("duracao").value;
-    const data = document.getElementById("data").value;
-    const horario = document.getElementById("horario").value;
+
 
     // 🔹 Dados prontos para enviar
-    const dados = { descricao, preco, duracao, data, horario, tipo: "profissional" };
+    const dados = { descricao, preco, duracao, tipo: "profissional" };
 
     try {
       const response = await fetch("http://10.92.3.225:5000/cadastro", {

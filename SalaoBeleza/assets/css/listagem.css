@@ -392,13 +392,9 @@ nav a {
 }
 
 /* Telas muito pequenas */
-@media (max-width: 320px) {
+@media (max-width: 360px) {
     .cadastro-container div h1 {
         font-size: 24px;
-    }
-
-    .cabecalho {
-        font-size: 7px;;
     }
 
     .subtitulo {
