@@ -176,6 +176,10 @@ nav a {
   color: #5b3b3a;
 }
 
+.logoutcabeçalho {
+    
+}
+
 /* Botão logout */
 .btn-logout {
   display: flex;
