@@ -114,6 +114,11 @@ input {
   padding-top: 10px;
 }
 
+.selecionar {
+  padding: 8px;
+  border-radius: 5px;
+}
+
 .aviso {
   font-size: 14px;
   color: #333;
