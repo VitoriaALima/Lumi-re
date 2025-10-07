@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumiére - Painel profissional</title>
+    <title>Lumiére - Listagem</title>
     <link rel="stylesheet" href="assets/css/painel.profissional.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -19,7 +19,7 @@
 
 <body>
     <img src="assets/img/fundo.vermelho.png" alt="" class="background">
-    <header>
+    <header class="cabecalho">
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
             <a class="logoutcabeçalho" style="cursor: pointer;">LOGOUT</a>
@@ -31,6 +31,16 @@
     </header>
 
 <main>
+
+    <script>
+      function sair() {
+          localStorage.clear() // Se armazenado no LocalStorage
+          sessionStorage.clear() // Se armazenado no SessionStorage
+
+          window.location.href = "/login.html";
+      }
+    </script>
+
   <section class="cadastro-container">
     <div class="decorative-line">
       <h1>Bem-vindo(a) <span>Nome!</span></h1>
@@ -92,13 +102,13 @@
   // Exemplo inicial: sem dados, mas você pode popular via backend
 
   // Função para adicionar linha manual (exemplo)
-  function adicionarServico(data, descricao, horario, duracao) {
+  function adicionarServico(nome, email, telefone, atividade) {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td contenteditable="false">${data}</td>
-      <td contenteditable="false">${descricao}</td>
-      <td contenteditable="false">${horario}</td>
-      <td contenteditable="false">${duracao}</td>
+      <td contenteditable="false">${nome}</td>
+      <td contenteditable="false">${email}</td>
+      <td contenteditable="false">${telefone}</td>
+      <td contenteditable="false">${atividade}</td>
       <td><img src="assets/img/editar.png" class="editar"></td>
     `;
     tabela.appendChild(row);
