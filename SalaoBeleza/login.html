@@ -114,9 +114,16 @@
                         confirmButtonText: "OK",
                         confirmButtonColor: "#3085d6"
                     }).then(() => {
-                        
-                    
+
+                        // Redireciona Profissional para adicionar serviço
+                        if (data.usuario.tipo === "adm") {
+                            window.location.href = "index.cadastroservico_ADM.html";
+                        } else {
+                            window.location.href = "index.cadastroservico.html";
+                        }
+
                     });
+
                 } else {
                     Swal.fire({
                         title: "Erro!",
