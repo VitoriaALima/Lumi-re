@@ -8,22 +8,12 @@
   <link rel="stylesheet" href="assets/css/listagem.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<<<<<<< Updated upstream
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
  
      <script src="assets/js/seguranca.js" defer></script> 
-=======
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
-    rel="stylesheet">
-
-  <script src="assets/js/seguranca.js" defer></script>
->>>>>>> Stashed changes
 </head>
 
 <body>
@@ -110,7 +100,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const tabela = document.getElementById("tabela-body");
-      const token = localStorage.getItem("token"); // se houver autenticação
+      const token = localStorage.getItem("token"); 
 
       try {
         const response = await fetch("http://10.92.3.222:5000/cadastro", {
