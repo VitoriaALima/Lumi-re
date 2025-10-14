@@ -110,7 +110,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const tabela = document.getElementById("tabela-body");
-      const token = localStorage.getItem("token"); // se houver autenticação
+      const token = localStorage.getItem("token"); 
 
       try {
         const response = await fetch("http://10.92.3.222:5000/cadastro", {
