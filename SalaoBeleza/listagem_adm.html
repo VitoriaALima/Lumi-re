@@ -2,84 +2,89 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumiére - Listagem</title>
-    <link rel="stylesheet" href="assets/css/listagem.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumiére - Listagem</title>
+  <link rel="stylesheet" href="assets/css/listagemadm.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
-        rel="stylesheet">
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
+    rel="stylesheet">
 
-      <script src="assets/js/seguranca.js" defer></script>
+  <script src="assets/js/seguranca.js" defer></script>
 
 </head>
 
 <body>
-    <img src="assets/img/fundo.vermelho.png" alt="" class="background">
-    <header class="cabecalho">
-        <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
-        <nav>
-            <a class="logoutcabecalho" style="cursor: pointer;">LOGOUT</a>
-            <a href="edicao_dados_ADM.html">EDIÇÃO DE DADOS</a>
-            <a href="cadastroservico_ADM(profissional).html">CADASTRAR SERVIÇOS</a>
-            <a href="index.cadastroservico_ADM.html">CADASTRAR AGENDAMENTO</a>
-            <a href="painel_profissional_ADM.html">PAINEL PROFISSIONAL</a>
-            <a href="painel_administrativo.html">PAINEL ADMINISTRATIVO</a>
-            <a href="listagem_adm.html">LISTAGEM</a>
-        </nav>
-    </header>
+  <img src="assets/img/fundo.vermelho.png" alt="" class="background">
+  <header class="cabecalho">
+    <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
+    <nav>
+      <a class="logoutcabecalho" style="cursor: pointer;">LOGOUT</a>
+      <a href="edicao_dados_ADM.html">EDIÇÃO DE DADOS</a>
+      <a href="cadastroservico_ADM(profissional).html">CADASTRAR SERVIÇOS</a>
+      <a href="index.cadastroservico_ADM.html">CADASTRAR AGENDAMENTO</a>
+      <a href="painel_profissional_ADM.html">PAINEL PROFISSIONAL</a>
+      <a href="painel_administrativo.html">PAINEL ADMINISTRATIVO</a>
+      <a href="listagem_adm.html">LISTAGEM</a>
+    </nav>
+  </header>
 
-<main>
+  <main>
 
     <script>
       function sair() {
-          localStorage.clear() // Se armazenado no LocalStorage
-          sessionStorage.clear() // Se armazenado no SessionStorage
+        localStorage.clear() // Se armazenado no LocalStorage
+        sessionStorage.clear() // Se armazenado no SessionStorage
 
-          window.location.href = "/login.html";
+        window.location.href = "/login.html";
       }
     </script>
 
-  <section class="cadastro-container">
-    <div class="decorative-line">
-      <h1>Bem-vindo(a) <span>Nome!</span></h1>
-      <p class="subtitulo">Veja as informações dos clientes.</p>
-    </div>
+    <section class="cadastro-container">
+      <div class="decorative-line">
+        <h1>Bem-vindo(a) <span>Nome!</span></h1>
+        <p class="subtitulo">Veja as informações dos clientes.</p>
+      </div>
 
-    <!-- TABELA -->
-    <table class="tabela-servicos">
-      <thead>
-        <tr>
-          <th>NOME</th>
-          <th>EMAIL</th>
-          <th>TELEFONE</th>
-          <th>ATIVIDADE</th>
-          <th>AÇÃO</th>
-        </tr>
-      </thead>
-      <tbody id="tabela-body">
+      <!-- DIV WRAPPER COM SCROLL -->
+      <div class="tabela-wrapper">
+        <table class="tabela-servicos">
+          <thead>
+            <tr>
+              <th>NOME</th>
+              <th>EMAIL</th>
+              <th>TELEFONE</th>
+              <th>ATIVIDADE</th>
+              <th>AÇÃO</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-body">
 
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
 
-    
-    <div class="botoes-acao">
-      <a href="edicao_dados.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">EDITAR DADOS PESSOAIS</a>
-      <a href="cadastro_ADM.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+ ADICIONAR CADASTRO ADMINISTRADOR</a>
 
-      <a href="cadastro_ADM(profissional).html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+ ADICIONAR CADASTRO PROFISSIONAR</a>
+      <div class="botoes-acao">
+        <a href="edicao_dados.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">EDITAR DADOS
+          PESSOAIS</a>
+        <a href="cadastro_ADM.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+ ADICIONAR
+          CADASTRO ADMINISTRADOR</a>
 
-      <button class="btn-logout">
-        <img src="assets/img/ÍconeLogout.png" alt="Sair">
-        DESLOGAR
-      </button>
-    </div>
-  </section>
-</main>
+        <a href="cadastro_ADM(profissional).html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+
+          ADICIONAR CADASTRO PROFISSIONAR</a>
+
+        <button class="btn-logout">
+          <img src="assets/img/ÍconeLogout.png" alt="Sair">
+          DESLOGAR
+        </button>
+      </div>
+    </section>
+  </main>
 
   <footer class="footer">
     <div class="footer1">
@@ -104,37 +109,37 @@
     </div>
   </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const tabela = document.getElementById("tabela-body");
-  const token = localStorage.getItem("token");
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const tabela = document.getElementById("tabela-body");
+      const token = localStorage.getItem("token");
 
-  try {
-    const response = await fetch("http://10.92.3.222:5000/cadastro", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
+      try {
+        const response = await fetch("http://10.92.3.222:5000/cadastro", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
 
-    if (!response.ok) {
-      throw new Error("Erro ao buscar usuários.");
-    }
+        if (!response.ok) {
+          throw new Error("Erro ao buscar usuários.");
+        }
 
-    const usuarios = await response.json();
-    tabela.innerHTML = "";
+        const usuarios = await response.json();
+        tabela.innerHTML = "";
 
-    if (!usuarios.length || usuarios.message) {
-      tabela.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhum usuário encontrado</td></tr>`;
-      return;
-    }
+        if (!usuarios.length || usuarios.message) {
+          tabela.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhum usuário encontrado</td></tr>`;
+          return;
+        }
 
-    usuarios.forEach(user => {
-      const atividade = user.ativo ? "Ativo" : "Inativo";
+        usuarios.forEach(user => {
+          const atividade = user.ativo ? "Ativo" : "Inativo";
 
-      const row = document.createElement("tr");
-      row.innerHTML = `
+          const row = document.createElement("tr");
+          row.innerHTML = `
         <td contenteditable="false">${user.nome}</td>
         <td contenteditable="false">${user.email}</td>
         <td contenteditable="false">${user.telefone || "-"}</td>
@@ -144,123 +149,123 @@ document.addEventListener("DOMContentLoaded", async () => {
         </td>
       `;
 
-      // função ao clicar no ícone
-      row.querySelector(".editar").addEventListener("click", async (e) => {
-        const img = e.target;
-        const isEditing = img.dataset.editing === "true";
+          // função ao clicar no ícone
+          row.querySelector(".editar").addEventListener("click", async (e) => {
+            const img = e.target;
+            const isEditing = img.dataset.editing === "true";
 
-        if (!isEditing) {
-          // ativar edição
-          row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = true);
-          img.src = "assets/img/salvar.png"; // ícone de salvar
-          img.dataset.editing = "true";
-        } else {
-          // salvar alterações
-          const nome = row.children[0].innerText.trim();
-          const email = row.children[1].innerText.trim();
-          const telefone = row.children[2].innerText.trim();
-          const ativo = row.children[3].innerText.trim().toLowerCase() === "ativo";
-          const id = img.dataset.id;
-
-          try {
-            const res = await fetch(`http://10.92.3.222:5000/cadastro/${id}`, {
-              method: "PUT",
-              headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                nome: nome,
-                email: email,
-                telefone: telefone,
-                ativo: ativo
-              })
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-              Swal.fire({
-                icon: "success",
-                title: "Usuário atualizado!",
-                timer: 1200,
-                showConfirmButton: false
-              });
+            if (!isEditing) {
+              // ativar edição
+              row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = true);
+              img.src = "assets/img/salvar.png"; // ícone de salvar
+              img.dataset.editing = "true";
             } else {
-              Swal.fire("Erro", data.message || data.error || "Falha ao atualizar.", "error");
+              // salvar alterações
+              const nome = row.children[0].innerText.trim();
+              const email = row.children[1].innerText.trim();
+              const telefone = row.children[2].innerText.trim();
+              const ativo = row.children[3].innerText.trim().toLowerCase() === "ativo";
+              const id = img.dataset.id;
+
+              try {
+                const res = await fetch(`http://10.92.3.222:5000/cadastro/${id}`, {
+                  method: "PUT",
+                  headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    nome: nome,
+                    email: email,
+                    telefone: telefone,
+                    ativo: ativo
+                  })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Usuário atualizado!",
+                    timer: 1200,
+                    showConfirmButton: false
+                  });
+                } else {
+                  Swal.fire("Erro", data.message || data.error || "Falha ao atualizar.", "error");
+                }
+
+                // desativar edição novamente
+                row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = false);
+                img.src = "assets/img/editar.png";
+                img.dataset.editing = "false";
+              } catch (error) {
+                console.error("Erro ao salvar:", error);
+                Swal.fire("Erro", "Falha na comunicação com o servidor.", "error");
+              }
             }
+          });
 
-            // desativar edição novamente
-            row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = false);
-            img.src = "assets/img/editar.png";
-            img.dataset.editing = "false";
-          } catch (error) {
-            console.error("Erro ao salvar:", error);
-            Swal.fire("Erro", "Falha na comunicação com o servidor.", "error");
-          }
-        }
-      });
+          tabela.appendChild(row);
+        });
 
-      tabela.appendChild(row);
+      } catch (error) {
+        console.error("Erro:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Erro ao carregar usuários",
+          text: error.message
+        });
+      }
     });
+  </script>
 
-  } catch (error) {
-    console.error("Erro:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Erro ao carregar usuários",
-      text: error.message
-    });
-  }
-});
-</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const logoutButtons = document.querySelectorAll('.btn-logout, .logoutcabecalho');
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const logoutButtons = document.querySelectorAll('.btn-logout, .logoutcabecalho');
+      if (!logoutButtons.length) {
+        console.error('Botões de logout não encontrados.');
+        return;
+      }
 
-  if (!logoutButtons.length) {
-    console.error('Botões de logout não encontrados.');
-    return;
-  }
+      logoutButtons.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
 
-  logoutButtons.forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
+          Swal.fire({
+            title: 'Deseja realmente sair?',
+            text: 'Você precisará fazer login novamente.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'SIM',
+            cancelButtonText: 'NÃO',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              try {
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                document.cookie = 'session=; Max-Age=0; path=/;';
 
-      Swal.fire({
-        title: 'Deseja realmente sair?',
-        text: 'Você precisará fazer login novamente.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'SIM',
-        cancelButtonText: 'NÃO',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          try {
-            localStorage.removeItem('token');
-            sessionStorage.removeItem('token');
-            document.cookie = 'session=; Max-Age=0; path=/;';
-
-            Swal.fire({
-              icon: 'success',
-              title: 'Desconectado',
-              showConfirmButton: false,
-              timer: 1200
-            }).then(() => {
-              window.location.href = 'login.html';
-            });
-          } catch (err) {
-            console.error('Erro ao efetuar logout:', err);
-            Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
-          }
-        }
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Desconectado',
+                  showConfirmButton: false,
+                  timer: 1200
+                }).then(() => {
+                  window.location.href = 'login.html';
+                });
+              } catch (err) {
+                console.error('Erro ao efetuar logout:', err);
+                Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
+              }
+            }
+          });
+        });
       });
     });
-  });
-});
-</script>
+  </script>
 
 
 

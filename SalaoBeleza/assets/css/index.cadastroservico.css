@@ -1,78 +1,88 @@
 /* Fundo da página */
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Lato', sans-serif;
   background: url("../img/fundo_cadastroservico.png") no-repeat center center fixed;
   background-size: cover;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #5b3b3a;
-    padding: 0px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5b3b3a;
+  padding: 20px 40px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
 }
 
 nav a {
-    margin-left: 30px;
-    text-decoration: none;
-    color: #fff;
+  margin-left: 30px;
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #ddd;
 }
 
 .logoutcabeçalho {
-    border: 1px solid white;
-    color: white;
-    padding: 12px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
+  border: 1px solid white;
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .logoutcabeçalho:hover {
-    background: white;
-    color: #5b3b3a; 
-    padding: 12px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    
+  background: white;
+  color: #5b3b3a;
 }
 
 .decorative-line {
-    padding-left: 185px;
-
+  padding-left: 185px;
+  max-width: 100%;
 }
 
 .subtitulo {
-    margin: 10px 0 40px;
-    font-size: 23px;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: #fff;
+  margin: 10px 0 40px;
+  font-size: 23px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #fff;
+  padding: 0 20px;
 }
 
 h1 {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 45px;
-    margin: 0;
-    color: #fff;
-    margin-top: 60px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 45px;
+  margin: 60px 0 0;
+  color: #fff;
+  padding: 0 20px;
 }
 
 .form-cadastro {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
-  width: 80%;
+  width: 90%;
   max-width: 1100px;
-  margin: 0 auto 60px;
+  margin: 20px auto 60px;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* duas colunas */
+  grid-template-columns: 1fr 1fr;
   gap: 20px 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -86,10 +96,20 @@ label {
   color: #3E1617;
 }
 
-input {
+input,
+select {
   padding: 10px;
   border: 1px solid #3E1617;
   border-radius: 5px;
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #5b3b3a;
+  box-shadow: 0 0 0 2px rgba(91, 59, 58, 0.1);
 }
 
 /* Input com R$ */
@@ -104,9 +124,13 @@ input {
   color: #3E1617;
 }
 
-/* Última linha agora só na segunda coluna */
+.input-wrapper input {
+  flex: 1;
+}
+
+/* Última linha na segunda coluna */
 .form-actions {
-  grid-column: 2;          /* fica só na coluna da direita */
+  grid-column: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -115,7 +139,7 @@ input {
 }
 
 .selecionar {
-  padding: 8px;
+  padding: 10px;
   border-radius: 5px;
 }
 
@@ -123,65 +147,70 @@ input {
   font-size: 14px;
   color: #333;
   margin: 0;
-  flex: 1;  /* ocupa espaço para o botão ficar alinhado */
+  flex: 1;
 }
 
 .btn-enviar {
   background-color: #3E1617;
   color: #fff;
   border: none;
-  padding: 12px 20px;
+  padding: 12px 24px;
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
-  white-space: nowrap; /* evita quebrar o texto */
+  white-space: nowrap;
+  transition: background-color 0.3s;
 }
 
 .btn-enviar:hover {
-  background-color: #3a2424;
+  background-color: #2a1011;
 }
 
 .input_preco {
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
 }
 
-
+/* Footer */
 .footer {
-  background-color: #000; /* preto, igual a imagem */
+  background-color: #000;
   color: white;
   padding: 20px;
   text-align: center;
   font-family: sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .footer1 {
-  display: flex;            /* coloca footer-left e footer-center na mesma linha */
-  align-items: center;      /* alinha verticalmente */
-  justify-content: center;   /* você pode mudar para space-between se quiser mais espaçamento */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  gap: 50px;                /* espaço entre footer-left e footer-center */
+  gap: 50px;
   padding: 25px;
+  flex-wrap: wrap;
 }
-
 
 .footer-left {
   display: flex;
-  flex-direction: column; /* faz os itens ficarem um embaixo do outro */
-  gap: 10px; /* espaço entre cada contato, opcional */
+  flex-direction: column;
+  gap: 10px;
   padding-bottom: 10px;
-  position: absolute;      /* tira do fluxo para não atrapalhar a centralização */
-  left: 0;
+  position: absolute;
+  left: 20px;
 }
 
 .contact {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .icon {
   width: 28px;
   height: 28px;
+  flex-shrink: 0;
 }
 
 .footer-center {
@@ -189,7 +218,8 @@ input {
 }
 
 .logo {
-  height: 80px; /* ajusta o tamanho da logo central */
+  height: 80px;
+  max-width: 100%;
 }
 
 .footer-bottom {
@@ -197,28 +227,52 @@ input {
   font-size: 16px;
 }
 
+/* RESPONSIVIDADE MELHORADA */
+
+/* Tablets grandes e desktops pequenos */
 @media (max-width: 1024px) {
+  header {
+    padding: 20px 30px;
+  }
+
+  .decorative-line {
+    padding-left: 30px;
+  }
+
   .form-cadastro {
     grid-template-columns: 1fr;
-    width: 90%;
-    padding: 20px;
+    width: 85%;
+    padding: 25px;
+    gap: 20px;
   }
 
   .form-actions {
     grid-column: 1;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 15px;
   }
 
-  .input_preco {
+  .btn-enviar {
     width: 100%;
   }
 
-  .decorative-line,
-  h1,
+  .input_preco {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 38px;
+    text-align: center;
+  }
+
   .subtitulo {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .decorative-line {
     padding-left: 20px;
-    padding-right: 20px;
     text-align: center;
   }
 }
@@ -227,18 +281,46 @@ input {
   header {
     flex-direction: column;
     padding: 20px;
-    text-align: center;
-    width: 95%;
+    gap: 15px;
+  }
+
+  nav {
+    justify-content: center;
+    width: 100%;
+    gap: 30px;
+    }
   }
 
   nav a {
-    margin: 10px;
+    margin: 0 15px;
+  }
+
+  .logoutcabeçalho {
+    margin-top: 10px;
+  }
+
+  h1 {
+    font-size: 35px;
+    margin-top: 40px;
+  }
+
+  .subtitulo {
+    font-size: 19px;
+    margin: 10px 0 30px;
+  }
+
+  .form-cadastro {
+    width: 85%;
+    padding: 20px;
+    gap: 18px;
+    margin: 15px auto 40px;
   }
 
   .footer1 {
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
     align-items: center;
+    padding: 20px;
   }
 
   .footer-left {
@@ -251,48 +333,82 @@ input {
     margin: 0;
   }
 
-  .form-cadastro {
-    gap: 15px;
-    width: 67%;
+  .logo {
+    height: 70px;
   }
 
-  .btn-enviar {
-    width: 100%;
-    text-align: center;
-  }
-}
 
+/* Smartphones */
 @media (max-width: 480px) {
+  header {
+    padding: 15px;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  nav a {
+    margin: 5px 0;
+  }
+
+  .logoutcabeçalho {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
   h1 {
-    font-size: 32px;
+    font-size: 28px;
+    margin-top: 30px;
   }
 
   .subtitulo {
-    font-size: 18px;
+    font-size: 16px;
+    margin: 10px 0 25px;
   }
 
-   .form-cadastro {
+  .decorative-line {
+    padding-left: 15px;
+  }
+
+  .form-cadastro {
+    width: 90%;
+    padding: 20px 15px;
     gap: 15px;
-    width: 67%;
-    margin-left: 47px;
+    margin: 15px auto 30px;
   }
-
 
   label {
     font-size: 14px;
   }
 
-  input {
-    padding: 8px;
+  input,
+  select {
+    padding: 10px 8px;
+    font-size: 14px;
   }
 
   .btn-enviar {
     font-size: 14px;
-    padding: 10px;
+    padding: 12px 16px;
+  }
+
+  .aviso {
+    font-size: 13px;
+  }
+
+  .footer {
+    padding: 15px 10px;
+  }
+
+  .footer1 {
+    padding: 15px;
+    gap: 20px;
   }
 
   .footer-bottom {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .logo {
@@ -300,13 +416,35 @@ input {
   }
 
   .icon {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 
-
-  .footer {
-    width: 95%;
+  .contact {
+    font-size: 14px;
   }
 }
 
+/* Smartphones muito pequenos */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  .subtitulo {
+    font-size: 15px;
+  }
+
+  .form-cadastro {
+    width: 92%;
+    padding: 15px 12px;
+  }
+
+  .btn-enviar {
+    padding: 10px 14px;
+  }
+
+  .logo {
+    height: 50px;
+  }
+}
