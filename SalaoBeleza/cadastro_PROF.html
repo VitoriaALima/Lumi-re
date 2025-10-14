@@ -61,7 +61,6 @@
                     </small>
 
                     <div class="form-footer">
-                        <span>Já possui uma conta? <a href="login.html" style="font-weight: bold;">Login</a></span>
                         <button id="btn" type="submit">CADASTRAR</button>
                     </div>
                 </div>
@@ -98,7 +97,6 @@
             const email = document.getElementById("email").value.trim();
             const telefone = document.getElementById("telefone").value.trim();
             const senha = document.getElementById("senha").value;
-            const categoria = document.getElementById("categoria").value;
 
             if (nome.length < 3) {
                 Swal.fire("Atenção", "O nome deve ter pelo menos 3 caracteres.", "warning");
