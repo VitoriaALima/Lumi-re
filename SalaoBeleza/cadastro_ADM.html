@@ -180,6 +180,52 @@
             }
         } 
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoutButtons = document.querySelectorAll('.btn-logout, .logoutcabecalho');
+
+            if (!logoutButtons.length) {
+                console.error('Botões de logout não encontrados.');
+                return;
+            }
+
+            logoutButtons.forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        title: 'Deseja realmente sair?',
+                        text: 'Você precisará fazer login novamente.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'SIM',
+                        cancelButtonText: 'NÃO',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            try {
+                                localStorage.removeItem('token');
+                                sessionStorage.removeItem('token');
+                                document.cookie = 'session=; Max-Age=0; path=/;';
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Desconectado',
+                                    showConfirmButton: false,
+                                    timer: 1200
+                                }).then(() => {
+                                    window.location.href = 'login.html';
+                                });
+                            } catch (err) {
+                                console.error('Erro ao efetuar logout:', err);
+                                Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
 </body>
 
