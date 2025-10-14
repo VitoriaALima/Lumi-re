@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumiére - Login</title>
+    <link rel="stylesheet" href="assets/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
+        <nav>
+            <a href="cadastro.html">CADASTRO</a>
+            <a href="login.html">LOGIN</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <img src="assets/img/fundo.login.png" alt="" class="background">
+        <section class="login-area">
+            <h2 class="containerh2"><em>Seja bem-vindo(a)!</em></h2>
+            <p class="subtitle">Faça seu login</p>
+
+            <form id="loginForm">
+
+
+                <div class="form-group">
+                    <label for="email">E-MAIL</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">SENHA</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="senha" name="senha" required>
+                        <button type="button" class="toggle-password">
+                            <img src="assets/img/olhosenha_branco.png" alt="Mostrar senha" class="toggle-senha"
+                                onclick="toggleSenha()">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="signup-container">
+                    <p class="signup">Não possui uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+                    <button type="submit" class="btn">ENTRAR</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+    <footer class="footer">
+        <div class="footer1">
+            <div class="footer-left">
+                <div class="contact">
+                    <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+                    <span>(18)000000000</span>
+                </div>
+                <div class="contact">
+                    <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+                    <span>Avenida das flores</span>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+    <script>
+        // Mostrar/ocultar senha
+        const toggle = document.querySelector(".toggle-password");
+        const senha = document.getElementById("senha");
+        toggle.addEventListener("click", () => {
+            senha.type = senha.type === "password" ? "text" : "password";
+        });
+
+        // Função de login
+        document.getElementById("loginForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+
+            try {
+                const response = await fetch("http://10.92.3.222:5000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, senha })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem("token", data.usuario.token);
+                    localStorage.setItem("tipo", data.usuario.tipo);
+                    localStorage.setItem("id_cadastro", data.usuario.id_cadastro);
+                    localStorage.setItem("nome", data.usuario.nome);
+                    localStorage.setItem("email", data.usuario.email);
+
+                    Swal.fire({
+                        title: "Sucesso!",
+                        text: data.message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#3085d6"
+                    }).then(() => {
+
+                        // Redireciona Profissional para adicionar serviço
+                        if (data.usuario.tipo === "adm") {
+                            window.location.href = "index.cadastroservico_ADM.html";
+                        } else {
+                            window.location.href = "index.cadastroservico.html";
+                        }
+
+                    });
+
+                } else {
+                    Swal.fire({
+                        title: "Erro!",
+                        text: data.error,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: "#d33"
+                    });
+                }
+
+            } catch (error) {
+                Swal.fire({
+                    title: "Erro!",
+                    text: "Falha na comunicação com o servidor.",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#d33"
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
