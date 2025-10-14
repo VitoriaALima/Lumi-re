@@ -74,7 +74,7 @@
                     </small>
 
                     <div class="form-footer">
-                        <span>Já possui uma conta? <a href="login.html" style="font-weight: bold;">Login</a></span>
+                        <span>Já possui uma conta? <a href="login_ADM.html" style="font-weight: bold;">Login</a></span>
                         <button id="btn" type="submit">CADASTRAR</button>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                         title: "Sucesso!",
                         text: result.message
                     }).then(() => {
-                        window.location.href = "login.html";
+                        window.location.href = "login_ADM.html";
                     });
                 } else {
                     const error = await response.json();
