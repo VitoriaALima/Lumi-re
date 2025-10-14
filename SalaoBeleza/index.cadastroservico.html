@@ -146,7 +146,7 @@
         }
 
         const servicos = await response.json();
-        const select = document.getElementById("categoria");
+        const select = document.getElementById("id_servico"); // corrigido
 
         // Limpa e adiciona a opção inicial
         select.innerHTML = `<option value="">Selecione o serviço ></option>`;
@@ -154,8 +154,8 @@
         // Adiciona os serviços cadastrados
         servicos.forEach(s => {
           const option = document.createElement("option");
-          option.value = s.descricao;
-          option.textContent = `${s.descricao} - R$${s.preco} - ${s.duracao}min`;
+          option.value = s.id_servico;
+          option.textContent = `${s.descricao} - R$${s.valor} - ${s.duracao_horas}`;
           select.appendChild(option);
         });
       } catch (error) {
