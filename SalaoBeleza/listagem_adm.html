@@ -66,7 +66,7 @@
     <div class="botoes-acao">
       <a href="edicao_dados.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">EDITAR DADOS PESSOAIS</a>
       <a href="cadastro_ADM.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+ ADICIONAR CADASTRO ADMINISTRADOR</a>
-      <a href="cadastro_PROF.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+ ADICIONAR CADASTRO PROFISSIONAR</a>
+      <a href="cadastro_ADM(profissional).html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+ ADICIONAR CADASTRO PROFISSIONAR</a>
       </a>
       <button class="btn-logout">
         <img src="assets/img/ÍconeLogout.png" alt="Sair">
@@ -100,49 +100,116 @@
   </footer>
 
 <script>
+document.addEventListener("DOMContentLoaded", async () => {
   const tabela = document.getElementById("tabela-body");
+  const token = localStorage.getItem("token");
 
-  // Exemplo inicial: sem dados, mas você pode popular via backend
-
-  // Função para adicionar linha manual (exemplo)
-  function adicionarServico(nome, email, telefone, atividade) {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td contenteditable="false">${nome}</td>
-      <td contenteditable="false">${email}</td>
-      <td contenteditable="false">${telefone}</td>
-      <td contenteditable="false">${atividade}</td>
-      <td><img src="assets/img/editar.png" class="editar"></td>
-    `;
-    tabela.appendChild(row);
-  }
-
-  // Exemplo de teste
-  adicionarServico("Amélia Gonçalves", "ameliagon@gmail.com", "18---------", "ativa");
-
-  // Tornar editável ao clicar no ícone
-  tabela.addEventListener("click", (e) => {
-    if (e.target.classList.contains("editar")) {
-      const row = e.target.closest("tr");
-      const editando = row.getAttribute("data-editando") === "true";
-
-      if (!editando) {
-        // Ativar edição
-        row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = "true");
-        e.target.src = "assets/img/salvar.png";
-        row.setAttribute("data-editando", "true");
-      } else {
-        // Salvar edição
-        row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = "false");
-        e.target.src = "assets/img/editar.png";
-        row.setAttribute("data-editando", "false");
-
-        const valores = Array.from(row.children).slice(0,4).map(td => td.innerText);
-        console.log("Salvo:", valores);
+  try {
+    const response = await fetch("http://10.92.3.222:5000/cadastro", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar usuários.");
     }
-  });
+
+    const usuarios = await response.json();
+    tabela.innerHTML = "";
+
+    if (!usuarios.length || usuarios.message) {
+      tabela.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhum usuário encontrado</td></tr>`;
+      return;
+    }
+
+    usuarios.forEach(user => {
+      const atividade = user.ativo ? "Ativo" : "Inativo";
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td contenteditable="false">${user.nome}</td>
+        <td contenteditable="false">${user.email}</td>
+        <td contenteditable="false">${user.telefone || "-"}</td>
+        <td contenteditable="false">${atividade}</td>
+        <td>
+          <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id_cadastro}">
+        </td>
+      `;
+
+      // função ao clicar no ícone
+      row.querySelector(".editar").addEventListener("click", async (e) => {
+        const img = e.target;
+        const isEditing = img.dataset.editing === "true";
+
+        if (!isEditing) {
+          // ativar edição
+          row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = true);
+          img.src = "assets/img/salvar.png"; // ícone de salvar
+          img.dataset.editing = "true";
+        } else {
+          // salvar alterações
+          const nome = row.children[0].innerText.trim();
+          const email = row.children[1].innerText.trim();
+          const telefone = row.children[2].innerText.trim();
+          const ativo = row.children[3].innerText.trim().toLowerCase() === "ativo";
+          const id = img.dataset.id;
+
+          try {
+            const res = await fetch(`http://10.92.3.222:5000/cadastro/${id}`, {
+              method: "PUT",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                ativo: ativo
+              })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+              Swal.fire({
+                icon: "success",
+                title: "Usuário atualizado!",
+                timer: 1200,
+                showConfirmButton: false
+              });
+            } else {
+              Swal.fire("Erro", data.message || data.error || "Falha ao atualizar.", "error");
+            }
+
+            // desativar edição novamente
+            row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = false);
+            img.src = "assets/img/editar.png";
+            img.dataset.editing = "false";
+          } catch (error) {
+            console.error("Erro ao salvar:", error);
+            Swal.fire("Erro", "Falha na comunicação com o servidor.", "error");
+          }
+        }
+      });
+
+      tabela.appendChild(row);
+    });
+
+  } catch (error) {
+    console.error("Erro:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Erro ao carregar usuários",
+      text: error.message
+    });
+  }
+});
 </script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const logoutButtons = document.querySelectorAll('.btn-logout, .logoutcabecalho');

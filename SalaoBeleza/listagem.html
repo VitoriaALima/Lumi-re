@@ -53,7 +53,6 @@
             <th>NOME</th>
             <th>EMAIL</th>
             <th>TELEFONE</th>
-            <th>ATIVIDADE</th>
             <th>AÇÃO</th>
           </tr>
         </thead>
@@ -97,56 +96,113 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      const tabela = document.getElementById("tabela-body");
-      const token = localStorage.getItem("token"); 
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const tabela = document.getElementById("tabela-body");
+  const token = localStorage.getItem("token");
 
-      try {
-        const response = await fetch("http://10.92.3.222:5000/cadastro", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        });
+  try {
+    const response = await fetch("http://10.92.3.222:5000/cadastro?tipo=usuario", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
 
-        if (!response.ok) {
-          throw new Error("Erro ao buscar usuários.");
-        }
+    if (!response.ok) {
+      throw new Error("Erro ao buscar usuários.");
+    }
 
-        const usuarios = await response.json();
-        tabela.innerHTML = "";
+    const usuarios = await response.json();
+    tabela.innerHTML = "";
 
-        if (!usuarios.length || usuarios.message) {
-          tabela.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhum usuário encontrado</td></tr>`;
-          return;
-        }
+    if (!usuarios.length || usuarios.message) {
+      tabela.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhum usuário encontrado</td></tr>`;
+      return;
+    }
 
-        usuarios.forEach(user => {
-          const atividade = user.ativo ? "Ativo" : "Inativo";
+    usuarios.forEach(user => {
 
-          const row = document.createElement("tr");
-          row.innerHTML = `
+      const row = document.createElement("tr");
+      row.innerHTML = `
         <td contenteditable="false">${user.nome}</td>
         <td contenteditable="false">${user.email}</td>
         <td contenteditable="false">${user.telefone || "-"}</td>
-        <td contenteditable="false">${atividade}</td>
-        <td><img src="assets/img/editar.png" class="editar"></td>
+        <td>
+          <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id_cadastro}">
+        </td>
       `;
-          tabela.appendChild(row);
-        });
 
-      } catch (error) {
-        console.error("Erro:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Erro ao carregar usuários",
-          text: error.message
-        });
-      }
+      // função ao clicar no ícone
+      row.querySelector(".editar").addEventListener("click", async (e) => {
+        const img = e.target;
+        const isEditing = img.dataset.editing === "true";
+
+        if (!isEditing) {
+          // ativar edição
+          row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = true);
+          img.src = "assets/img/salvar.png"; // ícone de salvar
+          img.dataset.editing = "true";
+        } else {
+          // salvar alterações
+          const nome = row.children[0].innerText.trim();
+          const email = row.children[1].innerText.trim();
+          const telefone = row.children[2].innerText.trim();
+          const id = img.dataset.id;
+
+          try {
+            const res = await fetch(`http://10.92.3.222:5000/cadastro/${id}`, {
+              method: "PUT",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                nome: nome,
+                email: email,
+                telefone: telefone,
+              })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+              Swal.fire({
+                icon: "success",
+                title: "Usuário atualizado!",
+                timer: 1200,
+                showConfirmButton: false
+              });
+            } else {
+              Swal.fire("Erro", data.message || data.error || "Falha ao atualizar.", "error");
+            }
+
+            // desativar edição novamente
+            row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = false);
+            img.src = "assets/img/editar.png";
+            img.dataset.editing = "false";
+          } catch (error) {
+            console.error("Erro ao salvar:", error);
+            Swal.fire("Erro", "Falha na comunicação com o servidor.", "error");
+          }
+        }
+      });
+
+      tabela.appendChild(row);
     });
-  </script>
+
+  } catch (error) {
+    console.error("Erro:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Erro ao carregar usuários",
+      text: error.message
+    });
+  }
+});
+</script>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
