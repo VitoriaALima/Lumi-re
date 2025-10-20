@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch("http://10.92.3.222:5000/cadastro?tipo=usuario", {
+    const response = await fetch("http://10.92.3.85:5000/cadastro?tipo=usuario", {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           const id = img.dataset.id;
 
           try {
-            const res = await fetch(`http://10.92.3.222:5000/cadastro/${id}`, {
+            const res = await fetch(`http://10.92.3.85:5000/cadastro/${id}`, {
               method: "PUT",
               headers: {
                 "Authorization": `Bearer ${token}`,
