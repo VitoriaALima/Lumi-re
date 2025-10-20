@@ -138,6 +138,8 @@
         usuarios.forEach(user => {
           const atividade = user.ativo ? "Ativo" : "Inativo";
 
+          console.log(user)
+
           const row = document.createElement("tr");
           row.innerHTML = `
         <td class="editable" contenteditable="false">${user.nome}</td>
@@ -145,7 +147,7 @@
         <td class="editable" contenteditable="false">${user.telefone || "-"}</td>
         <td class="editable" contenteditable="false" data-original="${atividade}">${atividade}</td>
         <td>
-          <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id_cadastro}" data-editing="false">
+          <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id}" data-editing="false">
         </td>
       `;
 
