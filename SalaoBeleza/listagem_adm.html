@@ -140,46 +140,67 @@
 
           const row = document.createElement("tr");
           row.innerHTML = `
-        <td contenteditable="false">${user.nome}</td>
-        <td contenteditable="false">${user.email}</td>
-        <td contenteditable="false">${user.telefone || "-"}</td>
-        <td contenteditable="false">${atividade}</td>
+        <td class="editable" contenteditable="false">${user.nome}</td>
+        <td class="editable" contenteditable="false">${user.email}</td>
+        <td class="editable" contenteditable="false">${user.telefone || "-"}</td>
+        <td class="editable" contenteditable="false" data-original="${atividade}">${atividade}</td>
         <td>
-          <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id_cadastro}">
+          <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id_cadastro}" data-editing="false">
         </td>
       `;
 
-          // função ao clicar no ícone
-          row.querySelector(".editar").addEventListener("click", async (e) => {
+          const editarBtn = row.querySelector(".editar");
+
+          editarBtn.addEventListener("click", async (e) => {
             const img = e.target;
             const isEditing = img.dataset.editing === "true";
 
             if (!isEditing) {
-              // ativar edição
-              row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = true);
+              // Ativar edição
+              row.querySelectorAll(".editable").forEach(td => {
+                if (td === row.children[3]) {
+                 
+                  const currentValue = td.innerText.trim();
+                  td.innerHTML = `
+                <select style="padding-left: 10px; padding-right: 10px; padding-bottom: 3px; padding-top: 3px; border-radius: 3px; border: 2px solid #ccc; font-size: 14px;">
+                  <option value="true" ${currentValue.toLowerCase() === "ativo" ? "selected" : ""}>Ativo</option>
+                  <option value="false" ${currentValue.toLowerCase() === "inativo" ? "selected" : ""}>Inativo</option>
+                </select>
+              `;
+                  td.contentEditable = false; // deixa o select, não contenteditable
+                } else {
+                  td.contentEditable = true;
+                }
+              });
+
               img.src = "assets/img/salvar.png"; // ícone de salvar
               img.dataset.editing = "true";
             } else {
-              // salvar alterações
-              const nome = row.children[0].innerText.trim();
-              const email = row.children[1].innerText.trim();
-              const telefone = row.children[2].innerText.trim();
-              const ativo = row.children[3].innerText.trim().toLowerCase() === "ativo";
-              const id = img.dataset.id;
-
+              // Salvar alterações
               try {
+                const nome = row.children[0].innerText.trim();
+                const email = row.children[1].innerText.trim();
+                const telefone = row.children[2].innerText.trim();
+                const selectAtivo = row.children[3].querySelector("select");
+                const ativo = selectAtivo ? selectAtivo.value === "true" : false;
+                const id = img.dataset.id;
+
+                // Construir o objeto para envio - inclua categoria, tipo e senha se quiser
+                // Aqui, enviamos só os campos que você mostrou no frontend
+                const payload = {
+                  nome: nome,
+                  email: email,
+                  telefone: telefone,
+                  ativo: ativo
+                };
+
                 const res = await fetch(`http://10.92.3.85:5000/cadastro/${id}`, {
                   method: "PUT",
                   headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
                   },
-                  body: JSON.stringify({
-                    nome: nome,
-                    email: email,
-                    telefone: telefone,
-                    ativo: ativo
-                  })
+                  body: JSON.stringify(payload)
                 });
 
                 const data = await res.json();
@@ -191,14 +212,18 @@
                     timer: 1200,
                     showConfirmButton: false
                   });
+
+                  // Atualizar célula 'Atividade' para texto simples
+                  row.children[3].innerText = ativo ? "Ativo" : "Inativo";
                 } else {
                   Swal.fire("Erro", data.message || data.error || "Falha ao atualizar.", "error");
                 }
 
-                // desativar edição novamente
-                row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = false);
+                // Desativar edição
+                row.querySelectorAll(".editable").forEach(td => td.contentEditable = false);
                 img.src = "assets/img/editar.png";
                 img.dataset.editing = "false";
+
               } catch (error) {
                 console.error("Erro ao salvar:", error);
                 Swal.fire("Erro", "Falha na comunicação com o servidor.", "error");
@@ -218,6 +243,7 @@
         });
       }
     });
+
   </script>
 
   <script>
