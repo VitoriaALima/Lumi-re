@@ -96,7 +96,7 @@
       const dados = { id_servico, data_hora, id_profissional };
 
       try {
-        const response = await fetch("http://192.168.1.117:5000/cadastro", {
+        const response = await fetch("http://192.168.1.140:5000/cadastro", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -135,7 +135,7 @@
       const token = localStorage.getItem("token");
 
       try {
-        const response = await fetch("http://192.168.1.117:5000/servicos", {
+        const response = await fetch("http://192.168.1.140:5000/servicos", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`
