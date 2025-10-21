@@ -23,7 +23,7 @@
   <header>
     <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
     <nav>
-      <a class="logoutcabecalho" style="cursor: pointer;">LOGOUT</a>
+      <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
       <a href="edicao_dados.html">EDIÇÃO DE DADOS</a>
       <a href="cadastroservico.html">CADASTRAR SERVIÇOS</a>
       <a href="index.cadastroservico.html">CADASTRAR AGENDAMENTO</a>
@@ -88,20 +88,19 @@
     document.querySelector(".form-cadastro").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const descricao = document.getElementById("id_servico").value;
       const dataHoraInput = document.getElementById("data_hora").value; // '2025-12-12T12:00'
 
-      // converte para formato que o backend espera: 'YYYY-MM-DD HH:MM:SS'
-      const data_hora = dataHoraInput.replace("T", " ") + ":00";
-      const id_cadastro = localStorage.getItem("id_cadastro");
-      const dados = { id_servico, data_hora, id_cadastro };
+      const partes = dataHoraInput.split('T'); // ['2025-12-12', '12:00']
+      const [ano, mes, dia] = partes[0].split('-');
+      const hora = partes[1];
+
+      const data_hora = `${dia}-${mes}-${ano} ${hora}:00`;
+
 
       try {
         const response = await fetch("http://192.168.1.140:5000/agenda", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(dados)
         });
 
@@ -112,7 +111,7 @@
             title: "Sucesso!",
             text: result.message
           }).then(() => {
-            window.location.href = "painel_profissional.html"; // redireciona
+            window.location.href = "painel_profissional.html";
           });
         } else {
           const error = await response.json();
