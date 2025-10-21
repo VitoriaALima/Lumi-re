@@ -23,7 +23,7 @@
     <header>
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
-            <a class="logoutcabecalho" style="cursor: pointer;">LOGOUT</a>
+            <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
             <a href="edicao_dados.html">EDIÇÃO DE DADOS</a>
             <a href="cadastroservico.html">CADASTRAR SERVIÇOS</a>
             <a href="index.cadastroservico.html">CADASTRAR AGENDAMENTO</a>
@@ -114,7 +114,7 @@
                         title: "Sucesso!",
                         text: result.message
                     }).then(() => {
-                        window.location.href = "painel_profissional.html"; //redireciona
+                        window.location.href = "index.cadastroservico.html"; //redireciona
                     });
                 } else {
                     const error = await response.json();
