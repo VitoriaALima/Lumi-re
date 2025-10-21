@@ -15,9 +15,10 @@ body {
     object-fit: cover;
 }
 
-.logo{
+.logo {
     width: 150px;
     padding-top: 10px;
+    flex-shrink: 0;
 }
 
 header {
@@ -26,12 +27,22 @@ header {
     align-items: center;
     background-color: #5b3b3a;
     padding: 0px 40px;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 nav a {
     margin-left: 30px;
     text-decoration: none;
     color: #fff;
+    white-space: nowrap;
 }
 
 .logoutcabeçalho {
@@ -42,16 +53,16 @@ nav a {
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
+    flex-shrink: 0;
 }
 
 .logoutcabeçalho:hover {
     background: white;
-    color: #5b3b3a; 
+    color: #5b3b3a;
     padding: 12px 20px;
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
-    
 }
 
 .cadastro-container {
@@ -91,7 +102,7 @@ form {
     justify-content: center;
 }
 
-.selecionar{
+.selecionar {
     background: white;
     color: #5b3b3a;
     border: 1px solid #5b3b3a;
@@ -100,7 +111,7 @@ form {
     font-size: 16px;
 }
 
-select option{
+select option {
     background: #5b3b3a;
     color: white;
 }
@@ -184,138 +195,136 @@ button:hover {
 
 
 .footer {
-  background-color: #000;
-  color: white;
-  text-align: center;
-  margin-top: auto; 
-  padding-bottom: 20px;
+    background-color: #000;
+    color: white;
+    text-align: center;
+    margin-top: auto;
+    padding-bottom: 20px;
 }
 
 
 .footer1 {
-  display: flex;
-  align-items: center;      
-  justify-content: space-between;
-  flex-wrap: wrap; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .footer-left {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .contact {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 .footer-center {
-  flex: 1; 
-  display: flex;
-  justify-content: center;
-  margin-left: -150px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-left: -150px;
 }
 
 .logorodape {
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  padding-top: 25px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
 }
 
 .footer-bottom {
-  margin-top: 15px;
-  font-size: 14px;
-  text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
 }
 
 
 @media screen and (max-width: 479px) {
     header {
         padding: 10px 15px;
-        flex-direction: column;
-        gap: 10px;
+        gap: 20px;
         width: 95%;
     }
 
     .footer-center {
-    margin-left: -5px;
-}
+        margin-left: -5px;
+    }
 
-    .footer{
+    .footer {
         width: 105%;
     }
-    
+
     .logo {
         width: 120px;
         padding-top: 5px;
     }
-    
+
     nav {
-        width: 100%;
-        text-align: center;
-        font-size: 44px;
+        width: auto;
+        text-align: left;
     }
-    
+
     nav a {
         margin: 0 10px;
         font-size: 14px;
     }
-    
+
     .cadastro-container {
         margin: 20px auto;
         padding: 17px 30px;
     }
-    
+
     .cadastro-container div h1 {
         font-size: 28px;
         text-align: center;
     }
-    
+
     .decorative-line {
         padding-right: 0;
         padding-bottom: 20px;
     }
-    
+
     .subtitulo {
         font-size: 18px;
         text-align: center;
         margin: 10px 0 30px;
     }
-    
+
     form {
         flex-direction: column;
         gap: 0;
         width: 100%;
     }
-    
+
     form input,
     form select,
     .senha-container {
         width: 100%;
     }
-    
+
     .senha-container input {
         width: calc(100% - 2px);
     }
-    
+
     small {
         width: 100%;
     }
-    
+
     .form-footer {
         flex-direction: column;
         gap: 15px;
         text-align: center;
     }
-    
+
     button {
         margin-right: 0;
         width: 100%;
@@ -327,62 +336,62 @@ button:hover {
     header {
         padding: 15px 20px;
     }
-    
+
     .logo {
         width: 130px;
     }
-    
+
     nav a {
         margin-left: 20px;
         font-size: 15px;
     }
-    
+
     .cadastro-container {
         margin: 30px auto;
         padding: 30px 20px;
     }
-    
+
     .cadastro-container div h1 {
         font-size: 35px;
         text-align: center;
     }
-    
+
     .decorative-line {
         padding-right: 0;
         padding-bottom: 30px;
     }
-    
+
     .subtitulo {
         font-size: 20px;
         text-align: center;
     }
-    
+
     form {
         flex-direction: column;
         gap: 0;
         max-width: 400px;
     }
-    
+
     form input,
     form select,
     .senha-container {
         width: 100%;
     }
-    
+
     .senha-container input {
         width: calc(100% - 20px);
     }
-    
+
     small {
         width: 100%;
     }
-    
+
     .form-footer {
         flex-direction: column;
         gap: 15px;
         text-align: center;
     }
-    
+
     button {
         margin-right: 0;
         width: 100%;
@@ -393,46 +402,46 @@ button:hover {
     header {
         padding: 15px 30px;
     }
-    
+
     .logo {
         width: 140px;
     }
-    
+
     nav a {
         margin-left: 25px;
     }
-    
+
     .cadastro-container {
         margin: 40px auto;
         padding: 35px 30px;
         max-width: 700px;
     }
-    
+
     .cadastro-container div h1 {
         font-size: 38px;
         text-align: center;
     }
-    
+
     .decorative-line {
         padding-right: 0;
         padding-bottom: 35px;
     }
-    
+
     .subtitulo {
         font-size: 21px;
         text-align: center;
     }
-    
+
     form {
         gap: 80px;
         max-width: 600px;
     }
-    
+
     .form-footer {
         justify-content: center;
         gap: 30px;
     }
-    
+
     button {
         margin-right: 0;
     }
@@ -442,20 +451,20 @@ button:hover {
     header {
         padding: 0px 35px;
     }
-    
+
     .cadastro-container {
         max-width: 900px;
     }
-    
+
     .decorative-line {
         padding-right: 400px;
     }
-    
+
     form {
         gap: 100px;
         max-width: 800px;
     }
-    
+
     button {
         margin-right: 30px;
     }
@@ -465,11 +474,11 @@ button:hover {
     .decorative-line {
         padding-right: 500px;
     }
-    
+
     form {
         gap: 120px;
     }
-    
+
     button {
         margin-right: 40px;
     }
@@ -479,11 +488,11 @@ button:hover {
     .decorative-line {
         padding-right: 700px;
     }
-    
+
     form {
         gap: 150px;
     }
-    
+
     button {
         margin-right: 50px;
     }

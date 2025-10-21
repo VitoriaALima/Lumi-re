@@ -12,16 +12,19 @@ body {
     box-sizing: border-box;
 }
 
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+
 main {
     flex: 1;
     width: 100%;
 }
+
 
 .background {
     position: fixed;
@@ -33,6 +36,7 @@ main {
     object-fit: cover;
 }
 
+
 header {
     display: flex;
     justify-content: space-between;
@@ -41,30 +45,46 @@ header {
     padding: 15px 40px;
     width: 100%;
     gap: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
+
+
+/* Ocultar a barra de scroll */
+header::-webkit-scrollbar {
+    display: none;
+}
+
 
 .logo {
     width: 150px;
     flex-shrink: 0;
 }
 
+
 nav {
     display: flex;
     align-items: center;
     gap: 30px;
     font-size: 15px;
+    flex-shrink: 0;
 }
+
 
 nav a {
     text-decoration: none;
     color: #fff;
     white-space: nowrap;
     transition: opacity 0.3s;
+    flex-shrink: 0;
 }
+
 
 nav a:hover {
     opacity: 0.8;
 }
+
 
 .logoutcabeçalho {
     border: 1px solid white;
@@ -76,12 +96,15 @@ nav a:hover {
     transition: 0.3s;
     background: transparent;
     white-space: nowrap;
+    flex-shrink: 0;
 }
+
 
 .logoutcabeçalho:hover {
     background: white;
     color: #5b3b3a;
 }
+
 
 .cadastro-container {
     padding: 40px;
@@ -91,6 +114,7 @@ nav a:hover {
     justify-content: center;
 }
 
+
 .cadastro-container div h1 {
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -99,11 +123,13 @@ nav a:hover {
     color: #fff;
 }
 
+
 .decorative-line {
     text-align: center;
     justify-content: center;
     padding-bottom: 40px;
 }
+
 
 .subtitulo {
     margin: 10px;
@@ -112,6 +138,7 @@ nav a:hover {
     font-style: italic;
     color: #fff;
 }
+
 
 .tabela-servicos {
     width: 80%;
@@ -123,6 +150,7 @@ nav a:hover {
     overflow: hidden;
 }
 
+
 .tabela-servicos th,
 .tabela-servicos td {
     border: 1px solid #ddd;
@@ -131,10 +159,12 @@ nav a:hover {
     font-size: 16px;
 }
 
+
 .tabela-servicos th {
     background-color: #5b3b3a;
     color: white;
 }
+
 
 .tabela-servicos td img {
     width: 20px;
@@ -142,9 +172,11 @@ nav a:hover {
     transition: transform 0.2s ease;
 }
 
+
 .tabela-servicos td img:hover {
     transform: scale(1.1);
 }
+
 
 .botoes-acao {
     display: flex;
@@ -152,6 +184,7 @@ nav a:hover {
     gap: 20px;
     flex-wrap: wrap;
 }
+
 
 .btn-acao {
     background: transparent;
@@ -164,10 +197,12 @@ nav a:hover {
     transition: 0.3s;
 }
 
+
 .btn-acao:hover {
     background: white;
     color: #5b3b3a;
 }
+
 
 .btn-logout {
     display: flex;
@@ -183,19 +218,23 @@ nav a:hover {
     transition: 0.3s;
 }
 
+
 .btn-logout img {
     width: 18px;
     transition: filter 0.3s ease;
 }
+
 
 .btn-logout:hover {
     background: white;
     color: #5b3b3a;
 }
 
+
 .btn-logout:hover img {
     filter: invert(1);
 }
+
 
 .footer {
     background-color: #000;
@@ -206,6 +245,7 @@ nav a:hover {
     width: 100%;
 }
 
+
 .footer1 {
     display: flex;
     align-items: center;
@@ -214,11 +254,13 @@ nav a:hover {
     padding: 0 40px;
 }
 
+
 .footer-left {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 
 .contact {
     display: flex;
@@ -226,16 +268,19 @@ nav a:hover {
     gap: 8px;
 }
 
+
 .icon {
     width: 20px;
     height: 20px;
 }
+
 
 .footer-center {
     flex: 1;
     display: flex;
     justify-content: center;
 }
+
 
 .logorodape {
     height: 70px;
@@ -244,6 +289,7 @@ nav a:hover {
     padding-top: 25px;
 }
 
+
 .footer-bottom {
     margin-top: 15px;
     font-size: 14px;
@@ -251,77 +297,96 @@ nav a:hover {
 }
 
 
+
 @media (max-width: 1024px) {
     header {
         padding: 15px 30px;
     }
+
 
     nav {
         gap: 20px;
         font-size: 14px;
     }
 
+
     .tabela-servicos {
         width: 90%;
     }
+
 
     .footer1 {
         padding: 0 30px;
     }
 }
 
+
 @media (max-width: 768px) {
     header {
         padding: 15px 20px;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
+
 
     .logo {
         width: 130px;
-        order: 1;
+        flex-shrink: 0;
     }
 
+
     nav {
-        order: 2;
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-shrink: 0;
+        width: auto;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
         gap: 15px;
-        margin-top: 15px;
+        margin-top: 0;
     }
+
 
     nav a {
         font-size: 14px;
         padding: 8px 15px;
+        flex-shrink: 0;
     }
+
 
     .logoutcabeçalho {
         padding: 10px 20px;
         font-size: 14px;
+        flex-shrink: 0;
     }
+
 
     .cadastro-container {
         padding: 30px 20px;
     }
+
 
     .cadastro-container div h1 {
         font-size: 36px;
         text-align: center;
     }
 
+
     .subtitulo {
         font-size: 20px;
         text-align: center;
     }
 
+
     .decorative-line {
         padding-bottom: 30px;
     }
 
+
     .tabela-servicos {
         width: 95%;
     }
+
 
     .tabela-servicos th,
     .tabela-servicos td {
@@ -329,9 +394,11 @@ nav a:hover {
         font-size: 14px;
     }
 
+
     .tabela-servicos td img {
         width: 18px;
     }
+
 
     .botoes-acao {
         flex-direction: column;
@@ -340,11 +407,13 @@ nav a:hover {
         gap: 15px;
     }
 
+
     .btn-acao,
     .btn-logout {
         width: 100%;
         justify-content: center;
     }
+
 
     .footer1 {
         flex-direction: column;
@@ -352,64 +421,85 @@ nav a:hover {
         gap: 25px;
     }
 
+
     .footer-center {
         width: 100%;
         order: -1;
     }
 
+
     .footer-left {
         align-items: center;
     }
+
 
     .logorodape {
         height: 65px;
     }
 }
 
+
 @media (max-width: 480px) {
     header {
         padding: 12px 15px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
+
 
     .logo {
         width: 110px;
+        flex-shrink: 0;
     }
+
 
     nav {
         gap: 12px;
-        margin-top: 12px;
+        margin-top: 0;
+        flex-shrink: 0;
+        flex-wrap: nowrap;
     }
+
 
     nav a {
         font-size: 13px;
         padding: 6px 12px;
+        flex-shrink: 0;
     }
+
 
     .logoutcabeçalho {
         padding: 8px 16px;
         font-size: 13px;
+        flex-shrink: 0;
     }
+
 
     .cadastro-container {
         padding: 25px 15px;
     }
 
+
     .cadastro-container div h1 {
         font-size: 28px;
     }
+
 
     .subtitulo {
         font-size: 18px;
     }
 
+
     .decorative-line {
         padding-bottom: 25px;
     }
+
 
     .tabela-servicos {
         width: 100%;
         font-size: 12px;
     }
+
 
     .tabela-servicos th,
     .tabela-servicos td {
@@ -417,14 +507,17 @@ nav a:hover {
         font-size: 12px;
     }
 
+
     .tabela-servicos td img {
         width: 16px;
     }
+
 
     .botoes-acao {
         width: 100%;
         gap: 12px;
     }
+
 
     .btn-acao,
     .btn-logout {
@@ -433,31 +526,38 @@ nav a:hover {
         width: 100%;
     }
 
+
     .btn-logout img {
         width: 16px;
     }
+
 
     .footer1 {
         padding: 15px;
     }
 
+
     .footer-left {
         gap: 8px;
     }
 
+
     .contact {
         font-size: 13px;
     }
+
 
     .icon {
         width: 18px;
         height: 18px;
     }
 
+
     .logorodape {
         height: 55px;
         padding-top: 20px;
     }
+
 
     .footer-bottom {
         font-size: 12px;
@@ -465,49 +565,67 @@ nav a:hover {
     }
 }
 
+
 @media (max-width: 360px) {
     header {
         padding: 10px 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
+
 
     .logo {
         width: 95px;
+        flex-shrink: 0;
     }
+
 
     nav {
         gap: 10px;
-        margin-top: 10px;
+        margin-top: 0;
+        flex-shrink: 0;
+        flex-wrap: nowrap;
     }
+
 
     nav a {
         font-size: 12px;
         padding: 5px 10px;
+        flex-shrink: 0;
     }
+
 
     .logoutcabeçalho {
         padding: 7px 14px;
         font-size: 12px;
+        flex-shrink: 0;
     }
+
 
     .cadastro-container {
         padding: 20px 12px;
     }
 
+
     .cadastro-container div h1 {
         font-size: 24px;
     }
+
 
     .subtitulo {
         font-size: 16px;
     }
 
+
     .decorative-line {
         padding-bottom: 20px;
     }
 
+
     .tabela-servicos {
         font-size: 11px;
     }
+
 
     .tabela-servicos th,
     .tabela-servicos td {
@@ -515,9 +633,11 @@ nav a:hover {
         font-size: 10px;
     }
 
+
     .tabela-servicos td img {
         width: 14px;
     }
+
 
     .btn-acao,
     .btn-logout {
@@ -525,65 +645,85 @@ nav a:hover {
         font-size: 13px;
     }
 
+
     .footer1 {
         padding: 12px;
     }
 
+
     .contact {
         font-size: 12px;
     }
+
 
     .icon {
         width: 16px;
         height: 16px;
     }
 
+
     .logorodape {
         height: 50px;
     }
+
 
     .footer-bottom {
         font-size: 11px;
     }
 }
 
+
 @media (max-height: 500px) and (orientation: landscape) {
     header {
         padding: 8px 20px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
+
 
     .logo {
         width: 100px;
+        flex-shrink: 0;
     }
+
 
     nav {
         gap: 15px;
         margin-top: 0;
+        flex-shrink: 0;
     }
+
 
     nav a {
         font-size: 13px;
+        flex-shrink: 0;
     }
+
 
     .cadastro-container {
         padding: 20px 15px;
     }
 
+
     .cadastro-container div h1 {
         font-size: 28px;
     }
+
 
     .subtitulo {
         font-size: 18px;
     }
 
+
     .decorative-line {
         padding-bottom: 20px;
     }
 
+
     .tabela-servicos {
         width: 95%;
     }
+
 
     .tabela-servicos th,
     .tabela-servicos td {
@@ -592,28 +732,34 @@ nav a:hover {
     }
 }
 
+
 @media (min-width: 1200px) {
     .cadastro-container {
         padding: 50px 40px;
     }
 
+
     .cadastro-container div h1 {
         font-size: 50px;
     }
+
 
     .subtitulo {
         font-size: 25px;
     }
 
+
     .tabela-servicos {
         width: 75%;
     }
+
 
     .tabela-servicos th,
     .tabela-servicos td {
         padding: 15px;
         font-size: 17px;
     }
+
 
     .tabela-servicos td img {
         width: 22px;

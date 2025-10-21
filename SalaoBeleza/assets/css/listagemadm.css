@@ -38,49 +38,56 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #5b3b3a;
-    padding: 15px 40px;
+    padding: 10px 40px;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
     gap: 20px;
+    min-height: 60px;
+    max-height: 70px;
+}
+
+header::-webkit-scrollbar {
+    height: 6px;
+}
+
+header::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+header::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+header::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .logo {
-    width: 150px;
+    width: 120px;
     flex-shrink: 0;
+    height: auto;
 }
 
 nav {
     display: flex;
     align-items: center;
-    gap: 30px;
-    font-size: 15px;
+    flex-shrink: 0;
+    gap: 25px;
 }
 
 nav a {
     text-decoration: none;
     color: #fff;
     white-space: nowrap;
+    font-size: 14px;
     transition: opacity 0.3s;
 }
 
 nav a:hover {
     opacity: 0.8;
-}
-
-.logoutcabecalho {
-    color: white;
-    padding: 10px 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
-    background: transparent;
-    border: 1px solid transparent;
-    white-space: nowrap;
-}
-
-.logoutcabecalho:hover {
-    background: white;
-    color: #5b3b3a;
-    border-color: white;
 }
 
 .cadastro-container {
@@ -113,22 +120,14 @@ nav a:hover {
     color: #fff;
 }
 
-.tabela-wrapper {
+.tabela-servicos {
     width: 80%;
     max-width: 1200px;
-    max-height: 500px;
-    overflow-x: auto;
-    overflow-y: auto;
-    margin: 0 auto 40px;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.tabela-servicos {
-    width: 100%;
     border-collapse: collapse;
+    margin: 0 auto 40px;
     background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .tabela-servicos th,
@@ -137,15 +136,11 @@ nav a:hover {
     padding: 12px;
     text-align: center;
     font-size: 16px;
-    white-space: nowrap;
 }
 
 .tabela-servicos th {
     background-color: #5b3b3a;
     color: white;
-    position: sticky;
-    top: 0;
-    z-index: 10;
 }
 
 .tabela-servicos td img {
@@ -172,6 +167,25 @@ nav a:hover {
 }
 
 .btn-acao:hover {
+    background: white;
+    color: #5b3b3a;
+}
+
+.logoutcabeçalho {
+    border: 1px solid white;
+    color: white;
+    padding: 8px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    background: transparent;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.logoutcabeçalho:hover {
     background: white;
     color: #5b3b3a;
 }
@@ -259,15 +273,10 @@ nav a:hover {
 
 @media (max-width: 1024px) {
     header {
-        padding: 15px 30px;
+        padding: 10px 30px;
     }
 
-    nav {
-        gap: 20px;
-        font-size: 14px;
-    }
-
-    .tabela-wrapper {
+    .tabela-servicos {
         width: 90%;
     }
 
@@ -278,32 +287,24 @@ nav a:hover {
 
 @media (max-width: 768px) {
     header {
-        padding: 15px 20px;
-        flex-wrap: wrap;
-        justify-content: center;
+        padding: 10px 20px;
     }
 
     .logo {
-        width: 130px;
-        order: 1;
+        width: 110px;
     }
 
     nav {
-        order: 2;
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-top: 15px;
+        gap: 20px;
     }
 
     nav a {
-        font-size: 14px;
+        font-size: 13px;
     }
 
-    .logoutcabecalho {
-        padding: 8px 15px;
-        font-size: 14px;
+    .logoutcabeçalho {
+        padding: 7px 16px;
+        font-size: 13px;
     }
 
     .cadastro-container {
@@ -324,7 +325,7 @@ nav a:hover {
         padding-bottom: 30px;
     }
 
-    .tabela-wrapper {
+    .tabela-servicos {
         width: 95%;
     }
 
@@ -369,26 +370,24 @@ nav a:hover {
 
 @media (max-width: 480px) {
     header {
-        padding: 12px 15px;
+        padding: 8px 15px;
     }
 
     .logo {
-        width: 110px;
+        width: 95px;
     }
 
     nav {
-        gap: 12px;
-        margin-top: 12px;
+        gap: 15px;
     }
 
     nav a {
-        font-size: 13px;
-        padding: 5px 8px;
+        font-size: 12px;
     }
 
-    .logoutcabecalho {
-        padding: 6px 12px;
-        font-size: 13px;
+    .logoutcabeçalho {
+        padding: 6px 14px;
+        font-size: 12px;
     }
 
     .cadastro-container {
@@ -407,15 +406,14 @@ nav a:hover {
         padding-bottom: 25px;
     }
 
-    .tabela-wrapper {
+    .tabela-servicos {
         width: 100%;
-        border-radius: 6px;
-        max-height: 400px;
+        font-size: 12px;
     }
 
     .tabela-servicos th,
     .tabela-servicos td {
-        padding: 8px 6px;
+        padding: 8px 5px;
         font-size: 12px;
     }
 
@@ -468,26 +466,24 @@ nav a:hover {
 
 @media (max-width: 360px) {
     header {
-        padding: 10px 12px;
+        padding: 8px 12px;
     }
 
     .logo {
-        width: 95px;
+        width: 85px;
     }
 
     nav {
-        gap: 10px;
-        margin-top: 10px;
+        gap: 12px;
     }
 
     nav a {
-        font-size: 12px;
-        padding: 4px 6px;
+        font-size: 11px;
     }
 
-    .logoutcabecalho {
-        padding: 5px 10px;
-        font-size: 12px;
+    .logoutcabeçalho {
+        padding: 6px 12px;
+        font-size: 11px;
     }
 
     .cadastro-container {
@@ -506,15 +502,14 @@ nav a:hover {
         padding-bottom: 20px;
     }
 
-    .tabela-wrapper {
-        border-radius: 4px;
-        max-height: 350px;
+    .tabela-servicos {
+        font-size: 11px;
     }
 
     .tabela-servicos th,
     .tabela-servicos td {
         padding: 6px 4px;
-        font-size: 11px;
+        font-size: 9px;
     }
 
     .tabela-servicos td img {
@@ -550,23 +545,6 @@ nav a:hover {
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-    header {
-        padding: 8px 20px;
-    }
-
-    .logo {
-        width: 100px;
-    }
-
-    nav {
-        gap: 15px;
-        margin-top: 0;
-    }
-
-    nav a {
-        font-size: 13px;
-    }
-
     .cadastro-container {
         padding: 20px 15px;
     }
@@ -583,7 +561,15 @@ nav a:hover {
         padding-bottom: 20px;
     }
 
-    .tabela-wrapper {
-        max-height: 300px;
+    header {
+        padding: 8px 20px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    nav {
+        gap: 20px;
     }
 }
