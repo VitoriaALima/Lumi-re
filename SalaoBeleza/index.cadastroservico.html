@@ -49,7 +49,7 @@
 
       <div class="form-group">
         <label for="data_hora">DATA E HORÁRIO</label>
-        <input type="datetime" id="data_hora" required>
+        <input type="datetime-local" id="data_hora" required>
       </div>
 
 
@@ -89,14 +89,15 @@
       e.preventDefault();
 
       const descricao = document.getElementById("id_servico").value;
-      const data_hora = document.getElementById("data_hora").value;
+      const dataHoraInput = document.getElementById("data_hora").value; // '2025-12-12T12:00'
 
-
-      // 🔹 Dados prontos para enviar
-      const dados = { id_servico, data_hora, id_profissional };
+      // converte para formato que o backend espera: 'YYYY-MM-DD HH:MM:SS'
+      const data_hora = dataHoraInput.replace("T", " ") + ":00";
+      const id_cadastro = localStorage.getItem("id_cadastro");
+      const dados = { id_servico, data_hora, id_cadastro };
 
       try {
-        const response = await fetch("http://192.168.1.140:5000/cadastro", {
+        const response = await fetch("http://192.168.1.140:5000/agenda", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -111,7 +112,7 @@
             title: "Sucesso!",
             text: result.message
           }).then(() => {
-            window.location.href = "painel_profissional.html"; // 🔹 redireciona
+            window.location.href = "painel_profissional.html"; // redireciona
           });
         } else {
           const error = await response.json();
@@ -133,32 +134,46 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const token = localStorage.getItem("token");
+      const select = document.getElementById("id_servico");
 
       try {
-        const response = await fetch("http://192.168.1.140:5000/servicos", {
+        const response = await fetch("http://192.168.1.140:5000/servico", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`
           }
         });
 
-        if (!response.ok) {
-          throw new Error("Erro ao buscar serviços");
-        }
+        if (!response.ok) throw new Error("Erro ao buscar serviços");
 
         const servicos = await response.json();
-        const select = document.getElementById("id_servico"); // corrigido
-
-        // Limpa e adiciona a opção inicial
         select.innerHTML = `<option value="">Selecione o serviço ></option>`;
 
-        // Adiciona os serviços cadastrados
+        if (!servicos.length) {
+          select.innerHTML += `<option disabled>Nenhum serviço cadastrado</option>`;
+          return;
+        }
+
         servicos.forEach(s => {
+          // Se vier número decimal
+          let duracao = s.duracao_horas;
+          if (duracao !== null && !isNaN(duracao)) {
+            const horas = Math.floor(duracao);
+            const minutos = Math.round((duracao - horas) * 60);
+            duracao = `${String(horas).padStart(2, "0")}:${String(minutos).padStart(2, "0")}`;
+          } else if (typeof duracao === "string") {
+            // caso venha algo tipo "01:30:00"
+            duracao = duracao.substring(0, 5);
+          } else {
+            duracao = "00:00";
+          }
+
           const option = document.createElement("option");
           option.value = s.id_servico;
-          option.textContent = `${s.descricao} - R$${s.valor} - ${s.duracao_horas}`;
+          option.textContent = `${s.descricao} — R$${s.valor.toFixed(2)} — ${duracao}`;
           select.appendChild(option);
         });
+
       } catch (error) {
         console.error("Erro ao carregar serviços:", error);
         Swal.fire({
@@ -169,6 +184,7 @@
       }
     });
   </script>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
