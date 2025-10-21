@@ -1,4 +1,3 @@
-/* ===== BASE ===== */
 html,
 body {
     margin: 0;
@@ -34,7 +33,6 @@ main {
     object-fit: cover;
 }
 
-/* ===== HEADER ===== */
 header {
     display: flex;
     justify-content: space-between;
@@ -85,7 +83,6 @@ nav a:hover {
     color: #5b3b3a;
 }
 
-/* ===== CONTEÚDO PRINCIPAL ===== */
 .cadastro-container {
     padding: 40px;
     display: flex;
@@ -124,7 +121,6 @@ main {
     z-index: 1;
 }
 
-/* ===== PAINEL E CARDS ===== */
 .painel-glitter {
     position: relative;
     margin: 0 auto;
@@ -216,7 +212,6 @@ main {
     margin: 0 auto;
 }
 
-/* ===== FOOTER ===== */
 .footer {
     background-color: #000;
     color: white;
@@ -270,9 +265,7 @@ main {
     text-align: center;
 }
 
-/* ===== RESPONSIVIDADE ===== */
 
-/* Tablets e telas médias (até 1024px) */
 @media (max-width: 1024px) {
     header {
         padding: 15px 30px;
@@ -301,7 +294,6 @@ main {
     }
 }
 
-/* Tablets menores (até 768px) */
 @media (max-width: 768px) {
     header {
         padding: 15px 20px;
@@ -398,7 +390,6 @@ main {
     }
 }
 
-/* Smartphones (até 480px) */
 @media (max-width: 480px) {
     header {
         padding: 12px 15px;
@@ -506,7 +497,6 @@ main {
     }
 }
 
-/* Smartphones pequenos (até 360px) */
 @media (max-width: 360px) {
     header {
         padding: 10px 12px;
@@ -606,7 +596,6 @@ main {
     }
 }
 
-/* Modo paisagem em dispositivos móveis */
 @media (max-height: 500px) and (orientation: landscape) {
     header {
         padding: 8px 20px;
@@ -661,7 +650,6 @@ main {
     }
 }
 
-/* Telas grandes (acima de 1200px) */
 @media (min-width: 1200px) {
     .cards-container {
         gap: 50px;

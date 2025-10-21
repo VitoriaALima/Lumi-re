@@ -1,4 +1,3 @@
-/* ===== BASE ===== */
 html,
 body {
     margin: 0;
@@ -34,7 +33,6 @@ main {
     object-fit: cover;
 }
 
-/* ===== HEADER ===== */
 header {
     display: flex;
     justify-content: space-between;
@@ -85,7 +83,6 @@ nav a:hover {
     color: #5b3b3a;
 }
 
-/* ===== CONTEÚDO PRINCIPAL ===== */
 .cadastro-container {
     padding: 40px;
     display: flex;
@@ -116,7 +113,6 @@ nav a:hover {
     color: #fff;
 }
 
-/* ===== TABELA ===== */
 .tabela-servicos {
     width: 80%;
     max-width: 1200px;
@@ -150,7 +146,6 @@ nav a:hover {
     transform: scale(1.1);
 }
 
-/* ===== BOTÕES ===== */
 .botoes-acao {
     display: flex;
     justify-content: center;
@@ -202,7 +197,6 @@ nav a:hover {
     filter: invert(1);
 }
 
-/* ===== FOOTER ===== */
 .footer {
     background-color: #000;
     color: white;
@@ -256,9 +250,7 @@ nav a:hover {
     text-align: center;
 }
 
-/* ===== RESPONSIVIDADE ===== */
 
-/* Tablets e telas médias (até 1024px) */
 @media (max-width: 1024px) {
     header {
         padding: 15px 30px;
@@ -278,7 +270,6 @@ nav a:hover {
     }
 }
 
-/* Tablets menores (até 768px) */
 @media (max-width: 768px) {
     header {
         padding: 15px 20px;
@@ -375,7 +366,6 @@ nav a:hover {
     }
 }
 
-/* Smartphones (até 480px) */
 @media (max-width: 480px) {
     header {
         padding: 12px 15px;
@@ -475,7 +465,6 @@ nav a:hover {
     }
 }
 
-/* Smartphones pequenos (até 360px) */
 @media (max-width: 360px) {
     header {
         padding: 10px 12px;
@@ -558,7 +547,6 @@ nav a:hover {
     }
 }
 
-/* Modo paisagem em dispositivos móveis */
 @media (max-height: 500px) and (orientation: landscape) {
     header {
         padding: 8px 20px;
@@ -604,7 +592,6 @@ nav a:hover {
     }
 }
 
-/* Telas grandes (acima de 1200px) */
 @media (min-width: 1200px) {
     .cadastro-container {
         padding: 50px 40px;
