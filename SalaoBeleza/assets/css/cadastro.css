@@ -1,6 +1,23 @@
+html,
 body {
     margin: 0;
+    padding: 0;
     font-family: 'Lato', sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
     color: #fff;
     background-size: cover;
 }
@@ -15,23 +32,37 @@ body {
     object-fit: cover;
 }
 
-.logo{
-    width: 150px;
-    padding-top: 10px;
-}
-
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #5b3b3a;
-    padding: 0px 40px;
+    padding: 15px 40px;
+    width: 100%;
+    gap: 20px;
+}
+
+.logo {
+    width: 150px;
+    flex-shrink: 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 15px;
 }
 
 nav a {
-    margin-left: 30px;
     text-decoration: none;
     color: #fff;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.8;
 }
 
 .cadastro-container {
@@ -71,7 +102,7 @@ form {
     justify-content: center;
 }
 
-.selecionar{
+.selecionar {
     background: white;
     color: #5b3b3a;
     border: 1px solid #5b3b3a;
@@ -80,7 +111,7 @@ form {
     font-size: 16px;
 }
 
-select option{
+select option {
     background: #5b3b3a;
     color: white;
 }
@@ -162,308 +193,333 @@ button:hover {
     cursor: pointer;
 }
 
-
 .footer {
-  background-color: #000;
-  color: white;
-  text-align: center;
-  margin-top: auto; /* empurra para o fim da tela */
-  padding-bottom: 20px;
+    background-color: #000;
+    color: white;
+    text-align: center;
+    margin-top: auto;
+    padding-bottom: 20px;
 }
 
-
 .footer1 {
-  display: flex;
-  align-items: center;      
-  justify-content: space-between; /* espaço entre esquerda e centro */
-  flex-wrap: wrap; /* garante que se ajuste no mobile */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 40px;
 }
 
 .footer-left {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .contact {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 .footer-center {
-  flex: 1; /* ocupa o espaço central */
-  display: flex;
-  justify-content: center;
-  margin-left: -150px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .logorodape {
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  padding-top: 25px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
 }
 
 .footer-bottom {
-  margin-top: 15px;
-  font-size: 14px;
-  text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
 }
 
 
-@media screen and (max-width: 479px) {
+@media (max-width: 1024px) {
     header {
-        padding: 10px 15px;
-        flex-direction: column;
-        gap: 10px;
-        width: 93%;
+        padding: 15px 35px;
     }
 
-    .footer-center {
-    margin-left: -5px;
-}
-
-    .footer{
-        width: 102%;
-    }
-    
-    .logo {
-        width: 120px;
-        padding-top: 5px;
-    }
-    
     nav {
-        width: 100%;
-        text-align: center;
-    }
-    
-    nav a {
-        margin: 0 10px;
+        gap: 20px;
         font-size: 14px;
     }
-    
-    .cadastro-container {
-        margin: 20px auto;
-        padding: 20px 15px;
-    }
-    
-    .cadastro-container div h1 {
-        font-size: 28px;
-        text-align: center;
-    }
-    
-    .decorative-line {
-        padding-right: 0;
-        padding-bottom: 20px;
-    }
-    
-    .subtitulo {
-        font-size: 18px;
-        text-align: center;
-        margin: 10px 0 30px;
-    }
-    
-    form {
-        flex-direction: column;
-        gap: 0;
-        width: 100%;
-    }
-    
-    form input,
-    form select,
-    .senha-container {
-        width: 100%;
-    }
-    
-    .senha-container input {
-        width: calc(100% - 2px);
-    }
-    
-    small {
-        width: 100%;
-    }
-    
-    .form-footer {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    button {
-        margin-right: 0;
-        width: 100%;
-        padding: 12px;
-    }
-}
 
-@media screen and (min-width: 480px) and (max-width: 767px) {
-    header {
-        padding: 15px 20px;
-    }
-    
-    .logo {
-        width: 130px;
-    }
-    
-    nav a {
-        margin-left: 20px;
-        font-size: 15px;
-    }
-    
-    .cadastro-container {
-        margin: 30px auto;
-        padding: 30px 20px;
-    }
-    
-    .cadastro-container div h1 {
-        font-size: 35px;
-        text-align: center;
-    }
-    
-    .decorative-line {
-        padding-right: 0;
-        padding-bottom: 30px;
-    }
-    
-    .subtitulo {
-        font-size: 20px;
-        text-align: center;
-    }
-    
-    form {
-        flex-direction: column;
-        gap: 0;
-        max-width: 400px;
-    }
-    
-    form input,
-    form select,
-    .senha-container {
-        width: 100%;
-    }
-    
-    .senha-container input {
-        width: calc(100% - 20px);
-    }
-    
-    small {
-        width: 100%;
-    }
-    
-    .form-footer {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    button {
-        margin-right: 0;
-        width: 100%;
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    header {
-        padding: 15px 30px;
-    }
-    
-    .logo {
-        width: 140px;
-    }
-    
-    nav a {
-        margin-left: 25px;
-    }
-    
-    .cadastro-container {
-        margin: 40px auto;
-        padding: 35px 30px;
-        max-width: 700px;
-    }
-    
-    .cadastro-container div h1 {
-        font-size: 38px;
-        text-align: center;
-    }
-    
-    .decorative-line {
-        padding-right: 0;
-        padding-bottom: 35px;
-    }
-    
-    .subtitulo {
-        font-size: 21px;
-        text-align: center;
-    }
-    
-    form {
-        gap: 80px;
-        max-width: 600px;
-    }
-    
-    .form-footer {
-        justify-content: center;
-        gap: 30px;
-    }
-    
-    button {
-        margin-right: 0;
-    }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1199px) {
-    header {
-        padding: 0px 35px;
-    }
-    
     .cadastro-container {
         max-width: 900px;
     }
-    
+
     .decorative-line {
         padding-right: 400px;
     }
-    
+
     form {
         gap: 100px;
         max-width: 800px;
     }
-    
+
     button {
         margin-right: 30px;
     }
 }
 
-@media screen and (min-width: 1200px) and (max-width: 1439px) {
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .logo {
+        width: 130px;
+        order: 1;
+    }
+
+    nav {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .cadastro-container {
+        margin: 40px auto;
+        padding: 35px 30px;
+        max-width: 700px;
+    }
+
+    .cadastro-container div h1 {
+        font-size: 38px;
+        text-align: center;
+    }
+
+    .decorative-line {
+        padding-right: 0;
+        padding-bottom: 35px;
+    }
+
+    .subtitulo {
+        font-size: 21px;
+        text-align: center;
+    }
+
+    form {
+        gap: 80px;
+        max-width: 600px;
+    }
+
+    .form-footer {
+        justify-content: center;
+        gap: 30px;
+    }
+
+    button {
+        margin-right: 0;
+    }
+
+    .footer1 {
+        padding: 0 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 12px 15px;
+    }
+
+    .logo {
+        width: 110px;
+    }
+
+    nav {
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .cadastro-container {
+        margin: 30px auto;
+        padding: 30px 20px;
+    }
+
+    .cadastro-container div h1 {
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .decorative-line {
+        padding-right: 0;
+        padding-bottom: 30px;
+    }
+
+    .subtitulo {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    form {
+        flex-direction: column;
+        gap: 0;
+        max-width: 400px;
+    }
+
+    form input,
+    form select,
+    .senha-container {
+        width: 100%;
+    }
+
+    .senha-container input {
+        width: calc(100% - 20px);
+    }
+
+    small {
+        width: 100%;
+    }
+
+    .form-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    button {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .footer1 {
+        padding: 0 20px;
+    }
+
+    .footer-center {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 360px) {
+    header {
+        padding: 10px 12px;
+    }
+
+    .logo {
+        width: 95px;
+    }
+
+    nav {
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .cadastro-container {
+        margin: 20px auto;
+        padding: 20px 15px;
+    }
+
+    .cadastro-container div h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .decorative-line {
+        padding-right: 0;
+        padding-bottom: 20px;
+    }
+
+    .subtitulo {
+        font-size: 18px;
+        text-align: center;
+        margin: 10px 0 30px;
+    }
+
+    form {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+
+    form input,
+    form select,
+    .senha-container {
+        width: 100%;
+    }
+
+    .senha-container input {
+        width: calc(100% - 2px);
+    }
+
+    small {
+        width: 100%;
+    }
+
+    .form-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    button {
+        margin-right: 0;
+        width: 100%;
+        padding: 12px;
+    }
+
+    .footer1 {
+        padding: 0 15px;
+    }
+
+    .footer-center {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 1200px) {
     .decorative-line {
         padding-right: 500px;
     }
-    
+
     form {
         gap: 120px;
     }
-    
+
     button {
         margin-right: 40px;
     }
 }
 
-/* Desktop Large - 1440px e acima */
-@media screen and (min-width: 1440px) {
+@media (min-width: 1440px) {
     .decorative-line {
         padding-right: 700px;
     }
-    
+
     form {
         gap: 150px;
     }
-    
+
     button {
         margin-right: 50px;
     }

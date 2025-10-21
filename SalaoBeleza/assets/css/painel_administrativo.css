@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
@@ -11,7 +12,9 @@ html, body {
     box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -35,25 +38,32 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #5b3b3a;
-    padding: 0 40px;
+    padding: 15px 40px;
     width: 100%;
+    gap: 20px;
 }
 
 .logo {
     width: 150px;
-    padding-top: 10px;
+    flex-shrink: 0;
 }
 
 nav {
+    display: flex;
     align-items: center;
+    gap: 30px;
     font-size: 15px;
-    gap: 15px;
 }
 
 nav a {
-    margin-left: 30px;
     text-decoration: none;
     color: #fff;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.8;
 }
 
 .logoutcabeçalho {
@@ -65,6 +75,7 @@ nav a {
     border-radius: 5px;
     transition: 0.3s;
     background: transparent;
+    white-space: nowrap;
 }
 
 .logoutcabeçalho:hover {
@@ -257,7 +268,12 @@ main {
 
 @media (max-width: 1024px) {
     header {
-        padding: 0 30px;
+        padding: 15px 30px;
+    }
+
+    nav {
+        gap: 20px;
+        font-size: 14px;
     }
 
     .painel-glitter {
@@ -280,30 +296,33 @@ main {
 
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
         padding: 15px 20px;
-        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .logo {
         width: 130px;
+        order: 1;
     }
 
     nav {
+        order: 2;
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 15px;
+        margin-top: 15px;
     }
 
     nav a {
-        margin-left: 0;
+        font-size: 14px;
         padding: 8px 15px;
     }
 
     .logoutcabeçalho {
-        width: auto;
         padding: 10px 20px;
+        font-size: 14px;
     }
 
     .cadastro-container {
@@ -360,7 +379,6 @@ main {
     .footer-center {
         width: 100%;
         order: -1;
-        margin-left: 0;
     }
 
     .footer-left {
@@ -374,7 +392,7 @@ main {
 
 @media (max-width: 480px) {
     header {
-        padding: 15px;
+        padding: 12px 15px;
     }
 
     .logo {
@@ -382,20 +400,18 @@ main {
     }
 
     nav {
-        flex-direction: column;
-        gap: 8px;
+        gap: 12px;
+        margin-top: 12px;
     }
 
     nav a {
-        font-size: 14px;
+        font-size: 13px;
         padding: 6px 12px;
     }
 
     .logoutcabeçalho {
         padding: 8px 16px;
-        font-size: 14px;
-        width: 100%;
-        max-width: 200px;
+        font-size: 13px;
     }
 
     .cadastro-container {
@@ -483,21 +499,26 @@ main {
 
 @media (max-width: 360px) {
     header {
-        padding: 12px;
+        padding: 10px 12px;
     }
 
     .logo {
         width: 95px;
     }
 
+    nav {
+        gap: 10px;
+        margin-top: 10px;
+    }
+
     nav a {
-        font-size: 13px;
+        font-size: 12px;
         padding: 5px 10px;
     }
 
     .logoutcabeçalho {
         padding: 7px 14px;
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .cadastro-container {
@@ -576,6 +597,23 @@ main {
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
+    header {
+        padding: 8px 20px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    nav {
+        gap: 15px;
+        margin-top: 0;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
     main {
         padding: 30px 15px;
     }

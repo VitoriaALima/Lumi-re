@@ -1,4 +1,3 @@
-/* ===== BASE - DESKTOP FIRST ===== */
 html,
 body {
     margin: 0;
@@ -24,10 +23,6 @@ main {
     width: 100%;
 }
 
-.option {
-    padding: 200px;
-}
-
 .background {
     position: fixed;
     top: 0;
@@ -38,33 +33,56 @@ main {
     object-fit: cover;
 }
 
-/* ===== HEADER ===== */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #5b3b3a;
-    padding: 0 40px;
+    padding: 15px 40px;
     width: 100%;
+    gap: 20px;
 }
 
 .logo {
     width: 150px;
-    padding-top: 10px;
+    flex-shrink: 0;
 }
 
 nav {
-    font-size: 15px;
+    display: flex;
     align-items: center;
+    gap: 30px;
+    font-size: 15px;
 }
 
 nav a {
-    margin-left: 30px;
     text-decoration: none;
     color: #fff;
+    white-space: nowrap;
+    transition: opacity 0.3s;
 }
 
-/* ===== CONTEÚDO PRINCIPAL ===== */
+nav a:hover {
+    opacity: 0.8;
+}
+
+.logoutcabecalho {
+    color: white;
+    padding: 10px 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    background: transparent;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+.logoutcabecalho:hover {
+    background: white;
+    color: #5b3b3a;
+    border-color: white;
+}
+
 .cadastro-container {
     padding: 40px;
     display: flex;
@@ -95,7 +113,6 @@ nav a {
     color: #fff;
 }
 
-/* ===== WRAPPER DA TABELA COM SCROLL ===== */
 .tabela-wrapper {
     width: 80%;
     max-width: 1200px;
@@ -108,7 +125,6 @@ nav a {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== TABELA ===== */
 .tabela-servicos {
     width: 100%;
     border-collapse: collapse;
@@ -137,7 +153,6 @@ nav a {
     cursor: pointer;
 }
 
-/* ===== BOTÕES ===== */
 .botoes-acao {
     display: flex;
     justify-content: center;
@@ -157,20 +172,6 @@ nav a {
 }
 
 .btn-acao:hover {
-    background: white;
-    color: #5b3b3a;
-}
-
-.logoutcabecalho {
-    color: white;
-    padding: 12px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
-    background: transparent;
-}
-
-.logoutcabecalho:hover {
     background: white;
     color: #5b3b3a;
 }
@@ -202,7 +203,6 @@ nav a {
     filter: invert(1);
 }
 
-/* ===== FOOTER ===== */
 .footer {
     background-color: #000;
     color: white;
@@ -256,12 +256,15 @@ nav a {
     text-align: center;
 }
 
-/* ===== RESPONSIVIDADE ===== */
 
-/* Tablets e telas médias (até 1024px) */
 @media (max-width: 1024px) {
     header {
-        padding: 0 30px;
+        padding: 15px 30px;
+    }
+
+    nav {
+        gap: 20px;
+        font-size: 14px;
     }
 
     .tabela-wrapper {
@@ -273,28 +276,34 @@ nav a {
     }
 }
 
-/* Tablets menores (até 768px) */
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
         padding: 15px 20px;
-        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .logo {
         width: 130px;
+        order: 1;
     }
 
     nav {
+        order: 2;
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
         gap: 15px;
+        margin-top: 15px;
     }
 
     nav a {
-        margin-left: 0;
-        font-size: 15px;
+        font-size: 14px;
+    }
+
+    .logoutcabecalho {
+        padding: 8px 15px;
+        font-size: 14px;
     }
 
     .cadastro-container {
@@ -358,10 +367,9 @@ nav a {
     }
 }
 
-/* Smartphones (até 480px) */
 @media (max-width: 480px) {
     header {
-        padding: 15px;
+        padding: 12px 15px;
     }
 
     .logo {
@@ -369,12 +377,18 @@ nav a {
     }
 
     nav {
-        gap: 10px;
+        gap: 12px;
+        margin-top: 12px;
     }
 
     nav a {
-        font-size: 14px;
-        padding: 5px 10px;
+        font-size: 13px;
+        padding: 5px 8px;
+    }
+
+    .logoutcabecalho {
+        padding: 6px 12px;
+        font-size: 13px;
     }
 
     .cadastro-container {
@@ -415,8 +429,7 @@ nav a {
     }
 
     .btn-acao,
-    .btn-logout,
-    .logoutcabecalho {
+    .btn-logout {
         padding: 10px 15px;
         font-size: 14px;
     }
@@ -453,19 +466,28 @@ nav a {
     }
 }
 
-/* Smartphones pequenos (até 360px) */
 @media (max-width: 360px) {
     header {
-        padding: 12px;
+        padding: 10px 12px;
     }
 
     .logo {
         width: 95px;
     }
 
+    nav {
+        gap: 10px;
+        margin-top: 10px;
+    }
+
     nav a {
-        font-size: 13px;
-        padding: 5px 8px;
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+
+    .logoutcabecalho {
+        padding: 5px 10px;
+        font-size: 12px;
     }
 
     .cadastro-container {
@@ -500,8 +522,7 @@ nav a {
     }
 
     .btn-acao,
-    .btn-logout,
-    .logoutcabecalho {
+    .btn-logout {
         padding: 9px 12px;
         font-size: 13px;
     }
@@ -528,8 +549,24 @@ nav a {
     }
 }
 
-/* Modo paisagem em dispositivos móveis */
 @media (max-height: 500px) and (orientation: landscape) {
+    header {
+        padding: 8px 20px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    nav {
+        gap: 15px;
+        margin-top: 0;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
     .cadastro-container {
         padding: 20px 15px;
     }
@@ -548,13 +585,5 @@ nav a {
 
     .tabela-wrapper {
         max-height: 300px;
-    }
-
-    header {
-        padding: 10px 20px;
-    }
-
-    .logo {
-        width: 100px;
     }
 }
