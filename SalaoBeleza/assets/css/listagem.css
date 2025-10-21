@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
@@ -12,9 +11,7 @@ body {
     box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
@@ -130,7 +127,7 @@ nav a:hover {
     overflow: hidden;
 }
 
-.tabela-servicos th,
+.tabela-servicos th, 
 .tabela-servicos td {
     border: 1px solid #ddd;
     padding: 12px;
@@ -329,7 +326,7 @@ nav a:hover {
         width: 95%;
     }
 
-    .tabela-servicos th,
+    .tabela-servicos th, 
     .tabela-servicos td {
         padding: 10px 8px;
         font-size: 14px;
@@ -411,7 +408,7 @@ nav a:hover {
         font-size: 12px;
     }
 
-    .tabela-servicos th,
+    .tabela-servicos th, 
     .tabela-servicos td {
         padding: 8px 5px;
         font-size: 12px;
@@ -506,11 +503,11 @@ nav a:hover {
         font-size: 11px;
     }
 
-    .tabela-servicos th,
+    .tabela-servicos th, 
     .tabela-servicos td {
         padding: 6px 4px;
         font-size: 9px;
-
+        
     }
 
     .tabela-servicos td img {

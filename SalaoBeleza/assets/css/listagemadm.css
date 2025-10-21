@@ -43,9 +43,9 @@ header {
     overflow-x: auto;
     overflow-y: hidden;
     flex-wrap: nowrap;
-    gap: 20px;
     min-height: 60px;
     max-height: 70px;
+    gap: 20px;
 }
 
 header::-webkit-scrollbar {
@@ -74,8 +74,8 @@ header::-webkit-scrollbar-thumb:hover {
 nav {
     display: flex;
     align-items: center;
-    flex-shrink: 0;
     gap: 25px;
+    flex-shrink: 0;
 }
 
 nav a {
@@ -180,8 +180,8 @@ nav a:hover {
     border-radius: 5px;
     transition: 0.3s;
     background: transparent;
-    flex-shrink: 0;
     white-space: nowrap;
+    flex-shrink: 0;
     font-size: 14px;
 }
 
@@ -225,6 +225,11 @@ nav a:hover {
     padding-bottom: 20px;
     width: 100%;
 }
+
+
+ .tabela-wrapper{
+    width: 111%;
+ }
 
 .footer1 {
     display: flex;
@@ -510,6 +515,7 @@ nav a:hover {
     .tabela-servicos td {
         padding: 6px 4px;
         font-size: 9px;
+
     }
 
     .tabela-servicos td img {
