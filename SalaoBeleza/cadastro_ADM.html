@@ -101,7 +101,6 @@
             const email = document.getElementById("email").value.trim();
             const telefone = document.getElementById("telefone").value.trim();
             const senha = document.getElementById("senha").value;
-            const categoria = document.getElementById("categoria").value;
 
             if (nome.length < 3) {
                 Swal.fire("Atenção", "O nome deve ter pelo menos 3 caracteres.", "warning");
@@ -126,13 +125,8 @@
                 return;
             }
 
-            if (categoria === "") {
-                Swal.fire("Atenção", "Selecione uma categoria.", "warning");
-                return;
-            }
-
             // 🔹 Dados prontos para enviar
-            const dados = { nome, email, telefone, senha, categoria, tipo: "adm" };
+            const dados = { nome, email, telefone, senha, tipo: "adm" };
 
             try {
                 const response = await fetch("http://192.168.1.140:5000/cadastro", {
@@ -214,7 +208,7 @@
                                     showConfirmButton: false,
                                     timer: 1200
                                 }).then(() => {
-                                    window.location.href = 'login.html';
+                                    window.location.href = 'listagem_adm.html';
                                 });
                             } catch (err) {
                                 console.error('Erro ao efetuar logout:', err);
