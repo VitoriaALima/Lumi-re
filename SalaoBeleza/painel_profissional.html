@@ -35,7 +35,7 @@
   <main>
     <section class="cadastro-container">
       <div class="decorative-line">
-        <h1>Bem-vindo(a) <span>Nome!</span></h1>
+        <h1>Bem-vindo(a) <span id="nome-usuario">Nome!</span></h1>
         <p class="subtitulo">Explore seus atendimentos visualize sua agenda de horários</p>
       </div>
 
@@ -47,14 +47,17 @@
             <th>DESCRIÇÃO</th>
             <th>HORÁRIO</th>
             <th>DURAÇÃO</th>
+            <th>PROFISSIONAL</th>
+            <th>VALOR</th>
             <th>AÇÃO</th>
           </tr>
         </thead>
         <tbody id="tabela-body">
-
+          <tr id="loading-row">
+            <td colspan="7" style="text-align: center; padding: 20px;">Carregando agendamentos...</td>
+          </tr>
         </tbody>
       </table>
-
 
       <div class="botoes-acao">
         <a href="index.cadastroservico.html" style="text-decoration: none; font-size: 13.5px;" class="btn-acao">+
@@ -93,50 +96,171 @@
   </footer>
 
   <script>
+    // Configuração da URL da API - AJUSTE CONFORME SEU AMBIENTE
+    const API_URL = 'http://localhost:5000'; // ou sua URL de produção
+
     const tabela = document.getElementById("tabela-body");
 
-
-    // Função para adicionar linha manual (exemplo)
-    function adicionarServico(data, descricao, horario, duracao) {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-      <td contenteditable="false">${data}</td>
-      <td contenteditable="false">${descricao}</td>
-      <td contenteditable="false">${horario}</td>
-      <td contenteditable="false">${duracao}</td>
-      <td><img src="assets/img/editar.png" class="editar"></td>
-    `;
-      tabela.appendChild(row);
+    // Função para formatar data e hora
+    function formatarDataHora(dataHoraStr) {
+      const data = new Date(dataHoraStr);
+      const dataFormatada = data.toLocaleDateString('pt-BR');
+      const horaFormatada = data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      return { data: dataFormatada, hora: horaFormatada };
     }
 
-    // Exemplo de teste
-    adicionarServico("30/09/2025", "Corte de cabelo", "14:00", "2 horas");
+    // Função para formatar valor em reais
+    function formatarValor(valor) {
+      return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
 
-    // Tornar editável ao clicar no ícone
-    tabela.addEventListener("click", (e) => {
-      if (e.target.classList.contains("editar")) {
-        const row = e.target.closest("tr");
-        const editando = row.getAttribute("data-editando") === "true";
+    // Função para cancelar agendamento
+    async function cancelarAgendamento(idAgenda, btnElement) {
+      const result = await Swal.fire({
+        title: 'Cancelar agendamento?',
+        text: 'Esta ação não poderá ser desfeita!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'SIM, CANCELAR',
+        cancelButtonText: 'NÃO',
+        confirmButtonColor: '#d32f2f',
+        reverseButtons: true
+      });
 
-        if (!editando) {
-          // Ativar edição
-          row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = "true");
-          e.target.src = "assets/img/salvar.png";
-          row.setAttribute("data-editando", "true");
-        } else {
-          // Salvar edição
-          row.querySelectorAll("td[contenteditable]").forEach(td => td.contentEditable = "false");
-          e.target.src = "assets/img/editar.png";
-          row.setAttribute("data-editando", "false");
-
-          const valores = Array.from(row.children).slice(0, 4).map(td => td.innerText);
-          console.log("Salvo:", valores);
-        }
+      if (!result.isConfirmed) {
+        return;
       }
-    });
-  </script>
-  <script>
+
+      // Desabilita o botão enquanto processa
+      btnElement.disabled = true;
+      btnElement.textContent = 'Cancelando...';
+
+      try {
+        const response = await fetch(`${API_URL}/agenda/${idAgenda}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            // Se sua API usa autenticação por token, adicione:
+            // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || `Erro na requisição: ${response.status}`);
+        }
+
+        await Swal.fire({
+          icon: 'success',
+          title: 'Agendamento cancelado!',
+          text: 'O agendamento foi removido com sucesso.',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        // Recarrega a lista de agendamentos
+        carregarAgendamentos();
+
+      } catch (error) {
+        console.error('Erro ao cancelar agendamento:', error);
+        
+        btnElement.disabled = false;
+        btnElement.textContent = 'CANCELAR';
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao cancelar',
+          text: error.message || 'Não foi possível cancelar o agendamento. Tente novamente.',
+          confirmButtonText: 'OK'
+        });
+      }
+    }
+
+    // Função para carregar agendamentos da API
+    async function carregarAgendamentos() {
+      try {
+        const response = await fetch(`${API_URL}/agenda`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            // Se sua API usa autenticação por token, adicione:
+            // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erro na requisição: ${response.status}`);
+        }
+
+        const agendamentos = await response.json();
+
+        // Limpa a tabela
+        tabela.innerHTML = '';
+
+        if (agendamentos.length === 0) {
+          tabela.innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 20px;">
+                Nenhum agendamento futuro encontrado.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        // Adiciona cada agendamento na tabela
+        agendamentos.forEach(agendamento => {
+          const { data, hora } = formatarDataHora(agendamento.data_hora);
+          const valorFormatado = formatarValor(agendamento.valor);
+
+          const row = document.createElement("tr");
+          row.setAttribute('data-id', agendamento.id_agenda);
+          row.innerHTML = `
+            <td>${data}</td>
+            <td>${agendamento.servico}</td>
+            <td>${hora}</td>
+            <td>${agendamento.duracao}</td>
+            <td>${agendamento.profissional}</td>
+            <td>${valorFormatado}</td>
+            <td>
+              <button class="btn-cancelar" onclick="cancelarAgendamento(${agendamento.id_agenda}, this)">
+                CANCELAR
+              </button>
+            </td>
+          `;
+          tabela.appendChild(row);
+        });
+
+        console.log(`${agendamentos.length} agendamento(s) carregado(s) com sucesso.`);
+
+      } catch (error) {
+        console.error('Erro ao carregar agendamentos:', error);
+        tabela.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 20px; color: #d32f2f;">
+              Erro ao carregar agendamentos. Por favor, tente novamente.
+            </td>
+          </tr>
+        `;
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao carregar dados',
+          text: 'Não foi possível carregar os agendamentos. Verifique sua conexão.',
+          confirmButtonText: 'Tentar novamente'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            carregarAgendamentos();
+          }
+        });
+      }
+    }
+
+    // Carregar agendamentos ao iniciar a página
     document.addEventListener('DOMContentLoaded', function () {
+      carregarAgendamentos();
+
+      // Botão de logout
       const logoutButtons = document.querySelectorAll('.btn-logout, .logoutcabecalho');
 
       if (!logoutButtons.length) {
@@ -180,8 +304,10 @@
         });
       });
     });
-  </script>
 
+    // Opcional: Atualizar agendamentos a cada 30 segundos
+    setInterval(carregarAgendamentos, 30000);
+  </script>
 
 </body>
 
