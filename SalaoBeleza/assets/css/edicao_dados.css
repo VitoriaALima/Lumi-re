@@ -449,7 +449,7 @@ button:hover {
 
 @media screen and (min-width: 1024px) and (max-width: 1199px) {
     header {
-        padding: 0px 35px;
+        padding: 3px 30px;
     }
 
     .cadastro-container {
