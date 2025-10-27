@@ -251,7 +251,11 @@ button:hover {
 
 
 @media (max-width: 1024px) {
-    
+    header {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
 
     nav {
         gap: 20px;
@@ -260,6 +264,7 @@ button:hover {
 
     .cadastro-container {
         max-width: 900px;
+        overflow-x: auto;
     }
 
     .decorative-line {
@@ -279,6 +284,19 @@ button:hover {
 @media (max-width: 768px) {
     header {
         padding: 15px 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    header::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    header::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
     }
 
     .logo {
@@ -298,6 +316,8 @@ button:hover {
         margin: 40px auto;
         padding: 35px 30px;
         max-width: 700px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .cadastro-container div h1 {
@@ -318,6 +338,7 @@ button:hover {
     form {
         gap: 80px;
         max-width: 600px;
+        overflow-x: auto;
     }
 
     .form-footer {
@@ -337,6 +358,19 @@ button:hover {
 @media (max-width: 480px) {
     header {
         padding: 12px 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    header::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    header::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 3px;
     }
 
     .logo {
@@ -354,6 +388,7 @@ button:hover {
     .cadastro-container {
         margin: 30px auto;
         padding: 30px 20px;
+        overflow-x: auto;
     }
 
     .cadastro-container div h1 {
@@ -375,6 +410,7 @@ button:hover {
         flex-direction: column;
         gap: 0;
         max-width: 400px;
+        overflow-x: visible;
     }
 
     form input,
@@ -413,7 +449,20 @@ button:hover {
 
 @media (max-width: 360px) {
     header {
-        padding: 10px 12px;
+        padding: 36px 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    header::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    header::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 2px;
     }
 
     .logo {
@@ -431,6 +480,7 @@ button:hover {
     .cadastro-container {
         margin: 20px auto;
         padding: 20px 15px;
+        overflow-x: auto;
     }
 
     .cadastro-container div h1 {
@@ -453,6 +503,7 @@ button:hover {
         flex-direction: column;
         gap: 0;
         width: 100%;
+        overflow-x: visible;
     }
 
     form input,
