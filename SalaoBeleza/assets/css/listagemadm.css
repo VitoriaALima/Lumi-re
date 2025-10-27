@@ -120,11 +120,34 @@ nav a:hover {
     color: #fff;
 }
 
-.tabela-servicos {
-    width: 80%;
-    max-width: 1200px;
-    border-collapse: collapse;
+.tabela-wrapper {
+    width: 100%;
+    overflow-x: auto;
     margin: 0 auto 40px;
+}
+
+.tabela-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.tabela-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.tabela-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(91, 59, 58, 0.5);
+    border-radius: 4px;
+}
+
+.tabela-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(91, 59, 58, 0.7);
+}
+
+.tabela-servicos {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
     background: #fff;
     border-radius: 8px;
     overflow: hidden;
@@ -226,11 +249,6 @@ nav a:hover {
     width: 100%;
 }
 
-
- .tabela-wrapper{
-    width: 111%;
- }
-
 .footer1 {
     display: flex;
     align-items: center;
@@ -281,8 +299,9 @@ nav a:hover {
         padding: 3px 30px;
     }
 
-    .tabela-servicos {
-        width: 90%;
+    .tabela-wrapper {
+        width: 95%;
+        margin: 0 auto 40px;
     }
 
     .footer1 {
@@ -330,8 +349,9 @@ nav a:hover {
         padding-bottom: 30px;
     }
 
-    .tabela-servicos {
-        width: 95%;
+    .tabela-wrapper {
+        width: 100%;
+        padding: 0 10px;
     }
 
     .tabela-servicos th,
@@ -411,8 +431,12 @@ nav a:hover {
         padding-bottom: 25px;
     }
 
-    .tabela-servicos {
+    .tabela-wrapper {
         width: 100%;
+        padding: 0 5px;
+    }
+
+    .tabela-servicos {
         font-size: 12px;
     }
 
@@ -507,6 +531,11 @@ nav a:hover {
         padding-bottom: 20px;
     }
 
+    .tabela-wrapper {
+        width: 100%;
+        padding: 0 5px;
+    }
+
     .tabela-servicos {
         font-size: 11px;
     }
@@ -515,7 +544,6 @@ nav a:hover {
     .tabela-servicos td {
         padding: 6px 4px;
         font-size: 9px;
-
     }
 
     .tabela-servicos td img {
