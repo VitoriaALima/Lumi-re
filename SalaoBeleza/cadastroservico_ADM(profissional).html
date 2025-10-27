@@ -24,12 +24,11 @@
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
             <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
-            <a href="edicao_dados_ADM.html">EDIÇÃO DE DADOS</a>
-            <a href="cadastroservico_ADM(profissional).html">CADASTRAR SERVIÇOS</a>
-            <a href="index.cadastroservico_ADM.html">CADASTRAR AGENDAMENTO</a>
-            <a href="painel_profissional_ADM.html">PAINEL PROFISSIONAL</a>
-            <a href="painel_administrativo.html">PAINEL ADMINISTRATIVO</a>
-            <a href="listagem_adm.html">LISTAGEM</a>
+            <a href="edicao_dados.html">EDIÇÃO DE DADOS</a>
+            <a href="cadastroservico.html">CADASTRAR SERVIÇOS</a>
+            <a href="index.cadastroservico.html">CADASTRAR AGENDAMENTO</a>
+            <a href="painel_profissional.html">PAINEL PROFISSIONAL</a>
+            <a href="listagem.html">LISTAGEM</a>
         </nav>
     </header>
 
@@ -96,7 +95,6 @@
             const duracao_horas = document.getElementById("duracao_horas").value;
 
 
-            // 🔹 Dados prontos para enviar
             const dados = { descricao, valor, duracao_horas };
 
             try {
@@ -115,7 +113,7 @@
                         title: "Sucesso!",
                         text: result.message
                     }).then(() => {
-                        window.location.href = "index.cadastroservico_ADM.html"; //redireciona
+                        window.location.href = "index.cadastroservico.html"; //redireciona
                     });
                 } else {
                     const error = await response.json();
@@ -134,7 +132,7 @@
             }
         });
     </script>
-
+   
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const logoutBtn = document.querySelector('.btn-logout');

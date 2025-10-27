@@ -24,12 +24,11 @@
     <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
     <nav>
       <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
-      <a href="edicao_dados_ADM.html">EDIÇÃO DE DADOS</a>
-      <a href="cadastroservico_ADM(profissional).html">CADASTRAR SERVIÇOS</a>
-      <a href="index.cadastroservico_ADM.html">CADASTRAR AGENDAMENTO</a>
-      <a href="painel_profissional_ADM.html">PAINEL PROFISSIONAL</a>
-      <a href="painel_administrativo.html">PAINEL ADMINISTRATIVO</a>
-      <a href="listagem_adm.html">LISTAGEM</a>
+      <a href="edicao_dados.html">EDIÇÃO DE DADOS</a>
+      <a href="cadastroservico.html">CADASTRAR SERVIÇOS</a>
+      <a href="index.cadastroservico.html">CADASTRAR AGENDAMENTO</a>
+      <a href="painel_profissional.html">PAINEL PROFISSIONAL</a>
+      <a href="listagem.html">LISTAGEM</a>
     </nav>
   </header>
 
@@ -50,7 +49,7 @@
 
       <div class="form-group">
         <label for="data_hora">DATA E HORÁRIO</label>
-        <input type="datetime" id="data_hora" required>
+        <input type="datetime-local" id="data_hora" required>
       </div>
 
 
@@ -89,19 +88,19 @@
     document.querySelector(".form-cadastro").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const descricao = document.getElementById("id_servico").value;
-      const data_hora = document.getElementById("data_hora").value;
+      const dataHoraInput = document.getElementById("data_hora").value; // '2025-12-12T12:00'
 
+      const partes = dataHoraInput.split('T'); // ['2025-12-12', '12:00']
+      const [ano, mes, dia] = partes[0].split('-');
+      const hora = partes[1];
 
-      // 🔹 Dados prontos para enviar
-      const dados = { id_servico, data_hora, id_profissional };
+      const data_hora = `${dia}-${mes}-${ano} ${hora}:00`;
+
 
       try {
-        const response = await fetch("http://10.92.3.132:5000/cadastro", {
+        const response = await fetch("http://10.92.3.132:5000/agenda", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(dados)
         });
 
@@ -112,7 +111,7 @@
             title: "Sucesso!",
             text: result.message
           }).then(() => {
-            window.location.href = "painel_profissional.html"; // 🔹 redireciona
+            window.location.href = "painel_profissional.html";
           });
         } else {
           const error = await response.json();
@@ -134,32 +133,46 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const token = localStorage.getItem("token");
+      const select = document.getElementById("id_servico");
 
       try {
-        const response = await fetch("http://10.92.3.132:5000/servicos", {
+        const response = await fetch("http://10.92.3.132:5000/servico", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`
           }
         });
 
-        if (!response.ok) {
-          throw new Error("Erro ao buscar serviços");
-        }
+        if (!response.ok) throw new Error("Erro ao buscar serviços");
 
         const servicos = await response.json();
-        const select = document.getElementById("id_servico"); // corrigido
-
-        // Limpa e adiciona a opção inicial
         select.innerHTML = `<option value="">Selecione o serviço ></option>`;
 
-        // Adiciona os serviços cadastrados
+        if (!servicos.length) {
+          select.innerHTML += `<option disabled>Nenhum serviço cadastrado</option>`;
+          return;
+        }
+
         servicos.forEach(s => {
+          // Se vier número decimal
+          let duracao = s.duracao_horas;
+          if (duracao !== null && !isNaN(duracao)) {
+            const horas = Math.floor(duracao);
+            const minutos = Math.round((duracao - horas) * 60);
+            duracao = `${String(horas).padStart(2, "0")}:${String(minutos).padStart(2, "0")}`;
+          } else if (typeof duracao === "string") {
+            // caso venha algo tipo "01:30:00"
+            duracao = duracao.substring(0, 5);
+          } else {
+            duracao = "00:00";
+          }
+
           const option = document.createElement("option");
           option.value = s.id_servico;
-          option.textContent = `${s.descricao} - R$${s.valor} - ${s.duracao_horas}`;
+          option.textContent = `${s.descricao} — R$${s.valor.toFixed(2)} — ${duracao}`;
           select.appendChild(option);
         });
+
       } catch (error) {
         console.error("Erro ao carregar serviços:", error);
         Swal.fire({
@@ -170,6 +183,7 @@
       }
     });
   </script>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
