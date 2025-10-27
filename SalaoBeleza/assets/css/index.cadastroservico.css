@@ -235,7 +235,7 @@ select:focus {
 
 @media (max-width: 1024px) {
   header {
-    padding: 20px 30px;
+    padding: 3px 30px;
   }
 
   .decorative-line {

@@ -255,6 +255,7 @@ button:hover {
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+        padding: 3px 30px;
     }
 
     nav {
