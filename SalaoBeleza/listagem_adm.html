@@ -60,6 +60,7 @@
               <th>TELEFONE</th>
               <th>ATIVIDADE</th>
               <th>TIPO</th>
+              <th>CATEGORIA</th>
               <th>EDITAR</th>
 
             </tr>
@@ -112,159 +113,175 @@
   </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const tabela = document.getElementById("tabela-body");
-  const token = localStorage.getItem("token");
+  document.addEventListener("DOMContentLoaded", async () => {
+    const tabela = document.getElementById("tabela-body");
+    const token = localStorage.getItem("token");
 
-  try {
-    const response = await fetch("http://10.92.3.132:5000/cadastro", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error("Erro ao buscar usuários.");
-    }
-
-    const usuarios = await response.json();
-    tabela.innerHTML = "";
-
-    if (!usuarios.length || usuarios.message) {
-      tabela.innerHTML = `<tr><td colspan="6" style="text-align:center;">Nenhum usuário encontrado</td></tr>`;
-      return;
-    }
-
-    usuarios.forEach(user => {
-      const atividade = user.ativo ? "Ativo" : "Inativo";
-      const tipoOptions = [
-        { value: 'profissional', label: 'Profissional' },
-        { value: 'adm', label: 'Administrador' },
-        { value: 'usuario', label: 'Usuário' }
-      ];
-
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td class="editable" contenteditable="false">${user.nome}</td>
-        <td class="editable" contenteditable="false">${user.email}</td>
-        <td class="editable" contenteditable="false">${user.telefone || "-"}</td>
-        <td class="editable" contenteditable="false">${atividade}</td>
-        <td class="editable" contenteditable="false">${user.tipo}</td>
-        <td>
-          <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id}" data-editing="false">
-        </td>
-      `;
-
-      const editarBtn = row.querySelector(".editar");
-
-      editarBtn.addEventListener("click", async (e) => {
-        const img = e.target;
-        const isEditing = img.dataset.editing === "true";
-
-        if (!isEditing) {
-          // Ativar edição
-          row.querySelectorAll(".editable").forEach((td, index) => {
-            if (index === 3) {
-              // Campo "Atividade" vira um select
-              const currentValue = td.innerText.trim();
-              td.innerHTML = `
-                <select class="select-atividade" style="padding: 3px 10px; border-radius: 4px; border: 2px solid #ccc; font-size: 14px;">
-                  <option value="true" ${currentValue.toLowerCase() === "ativo" ? "selected" : ""}>Ativo</option>
-                  <option value="false" ${currentValue.toLowerCase() === "inativo" ? "selected" : ""}>Inativo</option>
-                </select>
-              `;
-            } else if (index === 4) {
-              // Campo "Tipo" vira um select
-              const currentTipo = td.innerText.trim().toLowerCase();
-              td.innerHTML = `
-                <select class="select-tipo" style="padding: 3px 10px; border-radius: 4px; border: 2px solid #ccc; font-size: 14px;">
-                  ${tipoOptions.map(option => `
-                    <option value="${option.value}" ${option.value === currentTipo ? "selected" : ""}>${option.label}</option>
-                  `).join('')}
-                </select>
-              `;
-            } else {
-              td.contentEditable = true;
-            }
-          });
-
-          img.src = "assets/img/salvar.png"; // Ícone de salvar
-          img.dataset.editing = "true";
-        } else {
-          // Salvar alterações
-          try {
-            const nome = row.children[0].innerText.trim();
-            const email = row.children[1].innerText.trim();
-            const telefone = row.children[2].innerText.trim();
-            const selectAtivo = row.querySelector(".select-atividade");
-            const ativo = selectAtivo ? selectAtivo.value === "true" : false;
-            const selectTipo = row.querySelector(".select-tipo");
-            const tipo = selectTipo ? selectTipo.value : user.tipo;
-            const id = img.dataset.id;
-
-            const payload = {
-              nome: nome,
-              email: email,
-              telefone: telefone,
-              tipo: tipo,
-              ativo: ativo
-            };
-
-            const res = await fetch(`http://10.92.3.132:5000/cadastro/${id}`, {
-              method: "PUT",
-              headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(payload)
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-              Swal.fire({
-                icon: "success",
-                title: "Usuário atualizado!",
-                timer: 1200,
-                showConfirmButton: false
-              });
-
-              // Atualizar valores visuais
-              row.children[0].innerText = nome;
-              row.children[1].innerText = email;
-              row.children[2].innerText = telefone;
-              row.children[3].innerText = ativo ? "Ativo" : "Inativo";
-              row.children[4].innerText = tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            } else {
-              Swal.fire("Erro", data.message || data.error || "Falha ao atualizar.", "error");
-            }
-
-            // Desativar edição
-            row.querySelectorAll(".editable").forEach(td => td.contentEditable = false);
-            img.src = "assets/img/editar.png";
-            img.dataset.editing = "false";
-
-          } catch (error) {
-            console.error("Erro ao salvar:", error);
-            Swal.fire("Erro", "Falha na comunicação com o servidor.", "error");
-          }
+    try {
+      const response = await fetch("http://10.92.3.132:5000/cadastro", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
         }
       });
 
-      tabela.appendChild(row);
-    });
+      if (!response.ok) {
+        throw new Error("Erro ao buscar usuários.");
+      }
 
-  } catch (error) {
-    console.error("Erro:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Erro ao carregar usuários",
-      text: error.message
-    });
-  }
-});
+      const usuarios = await response.json();
+      tabela.innerHTML = "";
+
+      if (!usuarios.length || usuarios.message) {
+        tabela.innerHTML = `<tr><td colspan="7" style="text-align:center;">Nenhum usuário encontrado</td></tr>`; <!-- Alteração para 7 colunas -->
+        return;
+      }
+
+      usuarios.forEach(user => {
+        const atividade = user.ativo ? "Ativo" : "Inativo";
+        const tipoOptions = [
+          { value: 'profissional', label: 'Profissional' },
+          { value: 'adm', label: 'Administrador' },
+          { value: 'usuario', label: 'Usuário' }
+        ];
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td class="editable" contenteditable="false">${user.nome}</td>
+          <td class="editable" contenteditable="false">${user.email}</td>
+          <td class="editable" contenteditable="false">${user.telefone || "-"}</td>
+          <td class="editable" contenteditable="false">${atividade}</td>
+          <td class="editable" contenteditable="false">${user.tipo}</td>
+          <td class="editable" contenteditable="false">${user.categoria}</td> <!-- Adicionando a categoria -->
+          <td>
+            <img src="assets/img/editar.png" class="editar" style="cursor:pointer;" data-id="${user.id}" data-editing="false">
+          </td>
+        `;
+
+        const editarBtn = row.querySelector(".editar");
+
+        editarBtn.addEventListener("click", async (e) => {
+          const img = e.target;
+          const isEditing = img.dataset.editing === "true";
+
+          if (!isEditing) {
+            // Ativar edição
+            row.querySelectorAll(".editable").forEach((td, index) => {
+              if (index === 3) {
+                // Campo "Atividade" vira um select
+                const currentValue = td.innerText.trim();
+                td.innerHTML = ` 
+                  <select class="select-atividade" style="padding: 3px 10px; border-radius: 4px; border: 2px solid #ccc; font-size: 14px;">
+                    <option value="true" ${currentValue.toLowerCase() === "ativo" ? "selected" : ""}>Ativo</option>
+                    <option value="false" ${currentValue.toLowerCase() === "inativo" ? "selected" : ""}>Inativo</option>
+                  </select>
+                `;
+              } else if (index === 4) {
+                // Campo "Tipo" vira um select
+                const currentTipo = td.innerText.trim().toLowerCase();
+                td.innerHTML = ` 
+                  <select class="select-tipo" style="padding: 3px 10px; border-radius: 4px; border: 2px solid #ccc; font-size: 14px;">
+                    ${tipoOptions.map(option => ` 
+                      <option value="${option.value}" ${option.value === currentTipo ? "selected" : ""}>${option.label}</option>
+                    `).join('')}
+                  </select>
+                `;
+              } else if (index === 5) { 
+                // Campo "Categoria" vira um select com categorias definidas
+                const currentCategoria = td.innerText.trim();
+                td.innerHTML = `
+                  <select class="select-categoria" style="padding: 3px 10px; border-radius: 4px; border: 2px solid #ccc; font-size: 14px;">
+                    <option value="Cabelereiro(a)" ${currentCategoria === "Cabelereiro(a)" ? "selected" : ""}>Cabeleireiro(a)</option>
+                    <option value="Manicure e Pedicure" ${currentCategoria === "Manicure e Pedicure" ? "selected" : ""}>Manicure e Pedicure</option>
+                    <option value="Maquiador(a)" ${currentCategoria === "Maquiador(a)" ? "selected" : ""}>Maquiador(a)</option>
+                    <option value="Designer de sobrancelhas" ${currentCategoria === "Designer de sobrancelhas" ? "selected" : ""}>Designer de sobrancelhas</option>
+                  </select>
+                `;
+              } else {
+                td.contentEditable = true;
+              }
+            });
+
+            img.src = "assets/img/salvar.png"; // Ícone de salvar
+            img.dataset.editing = "true";
+          } else {
+            // Salvar alterações
+            try {
+              const nome = row.children[0].innerText.trim();
+              const email = row.children[1].innerText.trim();
+              const telefone = row.children[2].innerText.trim();
+              const selectAtivo = row.querySelector(".select-atividade");
+              const ativo = selectAtivo ? selectAtivo.value === "true" : false;
+              const selectTipo = row.querySelector(".select-tipo");
+              const tipo = selectTipo ? selectTipo.value : user.tipo;
+              const selectCategoria = row.querySelector(".select-categoria");
+              const categoria = selectCategoria ? selectCategoria.value : user.categoria;
+              const id = img.dataset.id;
+
+              const payload = {
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                tipo: tipo,
+                ativo: ativo,
+                categoria: categoria // Categoria sendo passada para o payload
+              };
+
+              const res = await fetch(`http://10.92.3.132:5000/cadastro/${id}`, {
+                method: "PUT",
+                headers: {
+                  "Authorization": `Bearer ${token}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+              });
+
+              const data = await res.json();
+
+              if (res.ok) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Usuário atualizado!",
+                  timer: 1200,
+                  showConfirmButton: false
+                });
+
+                // Atualizar valores visuais
+                row.children[0].innerText = nome;
+                row.children[1].innerText = email;
+                row.children[2].innerText = telefone;
+                row.children[3].innerText = ativo ? "Ativo" : "Inativo";
+                row.children[4].innerText = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+                row.children[5].innerText = categoria; // Atualiza a categoria na visualização
+              } else {
+                Swal.fire("Erro", data.message || data.error || "Falha ao atualizar.", "error");
+              }
+
+              // Desativar edição
+              row.querySelectorAll(".editable").forEach(td => td.contentEditable = false);
+              img.src = "assets/img/editar.png";
+              img.dataset.editing = "false";
+
+            } catch (error) {
+              console.error("Erro ao salvar:", error);
+              Swal.fire("Erro", "Falha na comunicação com o servidor.", "error");
+            }
+          }
+        });
+
+        tabela.appendChild(row);
+      });
+
+    } catch (error) {
+      console.error("Erro:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Erro ao carregar usuários",
+        text: error.message
+      });
+    }
+  });
 </script>
 
 
