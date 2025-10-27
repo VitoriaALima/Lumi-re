@@ -18,7 +18,6 @@
 
 </head>
 
-
 <body>
   <header>
     <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
@@ -52,8 +51,6 @@
         <input type="datetime-local" id="data_hora" required>
       </div>
 
-
-      <!-- Agora o aviso+botão ficam só na 2ª coluna -->
       <div class="form-actions">
         <p class="aviso">*Verifique se todos os dados foram informados corretamente antes de enviar.</p>
         <button type="submit" class="btn-enviar">ENVIAR</button>
@@ -83,7 +80,6 @@
     </div>
   </footer>
 
-
   <script>
     document.querySelector(".form-cadastro").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -96,6 +92,14 @@
 
       const data_hora = `${dia}-${mes}-${ano} ${hora}:00`;
 
+      // Obtendo o 'id_cadastro' do localStorage ou de onde você armazena o ID do usuário
+      const id_cadastro = localStorage.getItem("id_cadastro"); // Ajuste de acordo com onde você armazena o id_cadastro
+
+      const dados = {
+        id_cadastro: id_cadastro,  // Incluindo o id_cadastro
+        id_servico: document.getElementById("id_servico").value,
+        data_hora: data_hora
+      };
 
       try {
         const response = await fetch("http://10.92.3.132:5000/agenda", {
@@ -130,6 +134,7 @@
       }
     });
   </script>
+
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const token = localStorage.getItem("token");
@@ -184,7 +189,6 @@
     });
   </script>
 
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const logoutBtn = document.querySelector('.btn-logout');
@@ -238,7 +242,6 @@
       });
     });
   </script>
-
 
 </body>
 
