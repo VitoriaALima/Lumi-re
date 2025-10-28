@@ -42,11 +42,10 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #5b3b3a;
-    padding: 15px 40px;
+    padding: 18px 40px;
     width: 100%;
     gap: 20px;
     flex-wrap: nowrap;
-    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -54,6 +53,25 @@ header {
 /* Ocultar a barra de scroll */
 header::-webkit-scrollbar {
     display: none;
+}
+
+/* Estilizar scroll da tabela */
+.tabela-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.tabela-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.tabela-container::-webkit-scrollbar-thumb {
+    background: #5b3b3a;
+    border-radius: 4px;
+}
+
+.tabela-container::-webkit-scrollbar-thumb:hover {
+    background: #3d2726;
 }
 
 
@@ -140,13 +158,21 @@ nav a:hover {
 }
 
 
-.tabela-servicos {
+/* Container da tabela com scroll horizontal */
+.tabela-container {
     width: 80%;
     max-width: 1200px;
-    border-collapse: collapse;
     margin: 0 auto 40px;
-    background: #fff;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     border-radius: 8px;
+}
+
+.tabela-servicos {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    background: #fff;
     overflow: hidden;
 }
 
@@ -180,7 +206,8 @@ nav a:hover {
 
 /* Botão de cancelar agendamento */
 .btn-cancelar {
-    background-color: #d32f2f;
+    
+    background-color: #5b3b3a;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -313,6 +340,7 @@ nav a:hover {
     display: flex;
     justify-content: center;
     padding-top: 25px;
+    margin-right: 139px;
 }
 
 
@@ -326,7 +354,8 @@ nav a:hover {
 
 @media (max-width: 1024px) {
     header {
-        padding: 3px 30px;
+        padding: 16px 30px;
+        overflow-x: auto;
     }
 
 
@@ -336,8 +365,12 @@ nav a:hover {
     }
 
 
-    .tabela-servicos {
+    .tabela-container {
         width: 90%;
+    }
+
+    .tabela-servicos {
+        min-width: 600px;
     }
 
 
@@ -349,7 +382,7 @@ nav a:hover {
 
 @media (max-width: 768px) {
     header {
-        padding: 15px 20px;
+        padding: 16px 20px;
         flex-wrap: nowrap;
         justify-content: flex-start;
         overflow-x: auto;
@@ -409,8 +442,12 @@ nav a:hover {
     }
 
 
-    .tabela-servicos {
+    .tabela-container {
         width: 95%;
+    }
+
+    .tabela-servicos {
+        min-width: 550px;
     }
 
 
@@ -472,7 +509,7 @@ nav a:hover {
 
 @media (max-width: 480px) {
     header {
-        padding: 12px 15px;
+        padding: 14px 15px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -604,8 +641,7 @@ nav a:hover {
 
 @media (max-width: 360px) {
     header {
-        padding: 10px 12px;
-        overflow-x: auto;
+        padding: 35px 12px;
         -webkit-overflow-scrolling: touch;
     }
 
@@ -705,6 +741,7 @@ nav a:hover {
 
     .logorodape {
         height: 50px;
+        
     }
 
 
@@ -716,7 +753,7 @@ nav a:hover {
 
 @media (max-height: 500px) and (orientation: landscape) {
     header {
-        padding: 8px 20px;
+        padding: 12px 20px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -802,8 +839,8 @@ nav a:hover {
 
     .tabela-servicos th,
     .tabela-servicos td {
-        padding: 15px;
         font-size: 17px;
+        padding: 31px;
     }
 
 
