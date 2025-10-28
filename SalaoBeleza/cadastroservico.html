@@ -54,6 +54,16 @@
                 <label for="duracao_horas">DURAÇÃO</label>
                 <input type="time" id="duracao_horas" required>
             </div>
+            <div class="form-group">
+                <label for="categoria">CATEGORIA</label>
+                <select id="categoria" class="selecionar" required>
+                    <option value="">Selecione seu tipo ></option>
+                    <option value="Cabelereiro(a)">Cabelereiro(a)</option>
+                    <option value="Manicure e pedicure">Manicure e pedicure</option>
+                    <option value="Maquiador(a)">Maquiador(a)</option>
+                    <option value="Designer de sobrancelhas">Designer de sobrancelhas</option>
+                </select>
+            </div>
 
 
             <!-- Agora o aviso+botão ficam só na 2ª coluna -->
@@ -133,7 +143,7 @@
             }
         });
     </script>
-   
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const logoutBtn = document.querySelector('.btn-logout');
