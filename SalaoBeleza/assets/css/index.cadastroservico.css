@@ -439,4 +439,12 @@ select:focus {
   .logo {
     height: 50px;
   }
+
+  .selecionar {
+    width: 100%;
+  }
+
+  .selecionarD {
+    width: 93%;
+  }
 }
