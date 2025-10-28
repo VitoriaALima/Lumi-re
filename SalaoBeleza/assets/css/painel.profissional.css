@@ -42,11 +42,10 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #5b3b3a;
-    padding: 15px 40px;
+    padding: 18px 40px;
     width: 100%;
     gap: 20px;
     flex-wrap: nowrap;
-    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -355,7 +354,8 @@ nav a:hover {
 
 @media (max-width: 1024px) {
     header {
-        padding: 3px 30px;
+        padding: 16px 30px;
+        overflow-x: auto;
     }
 
 
@@ -382,7 +382,7 @@ nav a:hover {
 
 @media (max-width: 768px) {
     header {
-        padding: 15px 20px;
+        padding: 16px 20px;
         flex-wrap: nowrap;
         justify-content: flex-start;
         overflow-x: auto;
@@ -509,7 +509,7 @@ nav a:hover {
 
 @media (max-width: 480px) {
     header {
-        padding: 12px 15px;
+        padding: 14px 15px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -641,8 +641,7 @@ nav a:hover {
 
 @media (max-width: 360px) {
     header {
-        padding: 10px 12px;
-        overflow-x: auto;
+        padding: 35px 12px;
         -webkit-overflow-scrolling: touch;
     }
 
@@ -754,7 +753,7 @@ nav a:hover {
 
 @media (max-height: 500px) and (orientation: landscape) {
     header {
-        padding: 8px 20px;
+        padding: 12px 20px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -841,7 +840,7 @@ nav a:hover {
     .tabela-servicos th,
     .tabela-servicos td {
         font-size: 17px;
-        padding: 30px;
+        padding: 31px;
     }
 
 
