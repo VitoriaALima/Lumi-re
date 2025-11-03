@@ -98,8 +98,8 @@
   </footer>
 
   <script>
-    // Configuração da URL da API - AJUSTE CONFORME SEU AMBIENTE
-    const API_URL = 'http://10.92.3.132:5000'; // ou sua URL de produção
+    // Configuração da URL da API 
+    const API_URL = 'http://10.92.3.132:5000';
 
     const tabela = document.getElementById("tabela-body");
 
@@ -185,8 +185,6 @@
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // Se sua API usa autenticação por token, adicione:
-            // 'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
 

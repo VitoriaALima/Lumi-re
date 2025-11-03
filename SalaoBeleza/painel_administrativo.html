@@ -224,7 +224,7 @@
                     return;
                 }
 
-                // ✅ CORRIGIDO: URL correta da rota
+                
                 const url = `${API_URL}/painel-admin?data_inicial=${dataInicial}&data_final=${dataFinal}`;
                 
                 console.log('Fazendo requisição para:', url);
@@ -236,7 +236,7 @@
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    mode: 'cors' // ✅ CORRIGIDO: valor correto
+                    mode: 'cors' 
                 });
 
                 console.log('Status da resposta:', response.status);
