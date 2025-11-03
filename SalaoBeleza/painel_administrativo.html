@@ -14,9 +14,87 @@
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
 
-    <script src="assets/js/seguranca.js" defer></script> 
+    <script src="assets/js/seguranca.js" defer></script>
 
-    
+    <style>
+        .filtro-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .filtro-form {
+            display: flex;
+            gap: 15px;
+            align-items: end;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filtro-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filtro-group label {
+            font-weight: bold;
+            color: #8B0000;
+            font-size: 14px;
+        }
+
+        .filtro-group input {
+            padding: 10px;
+            border: 2px solid #8B0000;
+            border-radius: 5px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .btn-filtrar {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-filtrar:hover {
+            background: #A00000;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: #8B0000;
+        }
+
+        .botao-relatorio {
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .botao-relatorio:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .botao-relatorio:active {
+            transform: translateY(0);
+        }
+
+        .botao-relatorio:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,122 +112,384 @@
         </nav>
     </header>
 
-<main>
-  <h1 class="titulo">Painel Administrativo</h1>
+    <main>
+        <h1 class="titulo">Painel Administrativo</h1>
 
-  <div class="painel-glitter">
-    <!-- imagem de fundo glitter -->
-    <img src="assets/img/fundo_cadastroservico.png" alt="background de glitter" class="img-glitter">
-
-    <!-- conteúdo sobre a imagem -->
-    <div class="cards-container">
-      <div class="card">
-        <h2>NÚMERO DE AGENDAMENTOS</h2>
-        <p class="valor">10</p>
-        <button class="botao-relatorio">
-          GERAR RELATÓRIO
-          <img src="assets/img/baixar.png" alt="Baixar">
-        </button>
-      </div>
-
-      <div class="card">
-        <h2>FATURAMENTO</h2>
-        <p class="valor">R$ 650,00</p>
-        <button class="botao-relatorio">
-          GERAR RELATÓRIO
-          <img src="assets/img/baixar.png" alt="Baixar">
-        </button>
-      </div>
-
-      <div class="card">
-        <h2>QUANTIDADE DE CLIENTES</h2>
-        <p class="valor">10</p>
-        <button class="botao-relatorio">
-          GERAR RELATÓRIO
-          <img src="assets/img/baixar.png" alt="Baixar">
-        </button>
-      </div>
-    </div>
-  </div>
-</main>
-
-
-  <footer class="footer">
-    <div class="footer1">
-      <div class="footer-left">
-        <div class="contact">
-          <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
-          <span>(18)000000000</span>
+        <!-- Filtro de Data -->
+        <div class="filtro-container">
+            <form class="filtro-form" id="filtroForm">
+                <div class="filtro-group">
+                    <label for="dataInicial">Data Inicial:</label>
+                    <input type="date" id="dataInicial" name="dataInicial" required>
+                </div>
+                <div class="filtro-group">
+                    <label for="dataFinal">Data Final:</label>
+                    <input type="date" id="dataFinal" name="dataFinal" required>
+                </div>
+                <button type="submit" class="btn-filtrar">FILTRAR</button>
+            </form>
         </div>
-        <div class="contact">
-          <img src="assets/img/location-icon.png" alt="Localização" class="icon">
-          <span>Avenida das flores</span>
+
+        <div class="painel-glitter">
+            <!-- imagem de fundo glitter -->
+            <img src="assets/img/fundo_cadastroservico.png" alt="background de glitter" class="img-glitter">
+
+            <!-- conteúdo sobre a imagem -->
+            <div class="cards-container">
+                <div class="card">
+                    <h2>NÚMERO DE AGENDAMENTOS</h2>
+                    <p class="valor" id="numAgendamentos">-</p>
+                    <button class="botao-relatorio" data-tipo="agendamentos">
+                        GERAR RELATÓRIO
+                        <img src="assets/img/baixar.png" alt="Baixar">
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h2>FATURAMENTO</h2>
+                    <p class="valor" id="faturamento">-</p>
+                    <button class="botao-relatorio" data-tipo="faturamento">
+                        GERAR RELATÓRIO
+                        <img src="assets/img/baixar.png" alt="Baixar">
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h2>QUANTIDADE DE CLIENTES</h2>
+                    <p class="valor" id="qtdClientes">-</p>
+                    <button class="botao-relatorio" data-tipo="clientes">
+                        GERAR RELATÓRIO
+                        <img src="assets/img/baixar.png" alt="Baixar">
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
+    </main>
 
-      <div class="footer-center">
-        <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
-      </div>
-    </div>
+    <footer class="footer">
+        <div class="footer1">
+            <div class="footer-left">
+                <div class="contact">
+                    <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+                    <span>(18)000000000</span>
+                </div>
+                <div class="contact">
+                    <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+                    <span>Avenida das flores</span>
+                </div>
+            </div>
 
-    <div class="footer-bottom">
-      <span>© 2025. Todos os direitos reservados.</span>
-    </div>
-  </footer>
-  <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const logoutBtn = document.querySelector('.btn-logout');
+            <div class="footer-center">
+                <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+            </div>
+        </div>
 
-  if (!logoutBtn) {
-    console.error('Botão de logout não encontrado (seletor .btn-logout).');
-    return;
-  }
+        <div class="footer-bottom">
+            <span>© 2025. Todos os direitos reservados.</span>
+        </div>
+    </footer>
 
-  logoutBtn.addEventListener('click', function (e) {
-    e.preventDefault();
+    <script>
+        
+        const API_URL = 'http://10.92.3.132:5000';
 
-    // Confirmação com SweetAlert2
-    Swal.fire({
-      title: 'Deseja realmente sair?',
-      text: 'Você precisará fazer login novamente.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'SIM',
-      cancelButtonText: 'NÃO',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        try {
-          // Remova o token onde você o guarda
-          localStorage.removeItem('token');        // chave mais comum
-          sessionStorage.removeItem('token');      // caso use sessionStorage
-          // se quiser apagar tudo:
-          // localStorage.clear();
-
-          // Apagar cookie de sessão (opcional — modifica conforme o nome do cookie)
-          document.cookie = 'session=; Max-Age=0; path=/;';
-
-          // Mensagem de sucesso curta e redirecionamento
-          Swal.fire({
-            icon: 'success',
-            title: 'Desconectado',
-            showConfirmButton: false,
-            timer: 1200
-          }).then(() => {
-            window.location.href = 'login.html';
-          });
-        } catch (err) {
-          console.error('Erro ao efetuar logout:', err);
-          Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
+        // Função para obter o token de autenticação
+        function getToken() {
+            return localStorage.getItem('token') || sessionStorage.getItem('token');
         }
-      } else {
-        // usuário cancelou — não faz nada
-      }
-    });
-  });
-});
-</script>
 
+        // Função para definir data de hoje nos inputs
+        function setDataHoje() {
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('dataInicial').value = hoje;
+            document.getElementById('dataFinal').value = hoje;
+        }
+
+        // Função para carregar dados do painel
+        async function carregarDadosPainel(dataInicial, dataFinal) {
+            try {
+                const token = getToken();
+                
+                // Validação de token
+                if (!token) {
+                    console.error('Token não encontrado');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Sessão expirada',
+                        text: 'Por favor, faça login novamente.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'login.html';
+                    });
+                    return;
+                }
+
+                // ✅ CORRIGIDO: URL correta da rota
+                const url = `${API_URL}/painel-admin?data_inicial=${dataInicial}&data_final=${dataFinal}`;
+                
+                console.log('Fazendo requisição para:', url);
+                console.log('Token:', token);
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    mode: 'cors' // ✅ CORRIGIDO: valor correto
+                });
+
+                console.log('Status da resposta:', response.status);
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    console.error('Erro na resposta:', errorData);
+                    
+                    if (response.status === 401) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sessão expirada',
+                            text: 'Por favor, faça login novamente.'
+                        }).then(() => {
+                            window.location.href = 'login.html';
+                        });
+                        return;
+                    }
+                    
+                    throw new Error(errorData.error || 'Erro ao carregar dados do painel');
+                }
+
+                const dados = await response.json();
+                console.log('Dados recebidos:', dados);
+
+                // Atualiza os valores nos cards
+                document.getElementById('numAgendamentos').textContent = dados.numero_agendamentos || 0;
+                document.getElementById('faturamento').textContent = `R$ ${(dados.faturamento || 0).toFixed(2).replace('.', ',')}`;
+                document.getElementById('qtdClientes').textContent = dados.quantidade_clientes || 0;
+
+            } catch (error) {
+                console.error('Erro completo:', error);
+                
+                let mensagemErro = 'Não foi possível carregar os dados do painel.';
+                
+                // Identifica o tipo de erro
+                if (error.message.includes('Failed to fetch')) {
+                    mensagemErro = 'Erro de conexão. Verifique se:\n\n' +
+                                  '1. O servidor Flask está rodando\n' +
+                                  '2. A URL da API está correta\n' +
+                                  '3. O CORS está configurado no backend\n\n' +
+                                  `URL tentada: ${API_URL}`;
+                }
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro de Conexão',
+                    text: mensagemErro,
+                    footer: 'Verifique o console para mais detalhes (F12)'
+                });
+            }
+        }
+
+        // Função para gerar relatório PDF
+        async function gerarRelatorio(tipo, dataInicial, dataFinal) {
+            try {
+                const token = getToken();
+                
+                if (!token) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Sessão expirada',
+                        text: 'Por favor, faça login novamente.'
+                    }).then(() => {
+                        window.location.href = 'login.html';
+                    });
+                    return;
+                }
+                
+                // Define o endpoint baseado no tipo
+                let endpoint;
+                switch(tipo) {
+                    case 'agendamentos':
+                        endpoint = '/relatorio-agendamentos';
+                        break;
+                    case 'faturamento':
+                        endpoint = '/relatorio-faturamento';
+                        break;
+                    case 'clientes':
+                        endpoint = '/relatorio-clientes';
+                        break;
+                    default:
+                        throw new Error('Tipo de relatório inválido');
+                }
+
+                const url = `${API_URL}${endpoint}?data_inicial=${dataInicial}&data_final=${dataFinal}`;
+                
+                console.log('Gerando relatório:', url);
+
+                // Mostra loading
+                Swal.fire({
+                    title: 'Gerando relatório...',
+                    text: 'Por favor, aguarde',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    mode: 'cors'
+                });
+
+                console.log('Status do relatório:', response.status);
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sessão expirada',
+                            text: 'Por favor, faça login novamente.'
+                        }).then(() => {
+                            window.location.href = 'login.html';
+                        });
+                        return;
+                    }
+                    throw new Error('Erro ao gerar relatório');
+                }
+
+                // Converte a resposta para blob (arquivo)
+                const blob = await response.blob();
+                
+                // Cria um link temporário para download
+                const urlBlob = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = urlBlob;
+                a.download = `relatorio_${tipo}_${dataInicial}_a_${dataFinal}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(urlBlob);
+
+                // Fecha o loading e mostra sucesso
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Relatório gerado!',
+                    text: 'O download foi iniciado.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+            } catch (error) {
+                console.error('Erro ao gerar relatório:', error);
+                
+                let mensagemErro = 'Não foi possível gerar o relatório.';
+                
+                if (error.message.includes('Failed to fetch')) {
+                    mensagemErro = 'Erro de conexão com o servidor. Verifique se o Flask está rodando.';
+                }
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: mensagemErro
+                });
+            }
+        }
+
+        // Event listener para o formulário de filtro
+        document.getElementById('filtroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const dataInicial = document.getElementById('dataInicial').value;
+            const dataFinal = document.getElementById('dataFinal').value;
+
+            // Valida se data final é maior ou igual à data inicial
+            if (dataFinal < dataInicial) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atenção',
+                    text: 'A data final não pode ser anterior à data inicial.'
+                });
+                return;
+            }
+
+            carregarDadosPainel(dataInicial, dataFinal);
+        });
+
+        // Event listeners para os botões de relatório
+        document.querySelectorAll('.botao-relatorio').forEach(botao => {
+            botao.addEventListener('click', function() {
+                const tipo = this.getAttribute('data-tipo');
+                const dataInicial = document.getElementById('dataInicial').value;
+                const dataFinal = document.getElementById('dataFinal').value;
+
+                if (!dataInicial || !dataFinal) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Atenção',
+                        text: 'Por favor, selecione o período antes de gerar o relatório.'
+                    });
+                    return;
+                }
+
+                gerarRelatorio(tipo, dataInicial, dataFinal);
+            });
+        });
+
+        // Botão de logout
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Página carregada. API_URL:', API_URL);
+            
+            // Define data de hoje ao carregar a página
+            setDataHoje();
+            
+            // Carrega dados do painel com data de hoje
+            const hoje = new Date().toISOString().split('T')[0];
+            carregarDadosPainel(hoje, hoje);
+
+            // Configuração do logout
+            const logoutBtn = document.querySelector('.btn-logout');
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        title: 'Deseja realmente sair?',
+                        text: 'Você precisará fazer login novamente.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'SIM',
+                        cancelButtonText: 'NÃO',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            try {
+                                localStorage.removeItem('token');
+                                sessionStorage.removeItem('token');
+                                document.cookie = 'session=; Max-Age=0; path=/;';
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Desconectado',
+                                    showConfirmButton: false,
+                                    timer: 1200
+                                }).then(() => {
+                                    window.location.href = 'login.html';
+                                });
+                            } catch (err) {
+                                console.error('Erro ao efetuar logout:', err);
+                                Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
