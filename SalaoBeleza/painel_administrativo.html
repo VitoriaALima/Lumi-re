@@ -170,7 +170,7 @@
         <div class="footer1">
             <div class="footer-left">
                 <div class="contact">
-                    <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+                    <img src="assets/img/celular.icon.png" alt="Telefone" class="icon">
                     <span>(18)000000000</span>
                 </div>
                 <div class="contact">
@@ -205,6 +205,26 @@
             document.getElementById('dataFinal').value = hoje;
         }
 
+        // Função para validar e formatar datas
+        function validarDatas(dataInicial, dataFinal) {
+            if (!dataInicial || !dataFinal) {
+                throw new Error('Datas não podem estar vazias');
+            }
+
+            // Valida formato de data
+            const regexData = /^\d{4}-\d{2}-\d{2}$/;
+            if (!regexData.test(dataInicial) || !regexData.test(dataFinal)) {
+                throw new Error('Formato de data inválido');
+            }
+
+            // Valida se data final é maior ou igual à inicial
+            if (new Date(dataFinal) < new Date(dataInicial)) {
+                throw new Error('Data final não pode ser anterior à data inicial');
+            }
+
+            return { dataInicial, dataFinal };
+        }
+
         // Função para carregar dados do painel
         async function carregarDadosPainel(dataInicial, dataFinal) {
             try {
@@ -224,11 +244,27 @@
                     return;
                 }
 
+                // Valida datas antes de enviar
+                try {
+                    validarDatas(dataInicial, dataFinal);
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Atenção',
+                        text: error.message
+                    });
+                    return;
+                }
+
+                // Codifica os parâmetros da URL corretamente
+                const params = new URLSearchParams({
+                    data_inicial: dataInicial,
+                    data_final: dataFinal
+                });
                 
-                const url = `${API_URL}/painel-admin?data_inicial=${dataInicial}&data_final=${dataFinal}`;
+                const url = `${API_URL}/painel-admin?${params.toString()}`;
                 
                 console.log('Fazendo requisição para:', url);
-                console.log('Token:', token);
 
                 const response = await fetch(url, {
                     method: 'GET',
@@ -256,16 +292,31 @@
                         return;
                     }
                     
+                    if (response.status === 500) {
+                        throw new Error('Erro interno do servidor. Verifique os logs do backend.');
+                    }
+                    
                     throw new Error(errorData.error || 'Erro ao carregar dados do painel');
                 }
 
                 const dados = await response.json();
                 console.log('Dados recebidos:', dados);
 
-                // Atualiza os valores nos cards
-                document.getElementById('numAgendamentos').textContent = dados.numero_agendamentos || 0;
-                document.getElementById('faturamento').textContent = `R$ ${(dados.faturamento || 0).toFixed(2).replace('.', ',')}`;
-                document.getElementById('qtdClientes').textContent = dados.quantidade_clientes || 0;
+                // Atualiza os valores nos cards com validação
+                document.getElementById('numAgendamentos').textContent = 
+                    (dados.numero_agendamentos !== undefined && dados.numero_agendamentos !== null) 
+                    ? dados.numero_agendamentos 
+                    : 0;
+                    
+                document.getElementById('faturamento').textContent = 
+                    `R$ ${((dados.faturamento !== undefined && dados.faturamento !== null) 
+                    ? dados.faturamento 
+                    : 0).toFixed(2).replace('.', ',')}`;
+                    
+                document.getElementById('qtdClientes').textContent = 
+                    (dados.quantidade_clientes !== undefined && dados.quantidade_clientes !== null) 
+                    ? dados.quantidade_clientes 
+                    : 0;
 
             } catch (error) {
                 console.error('Erro completo:', error);
@@ -275,10 +326,16 @@
                 // Identifica o tipo de erro
                 if (error.message.includes('Failed to fetch')) {
                     mensagemErro = 'Erro de conexão. Verifique se:\n\n' +
-                                  '1. O servidor Flask está rodando\n' +
+                                  '1. O servidor Flask está rodando na porta 5000\n' +
                                   '2. A URL da API está correta\n' +
-                                  '3. O CORS está configurado no backend\n\n' +
+                                  '3. O CORS está configurado no backend\n' +
+                                  '4. O firewall não está bloqueando a conexão\n\n' +
                                   `URL tentada: ${API_URL}`;
+                } else if (error.message.includes('interno do servidor')) {
+                    mensagemErro = error.message + '\n\nVerifique:\n' +
+                                  '1. Se as datas estão no formato correto\n' +
+                                  '2. Se a conexão com o banco de dados está funcionando\n' +
+                                  '3. Os logs do servidor Flask';
                 }
                 
                 Swal.fire({
@@ -305,6 +362,18 @@
                     });
                     return;
                 }
+
+                // Valida datas
+                try {
+                    validarDatas(dataInicial, dataFinal);
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Atenção',
+                        text: error.message
+                    });
+                    return;
+                }
                 
                 // Define o endpoint baseado no tipo
                 let endpoint;
@@ -322,7 +391,12 @@
                         throw new Error('Tipo de relatório inválido');
                 }
 
-                const url = `${API_URL}${endpoint}?data_inicial=${dataInicial}&data_final=${dataFinal}`;
+                const params = new URLSearchParams({
+                    data_inicial: dataInicial,
+                    data_final: dataFinal
+                });
+
+                const url = `${API_URL}${endpoint}?${params.toString()}`;
                 
                 console.log('Gerando relatório:', url);
 
@@ -406,16 +480,6 @@
             const dataInicial = document.getElementById('dataInicial').value;
             const dataFinal = document.getElementById('dataFinal').value;
 
-            // Valida se data final é maior ou igual à data inicial
-            if (dataFinal < dataInicial) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Atenção',
-                    text: 'A data final não pode ser anterior à data inicial.'
-                });
-                return;
-            }
-
             carregarDadosPainel(dataInicial, dataFinal);
         });
 
@@ -439,7 +503,7 @@
             });
         });
 
-        // Botão de logout
+        // Inicialização da página
         document.addEventListener('DOMContentLoaded', function () {
             console.log('Página carregada. API_URL:', API_URL);
             
