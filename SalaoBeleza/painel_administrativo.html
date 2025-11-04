@@ -190,7 +190,7 @@
     </footer>
 
     <script>
-        
+
         const API_URL = 'http://192.168.1.123:5000';
 
         // Função para obter o token de autenticação
@@ -229,7 +229,7 @@
         async function carregarDadosPainel(dataInicial, dataFinal) {
             try {
                 const token = getToken();
-                
+
                 // Validação de token
                 if (!token) {
                     console.error('Token não encontrado');
@@ -261,9 +261,9 @@
                     data_inicial: dataInicial,
                     data_final: dataFinal
                 });
-                
+
                 const url = `${API_URL}/painel-admin?${params.toString()}`;
-                
+
                 console.log('Fazendo requisição para:', url);
 
                 const response = await fetch(url, {
@@ -272,7 +272,7 @@
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    mode: 'cors' 
+                    mode: 'cors'
                 });
 
                 console.log('Status da resposta:', response.status);
@@ -280,7 +280,7 @@
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     console.error('Erro na resposta:', errorData);
-                    
+
                     if (response.status === 401) {
                         Swal.fire({
                             icon: 'warning',
@@ -291,53 +291,54 @@
                         });
                         return;
                     }
-                    
+
                     if (response.status === 500) {
                         throw new Error('Erro interno do servidor. Verifique os logs do backend.');
                     }
-                    
+
                     throw new Error(errorData.error || 'Erro ao carregar dados do painel');
                 }
 
                 const dados = await response.json();
                 console.log('Dados recebidos:', dados);
 
-                // Atualiza os valores nos cards com validação
-                document.getElementById('numAgendamentos').textContent = 
-                    (dados.numero_agendamentos !== undefined && dados.numero_agendamentos !== null) 
-                    ? dados.numero_agendamentos 
-                    : 0;
-                    
-                document.getElementById('faturamento').textContent = 
-                    `R$ ${((dados.faturamento !== undefined && dados.faturamento !== null) 
-                    ? dados.faturamento 
-                    : 0).toFixed(2).replace('.', ',')}`;
-                    
-                document.getElementById('qtdClientes').textContent = 
-                    (dados.quantidade_clientes !== undefined && dados.quantidade_clientes !== null) 
-                    ? dados.quantidade_clientes 
-                    : 0;
+                // *** MAPEAMENTO DOS CAMPOS DA API PARA O FRONT-END ***
+                // A API retorna: numero_clientes_agendou, faturamento_total, quantidade_clientes
+                // O front-end espera: numero_agendamentos, faturamento, quantidade_clientes
+                const {
+                    numero_clientes_agendou: numero_agendamentos = 0,
+                    faturamento_total: faturamento = 0,
+                    quantidade_clientes = 0
+                } = dados;
+
+                // Atualiza os valores nos cards
+                document.getElementById('numAgendamentos').textContent = numero_agendamentos;
+
+                document.getElementById('faturamento').textContent =
+                    `R$ ${faturamento.toFixed(2).replace('.', ',')}`;
+
+                document.getElementById('qtdClientes').textContent = quantidade_clientes;
 
             } catch (error) {
                 console.error('Erro completo:', error);
-                
+
                 let mensagemErro = 'Não foi possível carregar os dados do painel.';
-                
+
                 // Identifica o tipo de erro
                 if (error.message.includes('Failed to fetch')) {
                     mensagemErro = 'Erro de conexão. Verifique se:\n\n' +
-                                  '1. O servidor Flask está rodando na porta 5000\n' +
-                                  '2. A URL da API está correta\n' +
-                                  '3. O CORS está configurado no backend\n' +
-                                  '4. O firewall não está bloqueando a conexão\n\n' +
-                                  `URL tentada: ${API_URL}`;
+                        '1. O servidor Flask está rodando na porta 5000\n' +
+                        '2. A URL da API está correta\n' +
+                        '3. O CORS está configurado no backend\n' +
+                        '4. O firewall não está bloqueando a conexão\n\n' +
+                        `URL tentada: ${API_URL}`;
                 } else if (error.message.includes('interno do servidor')) {
                     mensagemErro = error.message + '\n\nVerifique:\n' +
-                                  '1. Se as datas estão no formato correto\n' +
-                                  '2. Se a conexão com o banco de dados está funcionando\n' +
-                                  '3. Os logs do servidor Flask';
+                        '1. Se as datas estão no formato correto\n' +
+                        '2. Se a conexão com o banco de dados está funcionando\n' +
+                        '3. Os logs do servidor Flask';
                 }
-                
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Erro de Conexão',
@@ -351,7 +352,7 @@
         async function gerarRelatorio(tipo, dataInicial, dataFinal) {
             try {
                 const token = getToken();
-                
+
                 if (!token) {
                     Swal.fire({
                         icon: 'warning',
@@ -374,10 +375,10 @@
                     });
                     return;
                 }
-                
+
                 // Define o endpoint baseado no tipo
                 let endpoint;
-                switch(tipo) {
+                switch (tipo) {
                     case 'agendamentos':
                         endpoint = '/relatorio-agendamentos';
                         break;
@@ -397,7 +398,7 @@
                 });
 
                 const url = `${API_URL}${endpoint}?${params.toString()}`;
-                
+
                 console.log('Gerando relatório:', url);
 
                 // Mostra loading
@@ -436,7 +437,7 @@
 
                 // Converte a resposta para blob (arquivo)
                 const blob = await response.blob();
-                
+
                 // Cria um link temporário para download
                 const urlBlob = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -458,13 +459,13 @@
 
             } catch (error) {
                 console.error('Erro ao gerar relatório:', error);
-                
+
                 let mensagemErro = 'Não foi possível gerar o relatório.';
-                
+
                 if (error.message.includes('Failed to fetch')) {
                     mensagemErro = 'Erro de conexão com o servidor. Verifique se o Flask está rodando.';
                 }
-                
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Erro',
@@ -474,9 +475,9 @@
         }
 
         // Event listener para o formulário de filtro
-        document.getElementById('filtroForm').addEventListener('submit', function(e) {
+        document.getElementById('filtroForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const dataInicial = document.getElementById('dataInicial').value;
             const dataFinal = document.getElementById('dataFinal').value;
 
@@ -485,7 +486,7 @@
 
         // Event listeners para os botões de relatório
         document.querySelectorAll('.botao-relatorio').forEach(botao => {
-            botao.addEventListener('click', function() {
+            botao.addEventListener('click', function () {
                 const tipo = this.getAttribute('data-tipo');
                 const dataInicial = document.getElementById('dataInicial').value;
                 const dataFinal = document.getElementById('dataFinal').value;
@@ -506,10 +507,10 @@
         // Inicialização da página
         document.addEventListener('DOMContentLoaded', function () {
             console.log('Página carregada. API_URL:', API_URL);
-            
+
             // Define data de hoje ao carregar a página
             setDataHoje();
-            
+
             // Carrega dados do painel com data de hoje
             const hoje = new Date().toISOString().split('T')[0];
             carregarDadosPainel(hoje, hoje);
