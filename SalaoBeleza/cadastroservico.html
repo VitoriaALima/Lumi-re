@@ -57,6 +57,10 @@
                 </select>
             </div>
 
+
+
+            <!-- aviso+botão ficam na 2ª coluna -->
+
             <div class="form-actions">
                 <p class="aviso">*Verifique se todos os dados foram informados corretamente antes de enviar.</p>
                 <button type="submit" class="btn-enviar">ENVIAR</button>
@@ -263,6 +267,7 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+
                         localStorage.removeItem('token');
                         sessionStorage.removeItem('token');
                         document.cookie = 'session=; Max-Age=0; path=/;';
@@ -275,6 +280,31 @@
                         }).then(() => {
                             window.location.href = 'login.html';
                         });
+
+                        try {
+                            // Remova o token 
+                            localStorage.removeItem('token');        // chave mais comum
+                            sessionStorage.removeItem('token');      
+
+                            // Apagar cookie de sessão
+                            document.cookie = 'session=; Max-Age=0; path=/;';
+
+                            // Mensagem de sucesso e redirecionamento
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Desconectado',
+                                showConfirmButton: false,
+                                timer: 1200
+                            }).then(() => {
+                                window.location.href = 'login.html';
+                            });
+                        } catch (err) {
+                            console.error('Erro ao efetuar logout:', err);
+                            Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
+                        }
+                    } else {
+                        // usuário cancelou — não faz nada
+
                     }
                 });
             });

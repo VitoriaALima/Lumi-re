@@ -92,11 +92,11 @@
 
       const data_hora = `${dia}-${mes}-${ano} ${hora}:00`;
 
-      // Obtendo o 'id_cadastro' do localStorage ou de onde você armazena o ID do usuário
-      const id_cadastro = localStorage.getItem("id_cadastro"); // Ajuste de acordo com onde você armazena o id_cadastro
+      // Obtendo o 'id_cadastro' do localStorage
+      const id_cadastro = localStorage.getItem("id_cadastro");
 
       const dados = {
-        id_cadastro: id_cadastro,  // Incluindo o id_cadastro
+        id_cadastro: id_cadastro,  
         id_servico: document.getElementById("id_servico").value,
         data_hora: data_hora
       };
@@ -159,14 +159,14 @@
         }
 
         servicos.forEach(s => {
-          // Se vier número decimal
+          // número decimal
           let duracao = s.duracao_horas;
           if (duracao !== null && !isNaN(duracao)) {
             const horas = Math.floor(duracao);
             const minutos = Math.round((duracao - horas) * 60);
             duracao = `${String(horas).padStart(2, "0")}:${String(minutos).padStart(2, "0")}`;
           } else if (typeof duracao === "string") {
-            // caso venha algo tipo "01:30:00"
+            // 
             duracao = duracao.substring(0, 5);
           } else {
             duracao = "00:00";
@@ -213,16 +213,14 @@
         }).then((result) => {
           if (result.isConfirmed) {
             try {
-              // Remova o token onde você o guarda
+              // Remova o token 
               localStorage.removeItem('token');        // chave mais comum
-              sessionStorage.removeItem('token');      // caso use sessionStorage
-              // se quiser apagar tudo:
-              // localStorage.clear();
+              sessionStorage.removeItem('token');      
 
-              // Apagar cookie de sessão (opcional — modifica conforme o nome do cookie)
+              // Apagar cookie de sessão 
               document.cookie = 'session=; Max-Age=0; path=/;';
 
-              // Mensagem de sucesso curta e redirecionamento
+              // Mensagem de sucesso e redirecionamento
               Swal.fire({
                 icon: 'success',
                 title: 'Desconectado',
