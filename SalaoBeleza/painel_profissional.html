@@ -143,8 +143,6 @@
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            // Se sua API usa autenticação por token, adicione:
-            // 'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
 
@@ -306,7 +304,7 @@
       });
     });
 
-    // Opcional: Atualizar agendamentos a cada 30 segundos
+    // Atualizar agendamentos a cada 30 segundos
     setInterval(carregarAgendamentos, 30000);
   </script>
 

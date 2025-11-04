@@ -93,11 +93,11 @@
 
       const data_hora = `${dia}-${mes}-${ano} ${hora}:00`;
 
-      // Obtendo o 'id_cadastro' do localStorage ou de onde você armazena o ID do usuário
-      const id_cadastro = localStorage.getItem("id_cadastro"); // Ajuste de acordo com onde você armazena o id_cadastro
+      // Obtendo o 'id_cadastro' do localStorage 
+      const id_cadastro = localStorage.getItem("id_cadastro"); 
 
       const dados = {
-        id_cadastro: id_cadastro,  // Incluindo o id_cadastro
+        id_cadastro: id_cadastro,  
         id_servico: document.getElementById("id_servico").value,
         data_hora: data_hora
       };
@@ -216,14 +216,12 @@
             try {
               // Remova o token onde você o guarda
               localStorage.removeItem('token');        // chave mais comum
-              sessionStorage.removeItem('token');      // caso use sessionStorage
-              // se quiser apagar tudo:
-              // localStorage.clear();
+              sessionStorage.removeItem('token');      
 
-              // Apagar cookie de sessão (opcional — modifica conforme o nome do cookie)
+              // Apagar cookie de sessão
               document.cookie = 'session=; Max-Age=0; path=/;';
 
-              // Mensagem de sucesso curta e redirecionamento
+              // Mensagem de sucesso e redirecionamento
               Swal.fire({
                 icon: 'success',
                 title: 'Desconectado',

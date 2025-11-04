@@ -126,7 +126,7 @@
                 if (!response.ok) throw new Error("Erro ao buscar usuários.");
 
                 const usuarios = await response.json();
-                // seu backend retorna "id", então procuramos por "id"
+                
                 const usuario = usuarios.find(u => u.id === parseInt(usuarioId));
 
                 if (!usuario) {
