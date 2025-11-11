@@ -20,7 +20,6 @@ main {
   width: 100%;
 }
 
-/* Fundo fixo */
 .background {
   position: fixed;
   top: 0;
@@ -32,13 +31,12 @@ main {
   background: linear-gradient(135deg, #5b3b3a 0%, #8b5a5a 100%);
 }
 
-/* ====== CABEÇALHO ====== */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #5b3b3a;
-  padding: 18px 40px;
+  padding: 0px 40px;
   width: 100%;
   gap: 20px;
   flex-wrap: nowrap;
