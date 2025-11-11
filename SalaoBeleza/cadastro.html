@@ -14,7 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
 
-    </head>
+</head>
 
 <body>
     <img src="assets/img/fundo.vermelho.png" alt="" class="background">
@@ -34,14 +34,24 @@
             </div>
             <form id="formCadastro">
                 <div class="form-left">
-                    <label for="categoria">CATEGORIA</label>
-                    <select id="categoria" class="selecionar" required>
-                        <option value="">Selecione seu tipo ></option>
-                        <option value="Cabelereiro(a)">Cabelereiro(a)</option>
-                        <option value="Manicure e pedicure">Manicure e pedicure</option>
-                        <option value="Maquiador(a)">Maquiador(a)</option>
-                        <option value="Designer de sobrancelhas">Designer de sobrancelhas</option>
+
+                    <label for="tipo">TIPO</label>
+                    <select onchange="alteraTipo()" id="tipo" class="selecionar" required>
+                        <option value="Profissional">Profissional</option>
+                        <option selected value="Cliente">Cliente</option>
                     </select>
+
+
+                    <div id="input_categoria" style="display: none;">
+                        <label for="categoria">CATEGORIA</label>
+                        <select id="categoria" class="selecionar" required>
+                            <option value="">Selecione seu tipo ></option>
+                            <option value="Cabelereiro(a)">Cabelereiro(a)</option>
+                            <option value="Manicure e pedicure">Manicure e pedicure</option>
+                            <option value="Maquiador(a)">Maquiador(a)</option>
+                            <option value="Designer de sobrancelhas">Designer de sobrancelhas</option>
+                        </select>
+                    </div>
 
                     <label for="nome">NOME</label>
                     <input type="text" id="nome" required>
@@ -71,32 +81,46 @@
                     </div>
                 </div>
             </form>
-            
+
         </section>
     </main>
-            <footer class="footer">
-            <div class="footer1">
-                <div class="footer-left">
-                    <div class="contact">
-                        <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
-                        <span>(18)000000000</span>
-                    </div>
-                    <div class="contact">
-                        <img src="assets/img/location-icon.png" alt="Localização" class="icon">
-                        <span>Avenida das flores</span>
-                    </div>
+    <footer class="footer">
+        <div class="footer1">
+            <div class="footer-left">
+                <div class="contact">
+                    <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+                    <span>(18)000000000</span>
                 </div>
-
-                <div class="footer-center">
-                    <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+                <div class="contact">
+                    <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+                    <span>Avenida das flores</span>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <span>© 2025. Todos os direitos reservados.</span>
+            <div class="footer-center">
+                <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
             </div>
-        </footer>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025. Todos os direitos reservados.</span>
+        </div>
+    </footer>
     <script>
+
+        function alteraTipo() {
+            const tipoSelect = document.getElementById("tipo");
+            const categoriaDiv = document.getElementById("input_categoria");
+            if (tipoSelect.value === "Profissional") {
+                categoriaDiv.style.display = "block";
+                document.getElementById("categoria").required = true;
+            } else {
+                categoriaDiv.style.display = "none";
+                document.getElementById("categoria").required = false;
+            }
+        }
+
+
         document.getElementById("formCadastro").addEventListener("submit", async function (e) {
             e.preventDefault();
 
