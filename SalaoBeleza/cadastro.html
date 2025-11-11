@@ -36,15 +36,15 @@
                 <div class="form-left">
 
                     <label for="tipo">TIPO</label>
-                    <select onchange="alteraTipo()" id="tipo" class="selecionar" required>
-                        <option value="Profissional">Profissional</option>
-                        <option selected value="Cliente">Cliente</option>
+                    <select onchange="alteraTipo()" name="tipo" id="tipo" class="selecionar" required>
+                        <option value="profissional">Profissional</option>
+                        <option selected value="usuario">Cliente</option>
                     </select>
 
 
                     <div id="input_categoria" style="display: none;">
                         <label for="categoria">CATEGORIA</label>
-                        <select id="categoria" class="selecionar" required>
+                        <select id="categoria" name="categoria" class="selecionar">
                             <option value="">Selecione seu tipo ></option>
                             <option value="Cabelereiro(a)">Cabelereiro(a)</option>
                             <option value="Manicure e pedicure">Manicure e pedicure</option>
@@ -54,19 +54,19 @@
                     </div>
 
                     <label for="nome">NOME</label>
-                    <input type="text" id="nome" required>
+                    <input type="text" name="nome" id="nome" required>
 
                     <label for="email">E-MAIL</label>
-                    <input type="email" id="email" required>
+                    <input type="email" name="email" id="email" required>
                 </div>
 
                 <div class="form-right">
                     <label for="telefone">TELEFONE</label>
-                    <input type="tel" id="telefone" required>
+                    <input type="tel" id="telefone" name="telefone" required>
 
                     <label for="senha">SENHA</label>
                     <div class="senha-container">
-                        <input type="password" id="senha" required>
+                        <input type="password" id="senha" name="senha" required>
                         <img src="assets/img/olhosenha_branco.png" alt="Mostrar senha" class="toggle-senha"
                             onclick="toggleSenha()">
                     </div>
@@ -111,7 +111,7 @@
         function alteraTipo() {
             const tipoSelect = document.getElementById("tipo");
             const categoriaDiv = document.getElementById("input_categoria");
-            if (tipoSelect.value === "Profissional") {
+            if (tipoSelect.value === "profissional") {
                 categoriaDiv.style.display = "block";
                 document.getElementById("categoria").required = true;
             } else {
@@ -153,13 +153,9 @@
                 return;
             }
 
-            if (categoria === "") {
-                Swal.fire("Atenção", "Selecione uma categoria.", "warning");
-                return;
-            }
 
             // Dados prontos para enviar
-            const dados = { nome, email, telefone, senha, categoria, tipo: "profissional" };
+            const dados = { nome, email, telefone, senha, categoria, tipo: document.getElementById("tipo").value };
 
             try {
                 const response = await fetch("http://10.92.3.163:5000/cadastro", {
