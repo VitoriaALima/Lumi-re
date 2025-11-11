@@ -1,0 +1,121 @@
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #5b2b2b;
+      background-image: url("");
+      color: white;
+    }
+
+    header {
+      background-color: #3b0000;
+      padding: 15px 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    main {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      font-style: italic;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p.subtexto {
+      font-style: italic;
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+
+    .reservas-container {
+      background: #fff;
+      color: #3b0000;
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .reservas-container h3 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    .reserva-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      border-bottom: 1px solid #caa;
+    }
+
+    .reserva-item:last-child {
+      border-bottom: none;
+    }
+
+    .reserva-item span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reserva-item img {
+      width: 22px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .reserva-item img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      background-color: #3b0000;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 14px;
+      color: white;
+    }
+
+    footer .info {
+      margin: 8px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+    }
+
+    footer img.logo {
+      height: 40px;
+      margin: 10px 0;
+    }
+
+    footer small {
+      font-size: 12px;
+      opacity: 0.8;
+    }
