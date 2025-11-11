@@ -119,10 +119,23 @@
                     }).then(() => {
 
                         // Redireciona Profissional para adicionar serviço
+                        // Verifica o tipo de usuário retornado pelo login
                         if (data.usuario.tipo === "adm") {
+                            // Se for administrador, redireciona para a página de cadastro de serviços do ADM
                             window.location.href = "index.cadastroservico_ADM.html";
-                        } else {
+                        }
+                        else if (data.usuario.tipo === "profissional") {
+                            // Se for profissional, redireciona para a página específica dos profissionais
                             window.location.href = "index.cadastroservico.html";
+                        }
+                        else if (data.usuario.tipo === "usuario") {
+                            // Se for cliente (usuário comum), redireciona para a página HOME do cliente
+                            window.location.href = "HOME_cliente.html";
+                        }
+                        else {
+                            // Caso o tipo não seja reconhecido (apenas para segurança)
+                            console.error("Tipo de usuário desconhecido:", data.usuario.tipo);
+                            alert("Erro: tipo de usuário não reconhecido.");
                         }
 
                     });
