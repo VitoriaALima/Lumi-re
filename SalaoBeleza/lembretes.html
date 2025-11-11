@@ -1,53 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lumière - Lembretes</title>
+  <title>Lumiére - Lembretes</title>
   <link rel="stylesheet" href="assets/css/lembretes.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+  <img src="assets/img/fundo_cliente.png" alt="" class="background">
 
   <header>
-    <img src="assets/img/logo.png" alt="Lumière Logo">
-    <a href="#">LOGIN</a>
-    <a href="#">CADASTRO</a>
-    <a href="#">RELATÓRIO</a>
+    <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
+    <nav>
+      <a href="index.html">LOGIN</a>
+      <a href="cadastro.html">CADASTRO</a>
+      <a href="relatorio.html">RELATÓRIO</a>
+      <a href="painel_profissional.html">PAINEL PROFISSIONAL</a>
+    </nav>
   </header>
 
   <main>
-    <h2>Seus lembretes</h2>
-    <p class="subtexto">Acompanhe por aqui os horários reservados e as datas correspondentes!</p>
+    <section class="cadastro-container">
+      <div class="decorative-line">
+        <h1>Seus lembretes</h1>
+        <p class="subtitulo">Acompanhe por aqui os horários reservados e as datas correspondentes!</p>
+      </div>
 
-    <div class="reservas-container">
-      <h3>RESERVAS</h3>
-      <div class="reserva-item">
-        <span>✅ 02/09/2025 - às 18h</span>
-        <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
+      <div class="reservas-container">
+        <h3>RESERVAS</h3>
+        <div class="reserva-item">
+          <span>✅ 02/09/2025 - às 18h</span>
+          <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
+        </div>
+        <div class="reserva-item">
+          <span>✅ 08/09/2025 - às 16h</span>
+          <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
+        </div>
+        <div class="reserva-item">
+          <span>✅ 22/09/2025 - às 16h</span>
+          <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
+        </div>
+        <div class="reserva-item">
+          <span>✅ 28/09/2025 - às 16h</span>
+          <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
+        </div>
       </div>
-      <div class="reserva-item">
-        <span>✅ 08/09/2025 - às 16h</span>
-        <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
-      </div>
-      <div class="reserva-item">
-        <span>✅ 22/09/2025 - às 16h</span>
-        <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
-      </div>
-      <div class="reserva-item">
-        <span>✅ 28/09/2025 - às 16h</span>
-        <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Excluir">
-      </div>
-    </div>
+    </section>
   </main>
 
-  <footer>
-    <div class="info">
-      <div>📞 (18)000000000</div>
-      <div>📍 Avenida das flores</div>
+  <footer class="footer">
+    <div class="footer1">
+      <div class="footer-left">
+        <div class="contact">
+          <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+          <span>(18)000000000</span>
+        </div>
+        <div class="contact">
+          <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+          <span>Avenida das flores</span>
+        </div>
+      </div>
+
+      <div class="footer-center">
+        <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+      </div>
     </div>
-    <img class="logo" src="assets/img/logo.png" alt="Logo Lumière">
-    <small>© 2025. Todos os direitos reservados.</small>
+
+    <div class="footer-bottom">
+      <span>© 2025. Todos os direitos reservados.</span>
+    </div>
   </footer>
 
 </body>
