@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumiére - Edição de dados</title>
+  <link rel="stylesheet" href="assets/css/edicao_dados.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+
+  <script src="assets/js/seguranca.js" defer></script>
+</head>
+
+<body>
+  <img src="assets/img/fundo.vermelho.png" alt="" class="background">
+  <header>
+    <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
+    <nav>
+      <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
+      <a href="edicao_dados.html">EDIÇÃO DE DADOS</a>
+      <a href="cadastroservico.html">CADASTRAR SERVIÇOS</a>
+      <a href="index.cadastroservico.html">CADASTRAR AGENDAMENTO</a>
+      <a href="painel_profissional.html">PAINEL PROFISSIONAL</a>
+      <a href="painel_administrativo.html">PAINEL ADMINISTRATIVO</a>
+      <a href="listagem.html">LISTAGEM</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cadastro-container">
+      <div class="decorative-line">
+        <h1>Edição de dados</h1>
+        <p class="subtitulo">Altere as informações do cadastro</p>
+      </div>
+      <form id="formCadastro">
+        <div class="form-left">
+          <label for="categoria">CATEGORIA</label>
+          <select id="categoria" class="selecionar" required>
+            <option value="">Selecione seu tipo ></option>
+            <option value="Cabelereiro(a)">Cabelereiro(a)</option>
+            <option value="Manicure e pedicure">Manicure e pedicure</option>
+            <option value="Maquiador(a)">Maquiador(a)</option>
+            <option value="Designer de sobrancelhas">Designer de sobrancelhas</option>
+          </select>
+
+          <label for="nome">NOME</label>
+          <input type="text" id="nome" placeholder="Nome | " required>
+
+          <label for="email">E-MAIL</label>
+          <input type="email" id="email" placeholder="email@gmail.com | " required>
+        </div>
+
+        <div class="form-right">
+          <label for="telefone">TELEFONE</label>
+          <input type="tel" id="telefone" placeholder="(00)000000000 | " required>
+
+          <label for="senha">SENHA</label>
+          <div class="senha-container">
+            <input type="password" id="senha" placeholder="Senha | " required>
+            <img src="assets/img/olhosenha_escuro.png" alt="Mostrar senha" class="toggle-senha" onclick="toggleSenha()">
+          </div>
+          <small>
+            *A sua senha precisa ter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um
+            número e um caractere especial.
+          </small>
+
+          <div class="form-footer">
+            <button id="btn" type="submit">SALVAR</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer1">
+      <div class="footer-left">
+        <div class="contact">
+          <img src="assets/img/phone-icon.png" alt="Telefone" class="icon">
+          <span>(18)000000000</span>
+        </div>
+        <div class="contact">
+          <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+          <span>Avenida das flores</span>
+        </div>
+      </div>
+
+      <div class="footer-center">
+        <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025. Todos os direitos reservados.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const token = localStorage.getItem("token");
+      const usuarioId = localStorage.getItem("id_cadastro");
+
+
+      if (!usuarioId) {
+        Swal.fire("Erro", "Usuário não identificado!", "error");
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        // Buscar usuários do banco
+        const response = await fetch("http://192.168.1.123:5000/cadastro", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) throw new Error("Erro ao buscar usuários.");
+
+        const usuarios = await response.json();
+        const usuario = usuarios.find(u => u.id === parseInt(usuarioId));
+
+        if (!usuario) {
+          Swal.fire("Erro", "Usuário não encontrado.", "error");
+          return;
+        }
+
+        // preencher os campos
+        document.getElementById("nome").value = usuario.nome || "";
+        document.getElementById("email").value = usuario.email || "";
+        document.getElementById("telefone").value = usuario.telefone || "";
+        if (usuario.categoria) document.getElementById("categoria").value = usuario.categoria;
+
+      } catch (err) {
+        Swal.fire("Erro", "Falha ao carregar os dados.", "error");
+        console.error(err);
+      }
+
+      // Atualizar dados
+      document.getElementById("formCadastro").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const nome = document.getElementById("nome").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const telefone = document.getElementById("telefone").value.trim();
+        const senha = document.getElementById("senha").value;
+        const categoria = document.getElementById("categoria").value;
+
+        if (nome.length < 3) {
+          Swal.fire("Atenção", "O nome deve ter pelo menos 3 caracteres.", "warning");
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          Swal.fire("Atenção", "Digite um e-mail válido.", "warning");
+          return;
+        }
+
+        const telefoneRegex = /^\d{10,11}$/;
+        if (!telefoneRegex.test(telefone)) {
+          Swal.fire("Atenção", "O telefone deve ter 10 ou 11 dígitos numéricos.", "warning");
+          return;
+        }
+
+        const dados = { nome, email, telefone, senha, categoria };
+
+        try {
+          const response = await fetch(`http://192.168.1.123:5000/cadastro/${usuarioId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(dados)
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "Sucesso!",
+              text: result.message
+            }).then(() => {
+              window.location.href = "painel_profissional.html";
+            });
+          } else {
+            Swal.fire("Erro", result.error || "Erro ao atualizar os dados.", "error");
+          }
+
+        } catch (err) {
+          Swal.fire("Erro", "Falha na conexão com o servidor.", "error");
+          console.error(err);
+        }
+      });
+    });
+
+    // Mostrar / ocultar senha
+    function toggleSenha() {
+      const senhaInput = document.getElementById("senha");
+      senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+    }
+
+    // Logout com confirmação
+    document.addEventListener('DOMContentLoaded', function () {
+      const logoutBtn = document.querySelector('.btn-logout');
+      if (!logoutBtn) return;
+
+      logoutBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+          title: 'Deseja realmente sair?',
+          text: 'Você precisará fazer login novamente.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'SIM',
+          cancelButtonText: 'NÃO',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuarioId');
+            Swal.fire({
+              icon: 'success',
+              title: 'Desconectado',
+              showConfirmButton: false,
+              timer: 1200
+            }).then(() => {
+              window.location.href = 'login.html';
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
