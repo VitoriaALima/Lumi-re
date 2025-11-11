@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumiére - HOME</title>
+    <link rel="stylesheet" href="assets/css/HOME_cliente.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <section class="agendamento-container">
+        <h1>Bem-vindo(a)<br><span class="nome">Nome!</span></h1>
+
+        <div class="selecionar-container">
+            <div class="campo">
+                <label for="servico">Selecione o serviço que deseja obter:</label>
+                <select id="servico">
+                    <option>Selecione o serviço </option>
+                    <option>Manicure</option>
+                    <option>Pedicure</option>
+                    <option>Design de sobrancelha</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="profissional">Selecione o profissional que deseja:</label>
+                <select id="profissional">
+                    <option>Selecione o profissional </option>
+                    <option>Ana</option>
+                    <option>Maria</option>
+                    <option>Clara</option>
+                </select>
+            </div>
+        </div>
+
+        <h2>HORÁRIOS DISPONÍVEIS</h2>
+
+        <form class="horarios">
+            <label class="opcao">
+                <input type="radio" name="horario" value="02/09/2025 - às 18h">
+                <span>02/09/2025 - às 18h</span>
+            </label>
+
+            <label class="opcao">
+                <input type="radio" name="horario" value="08/09/2025 - às 16h">
+                <span>08/09/2025 - às 16h</span>
+            </label>
+
+            <label class="opcao">
+                <input type="radio" name="horario" value="22/09/2025 - às 16h">
+                <span>22/09/2025 - às 16h</span>
+            </label>
+
+            <label class="opcao">
+                <input type="radio" name="horario" value="28/09/2025 - às 16h">
+                <span>28/09/2025 - às 16h</span>
+            </label>
+
+            <button type="submit" class="btn-agendar">AGENDAR</button>
+        </form>
+    </section>
+</body>
+
+</html>

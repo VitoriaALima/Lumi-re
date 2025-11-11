@@ -1,0 +1,127 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background: url('../img/fundo_cliente.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.agendamento-container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: rgb(100, 68, 69);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.nome {
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.selecionar-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin: 40px 0 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 1em;
+    margin-bottom: 8px;
+}
+
+select {
+    background: #fff;
+    color: #6a3d3b;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+select:hover {
+    background: #f5e8e6;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 30px;
+    letter-spacing: 1px;
+}
+
+.horarios {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #fff;
+    color: #6a3d3b;
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin-top: 20px;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    width: 100%;
+    border-bottom: 1px solid #d2bcbc;
+    padding-bottom: 8px;
+}
+
+.opcao:last-child {
+    border-bottom: none;
+}
+
+.opcao input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #6a3d3b;
+    border-radius: 50%;
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.opcao input[type="radio"]:checked {
+    background: #6a3d3b;
+}
+
+.btn-agendar {
+    width: 100%;
+    margin-top: 25px;
+    background-color: #6a3d3b;
+    color: #fff;
+    border: none;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-agendar:hover {
+    background-color: #4c2928;
+}
