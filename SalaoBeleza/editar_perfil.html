@@ -108,7 +108,7 @@
 
       try {
         // Buscar usuários do banco
-        const response = await fetch("http://10.92.3.163:5000/cadastro", {
+        const response = await fetch("http://10.92.3.96:5000/cadastro", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -167,7 +167,7 @@
         const dados = { nome, email, telefone, senha, categoria };
 
         try {
-          const response = await fetch(`http://10.92.3.163:5000/cadastro/${usuarioId}`, {
+          const response = await fetch(`http://10.92.3.96:5000/cadastro/${usuarioId}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
