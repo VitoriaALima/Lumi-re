@@ -253,6 +253,7 @@
         });
 
         const logoutBtn = document.querySelector('.btn-logout');
+
         if (logoutBtn) {
             logoutBtn.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -266,8 +267,12 @@
                     cancelButtonText: 'NÃO',
                     reverseButtons: true
                 }).then((result) => {
-                    if (result.isConfirmed) {
 
+                    // evita processar logout quando o usuário cancelar
+                    if (!result.isConfirmed) return;
+
+                    try {
+                        // garante que nenhum token sobreviva após o logout
                         localStorage.removeItem('token');
                         sessionStorage.removeItem('token');
                         document.cookie = 'session=; Max-Age=0; path=/;';
@@ -275,36 +280,36 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Desconectado',
+                            text: 'Você será redirecionado...',
                             showConfirmButton: false,
                             timer: 1200
                         }).then(() => {
-                            window.location.href = 'login.html';
+
+                            try {
+                                // redirecionamento isolado para capturar falhas de navegador
+                                window.location.href = 'login.html';
+
+                            } catch (redirectErr) {
+                                console.error('Erro ao redirecionar:', redirectErr);
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro ao redirecionar',
+                                    text: 'Não foi possível ir para a tela de login.'
+                                });
+                            }
+
                         });
 
-                        try {
-                            // Remova o token 
-                            localStorage.removeItem('token');        // chave mais comum
-                            sessionStorage.removeItem('token');      
+                    } catch (err) {
+                        console.error('Erro ao efetuar logout:', err);
 
-                            // Apagar cookie de sessão
-                            document.cookie = 'session=; Max-Age=0; path=/;';
-
-                            // Mensagem de sucesso e redirecionamento
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Desconectado',
-                                showConfirmButton: false,
-                                timer: 1200
-                            }).then(() => {
-                                window.location.href = 'login.html';
-                            });
-                        } catch (err) {
-                            console.error('Erro ao efetuar logout:', err);
-                            Swal.fire('Erro', 'Não foi possível deslogar. Tente novamente.', 'error');
-                        }
-                    } else {
-                        // usuário cancelou — não faz nada
-
+                        // garante fallback caso algo impeça a limpeza do estado
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao sair',
+                            text: 'Não foi possível completar o logout. Tente novamente.'
+                        });
                     }
                 });
             });
