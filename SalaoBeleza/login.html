@@ -80,15 +80,9 @@
 // =======================================
 document.querySelector(".toggle-password").addEventListener("click", function () {
     const senhaInput = document.getElementById("senha");
-    const icon = document.getElementById("iconEye");
 
-    if (senhaInput.type === "password") {
-        senhaInput.type = "text";
-        icon.src = "assets/img/olhosenha_aberto.png"; // Coloque a imagem do olho aberto
-    } else {
-        senhaInput.type = "password";
-        icon.src = "assets/img/olhosenha_branco.png"; // Olho fechado
-    }
+    // Apenas troca o tipo, sem mexer na imagem
+    senhaInput.type = senhaInput.type === "password" ? "text" : "password";
 });
 
 
