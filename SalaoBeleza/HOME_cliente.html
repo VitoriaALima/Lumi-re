@@ -100,6 +100,36 @@
     }
 
     
+
+    const logoutBtn = document.querySelector('.btn-logout');
+      logoutBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+          title: 'Deseja realmente sair?',
+          text: 'Você precisará fazer login novamente.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'SIM',
+          cancelButtonText: 'NÃO',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuarioId');
+            Swal.fire({
+              icon: 'success',
+              title: 'Desconectado',
+              showConfirmButton: false,
+              timer: 1200
+            }).then(() => {
+              window.location.href = 'login.html';
+            });
+          }
+        });
+      });
+
+
     // CARREGAR SERVIÇOS
     
 

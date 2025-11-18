@@ -14,9 +14,9 @@ header {
   align-items: center;
   background-color: #5b3b3a;
   width: 99%;
-  gap: 5px;
+  gap: 10px;
   flex-wrap: nowrap;
-  padding-left: 5px;
+  padding-left: 10px;
   padding-right: 5px;
 }
 
