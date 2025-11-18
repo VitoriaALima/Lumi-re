@@ -8,6 +8,42 @@ body {
     text-align: center;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5b3b3a;
+  width: 99%;
+  gap: 5px;
+  flex-wrap: nowrap;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.logo {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+
+nav a:hover {
+  opacity: 0.8;
+}
+
 .agendamento-container {
     max-width: 700px;
     margin: 60px auto;
@@ -124,4 +160,59 @@ h2 {
 
 .btn-agendar:hover {
     background-color: #4c2928;
+}
+
+/* ====== RODAPÉ ====== */
+.footer {
+  background-color: #000;
+  color: white;
+  text-align: center;
+  margin-top: auto;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.footer1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 40px;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.logorodape {
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+  margin-right: 139px;
+}
+
+.footer-bottom {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
 }

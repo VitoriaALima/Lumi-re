@@ -7,16 +7,31 @@
     <title>Lumiére - HOME</title>
     <link rel="stylesheet" href="assets/css/HOME_cliente.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
+
+
 
     
     <script src="assets/js/seguranca.js" defer></script>
 </head>
 
 <body>
+
+    <header>
+        <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
+        <nav>
+        <a href="editar_perfil.html">PERFIL</a>
+        <a href="HOME_cliente.html">HOME</a>
+        <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
+        </nav>
+    </header>
+
     <section class="agendamento-container">
         <h1>Bem-vindo(a)<br><span class="nome">Nome!</span></h1>
 
@@ -42,6 +57,29 @@
             <!-- Horários serão adicionados via JavaScript -->
         </form>
     </section>
+
+      <footer class="footer">
+    <div class="footer1">
+      <div class="footer-left">
+        <div class="contact">
+          <img src="assets/img/celular.icon.png" alt="Telefone" class="icon">
+          <span>(18)000000000</span>
+        </div>
+        <div class="contact">
+          <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+          <span>Avenida das flores</span>
+        </div>
+      </div>
+
+      <div class="footer-center">
+        <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025. Todos os direitos reservados.</span>
+    </div>
+  </footer>
 
    <script>
     const API_URL = "http://10.92.3.96:5000";
