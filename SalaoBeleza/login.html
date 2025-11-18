@@ -79,88 +79,69 @@
             <span>© 2025. Todos os direitos reservados.</span>
         </div>
     </footer>
-    <script>
-        // Mostrar/ocultar senha
-        const toggle = document.querySelector(".toggle-password");
-        const senha = document.getElementById("senha");
-        toggle.addEventListener("click", () => {
-            senha.type = senha.type === "password" ? "text" : "password";
-        });
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-        // Função de login
-        document.getElementById("loginForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
 
-            const email = document.getElementById("email").value;
-            const senha = document.getElementById("senha").value;
+        try {
+            const response = await fetch("http://10.92.3.96:5000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, senha })
+            });
 
-            try {
-                const response = await fetch("http://10.92.3.96:5000/login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, senha })
+            const data = await response.json();
+            console.log("LOGIN RESPONSE:", data);
+
+            if (response.ok) {
+
+                // 🔥 BACKEND CORRETO → SALVANDO IGUAL AO QUE RETORNA!
+                localStorage.setItem("token", data.usuario.token);
+                localStorage.setItem("tipo", data.usuario.tipo);
+                localStorage.setItem("id_cadastro", data.usuario.id_cadastro);
+                localStorage.setItem("nome", data.usuario.nome);
+                localStorage.setItem("email", data.usuario.email);
+                localStorage.setItem("telefone", data.usuario.telefone);
+
+                Swal.fire({
+                    title: "Sucesso!",
+                    text: data.message,
+                    icon: "success",
+                }).then(() => {
+
+                    if (data.usuario.tipo === "adm") {
+                        window.location.href = "index.cadastroservico_ADM.html";
+                    }
+                    else if (data.usuario.tipo === "profissional") {
+                        window.location.href = "index.cadastroservico.html";
+                    }
+                    else if (data.usuario.tipo === "usuario") {
+                        window.location.href = "HOME_cliente.html";
+                    }
                 });
 
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem("token", data.usuario.token);
-                    localStorage.setItem("tipo", data.usuario.tipo);
-                    localStorage.setItem("id_cadastro", data.usuario.id_cadastro);
-                    localStorage.setItem("nome", data.usuario.nome);
-                    localStorage.setItem("email", data.usuario.email);
-
-                    Swal.fire({
-                        title: "Sucesso!",
-                        text: data.message,
-                        icon: "success",
-                        confirmButtonText: "OK",
-                        confirmButtonColor: "#3085d6"
-                    }).then(() => {
-
-                        // Redireciona Profissional para adicionar serviço
-                        // Verifica o tipo de usuário retornado pelo login
-                        if (data.usuario.tipo === "adm") {
-                            // Se for administrador, redireciona para a página de cadastro de serviços do ADM
-                            window.location.href = "index.cadastroservico_ADM.html";
-                        }
-                        else if (data.usuario.tipo === "profissional") {
-                            // Se for profissional, redireciona para a página específica dos profissionais
-                            window.location.href = "index.cadastroservico.html";
-                        }
-                        else if (data.usuario.tipo === "usuario") {
-                            // Se for cliente (usuário comum), redireciona para a página HOME do cliente
-                            window.location.href = "HOME_cliente.html";
-                        }
-                        else {
-                            // Caso o tipo não seja reconhecido (apenas para segurança)
-                            console.error("Tipo de usuário desconhecido:", data.usuario.tipo);
-                            alert("Erro: tipo de usuário não reconhecido.");
-                        }
-
-                    });
-
-                } else {
-                    Swal.fire({
-                        title: "Erro!",
-                        text: data.error,
-                        icon: "error",
-                        confirmButtonText: "OK",
-                        confirmButtonColor: "#d33"
-                    });
-                }
-
-            } catch (error) {
+            } else {
                 Swal.fire({
                     title: "Erro!",
-                    text: "Falha na comunicação com o servidor.",
-                    icon: "error",
-                    confirmButtonText: "OK",
-                    confirmButtonColor: "#d33"
+                    text: data.error,
+                    icon: "error"
                 });
             }
-        });
-    </script>
+
+        } catch (error) {
+            Swal.fire({
+                title: "Erro!",
+                text: "Falha na comunicação com o servidor.",
+                icon: "error"
+            });
+
+            console.error("LOGIN ERROR:", error);
+        }
+    });
+</script>
 
 </body>
 
