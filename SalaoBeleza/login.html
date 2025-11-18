@@ -10,10 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
         rel="stylesheet">
-
-        
-
-    </head>
+</head>
 
 <body>
     <header>
@@ -31,8 +28,6 @@
             <p class="subtitle">Faça seu login</p>
 
             <form id="loginForm">
-
-
                 <div class="form-group">
                     <label for="email">E-MAIL</label>
                     <input type="email" id="email" name="email" required>
@@ -43,8 +38,7 @@
                     <div class="password-wrapper">
                         <input type="password" id="senha" name="senha" required>
                         <button type="button" class="toggle-password">
-                            <img src="assets/img/olhosenha_branco.png" alt="Mostrar senha" class="toggle-senha"
-                                onclick="toggleSenha()">
+                            <img id="iconEye" src="assets/img/olhosenha_branco.png" alt="Mostrar senha" class="toggle-senha">
                         </button>
                     </div>
                 </div>
@@ -55,8 +49,8 @@
                 </div>
             </form>
         </section>
-
     </main>
+
     <footer class="footer">
         <div class="footer1">
             <div class="footer-left">
@@ -79,70 +73,89 @@
             <span>© 2025. Todos os direitos reservados.</span>
         </div>
     </footer>
+
 <script>
-    document.getElementById("loginForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
+// =======================================
+// 🔹 FUNÇÃO DO OLHINHO (Mostrar/ocultar senha)
+// =======================================
+document.querySelector(".toggle-password").addEventListener("click", function () {
+    const senhaInput = document.getElementById("senha");
+    const icon = document.getElementById("iconEye");
 
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
+    if (senhaInput.type === "password") {
+        senhaInput.type = "text";
+        icon.src = "assets/img/olhosenha_aberto.png"; // Coloque a imagem do olho aberto
+    } else {
+        senhaInput.type = "password";
+        icon.src = "assets/img/olhosenha_branco.png"; // Olho fechado
+    }
+});
 
-        try {
-            const response = await fetch("http://10.92.3.96:5000/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, senha })
+
+// =======================================
+// 🔹 LOGIN
+// =======================================
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+    try {
+        const response = await fetch("http://10.92.3.96:5000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, senha })
+        });
+
+        const data = await response.json();
+        console.log("LOGIN RESPONSE:", data);
+
+        if (response.ok) {
+
+            localStorage.setItem("token", data.usuario.token);
+            localStorage.setItem("tipo", data.usuario.tipo);
+            localStorage.setItem("id_cadastro", data.usuario.id_cadastro);
+            localStorage.setItem("nome", data.usuario.nome);
+            localStorage.setItem("email", data.usuario.email);
+            localStorage.setItem("telefone", data.usuario.telefone);
+
+            Swal.fire({
+                title: "Sucesso!",
+                text: data.message,
+                icon: "success",
+            }).then(() => {
+
+                if (data.usuario.tipo === "adm") {
+                    window.location.href = "index.cadastroservico_ADM.html";
+                }
+                else if (data.usuario.tipo === "profissional") {
+                    window.location.href = "index.cadastroservico.html";
+                }
+                else if (data.usuario.tipo === "usuario") {
+                    window.location.href = "HOME_cliente.html";
+                }
             });
 
-            const data = await response.json();
-            console.log("LOGIN RESPONSE:", data);
-
-            if (response.ok) {
-
-                // 🔥 BACKEND CORRETO → SALVANDO IGUAL AO QUE RETORNA!
-                localStorage.setItem("token", data.usuario.token);
-                localStorage.setItem("tipo", data.usuario.tipo);
-                localStorage.setItem("id_cadastro", data.usuario.id_cadastro);
-                localStorage.setItem("nome", data.usuario.nome);
-                localStorage.setItem("email", data.usuario.email);
-                localStorage.setItem("telefone", data.usuario.telefone);
-
-                Swal.fire({
-                    title: "Sucesso!",
-                    text: data.message,
-                    icon: "success",
-                }).then(() => {
-
-                    if (data.usuario.tipo === "adm") {
-                        window.location.href = "index.cadastroservico_ADM.html";
-                    }
-                    else if (data.usuario.tipo === "profissional") {
-                        window.location.href = "index.cadastroservico.html";
-                    }
-                    else if (data.usuario.tipo === "usuario") {
-                        window.location.href = "HOME_cliente.html";
-                    }
-                });
-
-            } else {
-                Swal.fire({
-                    title: "Erro!",
-                    text: data.error,
-                    icon: "error"
-                });
-            }
-
-        } catch (error) {
+        } else {
             Swal.fire({
                 title: "Erro!",
-                text: "Falha na comunicação com o servidor.",
+                text: data.error,
                 icon: "error"
             });
-
-            console.error("LOGIN ERROR:", error);
         }
-    });
+
+    } catch (error) {
+        Swal.fire({
+            title: "Erro!",
+            text: "Falha na comunicação com o servidor.",
+            icon: "error"
+        });
+
+        console.error("LOGIN ERROR:", error);
+    }
+});
 </script>
 
 </body>
-
 </html>
