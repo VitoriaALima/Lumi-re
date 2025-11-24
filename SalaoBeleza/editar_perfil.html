@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // 🔹 BUSCAR DADOS DO USUÁRIO
   // ================================
   try {
-    const response = await fetch(`http://10.92.3.96:5000/cadastro/${usuarioId}`, {
+    const response = await fetch(`http://10.92.3.171:5000/cadastro/${usuarioId}`, {
       method: "GET",
       headers: {
         "Authorization": "Bearer " + token
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const dados = { nome, email, telefone, senha };
 
     try {
-      const response = await fetch(`http://10.92.3.96:5000/cadastro/${usuarioId}`, {
+      const response = await fetch(`http://10.92.3.171:5000/cadastro/${usuarioId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
