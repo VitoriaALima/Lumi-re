@@ -10,7 +10,9 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
+    rel="stylesheet">
 
   <script src="assets/js/seguranca.js" defer></script>
 </head>
@@ -99,116 +101,126 @@
     </div>
   </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", async function () {
-  const token = localStorage.getItem("token");
-  const usuarioId = localStorage.getItem("id_cadastro");
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const token = localStorage.getItem("token");
+      const usuarioId = localStorage.getItem("id_cadastro");
 
-  if (!usuarioId || !token) {
-    Swal.fire("Erro", "Usuário não identificado!", "error");
-    window.location.href = "login.html";
-    return;
-  }
-
-  try {
-    const response = await fetch(`http://10.92.3.171:5000/cadastro/${usuarioId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+      if (!usuarioId || !token) {
+        Swal.fire("Erro", "Usuário não identificado!", "error");
+        window.location.href = "login.html";
+        return;
       }
-    });
 
-    if (!response.ok) throw new Error("Erro ao buscar dados.");
+      try {
+        const response = await fetch(`http://10.92.3.171:5000/cadastro/${usuarioId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        });
 
-    const usuario = await response.json();
+        if (!response.ok) throw new Error("Erro ao buscar dados.");
 
-    // Preenche os campos
-    document.getElementById("nome").value = usuario.nome || "";
-    document.getElementById("email").value = usuario.email || "";
-    document.getElementById("telefone").value = usuario.telefone || "";
-    if (usuario.categoria) document.getElementById("categoria").value = usuario.categoria;
+        const usuario = await response.json();
 
-  } catch (err) {
-    Swal.fire("Erro", "Falha ao carregar os dados.", "error");
-    console.error(err);
-  }
+        // Preenche os campos
+        document.getElementById("nome").value = usuario.nome || "";
+        document.getElementById("email").value = usuario.email || "";
+        document.getElementById("telefone").value = usuario.telefone || "";
+        if (usuario.categoria) document.getElementById("categoria").value = usuario.categoria;
 
-  // Atualização do cadastro
-  document.getElementById("formCadastro").addEventListener("submit", async function (e) {
-    e.preventDefault();
+      } catch (err) {
+        Swal.fire("Erro", "Falha ao carregar os dados.", "error");
+        console.error(err);
+      }
 
-    const nome = document.getElementById("nome").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const telefone = document.getElementById("telefone").value.trim();
-    const senha = document.getElementById("senha").value;
-    const categoria = document.getElementById("categoria").value;
+      // Atualização do cadastro
+      document.getElementById("formCadastro").addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-    const dados = { nome, email, telefone, senha, categoria };
+        const nome = document.getElementById("nome").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const telefone = document.getElementById("telefone").value.trim();
+        const senha = document.getElementById("senha").value;
+        const categoria = document.getElementById("categoria").value;
 
-    try {
-      const response = await fetch(`http://10.92.3.171:5000/cadastro/${usuarioId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(dados)
+        const dados = { nome, email, telefone, senha, categoria };
+
+        try {
+          const response = await fetch(`http://10.92.3.171:5000/cadastro/${usuarioId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(dados)
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "Dados atualizados!",
+              text: "Faça login novamente para continuar.",
+              timer: 1800,
+              showConfirmButton: false
+            }).then(() => {
+              // Força logout geral
+              localStorage.removeItem("token");
+              localStorage.removeItem("id_cadastro");
+              sessionStorage.clear();
+              document.cookie = 'session=; Max-Age=0; path=/;';
+
+              // Redireciona para login
+              window.location.href = "login.html";
+            });
+          }
+        } catch (err) {
+          Swal.fire("Erro", "Falha na conexão com o servidor.", "error");
+          console.error(err);
+        }
       });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Sucesso!",
-          text: result.message
-        }).then(() => window.location.href = "painel_profissional.html");
-      } else {
-        Swal.fire("Erro", result.error || "Erro ao atualizar os dados.", "error");
-      }
-    } catch (err) {
-      Swal.fire("Erro", "Falha na conexão com o servidor.", "error");
-      console.error(err);
-    }
-  });
-});
-
-// Mostrar/ocultar senha
-function toggleSenha() {
-  const senhaInput = document.getElementById("senha");
-  senhaInput.type = senhaInput.type === "password" ? "text" : "password";
-}
-
-// Logout corrigido
-document.addEventListener('DOMContentLoaded', function () {
-  const logoutBtn = document.querySelector('.btn-logout');
-  if (!logoutBtn) return;
-
-  logoutBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    Swal.fire({
-      title: 'Deseja realmente sair?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'SIM',
-      cancelButtonText: 'NÃO',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('id_cadastro');
-        Swal.fire({
-          icon: 'success',
-          title: 'Desconectado',
-          timer: 1200,
-          showConfirmButton: false
-        }).then(() => window.location.href = 'login.html');
-      }
     });
-  });
-});
-</script>
+
+    // Mostrar/ocultar senha
+    function toggleSenha() {
+      const senhaInput = document.getElementById("senha");
+      senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+    }
+
+    // Logout corrigido
+    document.addEventListener('DOMContentLoaded', function () {
+      const logoutBtn = document.querySelector('.btn-logout');
+      if (!logoutBtn) return;
+
+      logoutBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+          title: 'Deseja realmente sair?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'SIM',
+          cancelButtonText: 'NÃO',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('id_cadastro');
+            Swal.fire({
+              icon: 'success',
+              title: 'Desconectado',
+              timer: 1200,
+              showConfirmButton: false
+            }).then(() => window.location.href = 'login.html');
+          }
+        });
+      });
+    });
+  </script>
 
 </body>
+
 </html>
