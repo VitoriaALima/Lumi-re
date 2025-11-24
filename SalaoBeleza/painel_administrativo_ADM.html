@@ -230,7 +230,7 @@
 
                 const dados = await response.json();
 
-                const numero_agendamentos = dados.numero_clientes_agendou || 0;
+                const numero_agendamentos = dados.total_agendamentos || 0;
                 const faturamento = dados.faturamento_total || 0;
                 const quantidade_clientes = dados.quantidade_clientes || 0;
 
