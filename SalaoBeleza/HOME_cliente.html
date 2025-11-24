@@ -8,16 +8,10 @@
     <link rel="stylesheet" href="assets/css/HOME_cliente.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
 
-
-
-    
     <script src="assets/js/seguranca.js" defer></script>
 </head>
 
@@ -26,9 +20,9 @@
     <header>
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
-        <a href="editar_perfil.html">PERFIL</a>
-        <a href="HOME_cliente.html">HOME</a>
-        <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
+            <a href="editar_perfil.html">PERFIL</a>
+            <a href="HOME_cliente.html">HOME</a>
+            <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
         </nav>
     </header>
 
@@ -53,291 +47,241 @@
 
         <h2>HORÁRIOS DISPONÍVEIS</h2>
 
-        <form class="horarios" id="formHorarios">
-            <!-- Horários serão adicionados via JavaScript -->
-        </form>
+        <form class="horarios" id="formHorarios"></form>
     </section>
 
-      <footer class="footer">
-    <div class="footer1">
-      <div class="footer-left">
-        <div class="contact">
-          <img src="assets/img/celular.icon.png" alt="Telefone" class="icon">
-          <span>(18)000000000</span>
+    <footer class="footer">
+        <div class="footer1">
+            <div class="footer-left">
+                <div class="contact">
+                    <img src="assets/img/celular.icon.png" alt="Telefone" class="icon">
+                    <span>(18)000000000</span>
+                </div>
+                <div class="contact">
+                    <img src="assets/img/location-icon.png" alt="Localização" class="icon">
+                    <span>Avenida das flores</span>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
+            </div>
         </div>
-        <div class="contact">
-          <img src="assets/img/location-icon.png" alt="Localização" class="icon">
-          <span>Avenida das flores</span>
+
+        <div class="footer-bottom">
+            <span>© 2025. Todos os direitos reservados.</span>
         </div>
-      </div>
+    </footer>
 
-      <div class="footer-center">
-        <img src="assets/img/logo.png" alt="Logo Lumiére" class="logorodape">
-      </div>
-    </div>
+    <script>
+        /* ======================================================
+           MOSTRAR PRIMEIRO NOME DO USUÁRIO
+        ====================================================== */
+        document.addEventListener("DOMContentLoaded", () => {
+            const nomeCompleto = localStorage.getItem("nome");
+            const nomeSpan = document.getElementById("nome-usuario");
 
-    <div class="footer-bottom">
-      <span>© 2025. Todos os direitos reservados.</span>
-    </div>
-  </footer>
+            if (nomeCompleto && nomeSpan) {
+                const primeiroNome = nomeCompleto.split(" ")[0];
+                nomeSpan.textContent = primeiroNome;
+            }
+        });
 
-   <script>
+        const API_URL = "http://10.92.3.171:5000";
 
-    // Exibir o nome do usuário no painel
-      document.addEventListener('DOMContentLoaded', function () {
-        const nomeCompleto = localStorage.getItem('nome'); // Pega o nome salvo no login
-        const nomeSpan = document.getElementById('nome-usuario');
-
-        if (nomeCompleto && nomeSpan) {
-          // Pega apenas o primeiro nome (antes do espaço)
-          const primeiroNome = nomeCompleto.split(' ')[0];
-          nomeSpan.textContent = primeiroNome;
-        } else if (nomeSpan) {
-          nomeSpan.textContent = "Usuário"; //caso não haja nome salvo
+        function getToken() {
+            return localStorage.getItem("token") || sessionStorage.getItem("token");
         }
-      });
 
-    const API_URL = "http://10.92.3.171:5000";
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarServicos();
+            configurarEventos();
+        });
 
-    function getToken() {
-        return localStorage.getItem("token") || sessionStorage.getItem("token");
-    }
+        /* ======================================================
+           LOGOUT
+        ====================================================== */
+        document.querySelector(".btn-logout").addEventListener("click", function (e) {
+            e.preventDefault();
 
-    document.addEventListener("DOMContentLoaded", () => {
-        mostrarNomeUsuario();
-        carregarServicos();
-        configurarEventos();
-    });
-
-    function mostrarNomeUsuario() {
-        const nome = localStorage.getItem("nomeUsuario");
-        document.querySelector(".nome").textContent = nome ? nome + "!" : "Cliente!";
-    }
-
-    
-
-    const logoutBtn = document.querySelector('.btn-logout');
-      logoutBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        Swal.fire({
-          title: 'Deseja realmente sair?',
-          text: 'Você precisará fazer login novamente.',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'SIM',
-          cancelButtonText: 'NÃO',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.isConfirmed) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('usuarioId');
             Swal.fire({
-              icon: 'success',
-              title: 'Desconectado',
-              showConfirmButton: false,
-              timer: 1200
-            }).then(() => {
-              window.location.href = 'login.html';
+                title: "Deseja realmente sair?",
+                text: "Você precisará fazer login novamente.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "SIM",
+                cancelButtonText: "NÃO",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("usuarioId");
+                    Swal.fire({
+                        icon: "success",
+                        title: "Desconectado",
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = "login.html";
+                    });
+                }
             });
-          }
         });
-      });
 
+        /* ======================================================
+           CARREGAR SERVIÇOS
+        ====================================================== */
+        async function carregarServicos() {
+            try {
+                const response = await fetch(`${API_URL}/servico`);
+                const servicos = await response.json();
 
-    // CARREGAR SERVIÇOS
-    
+                const select = document.getElementById("servico");
+                servicos.forEach(s => {
+                    select.innerHTML += `<option value="${s.id_servico}">${s.descricao}</option>`;
+                });
 
-    async function carregarServicos() {
-        try {
-            const response = await fetch(`${API_URL}/servico`, {
-                method: "GET"
-            });
-
-            const servicos = await response.json();
-            const select = document.getElementById("servico");
-
-            servicos.forEach(s => {
-                select.innerHTML += `<option value="${s.id_servico}">${s.descricao}</option>`;
-            });
-
-        } catch (e) {
-            console.error(e);
-            alert("Erro ao carregar serviços.");
+            } catch (e) {
+                console.error(e);
+                alert("Erro ao carregar serviços.");
+            }
         }
-    }
 
-
-
-    
-    // EVENTOS DOS SELECTS
-    
-
-    function configurarEventos() {
-        document.getElementById("servico").addEventListener("change", async function () {
-
-            const id_servico = this.value;
-
-            if (!id_servico) return;
-
-            await carregarProfissionais(id_servico);
-        });
-
-        document.getElementById("profissional").addEventListener("change", function () {
-
-            const id_profissional = this.value;
-            const id_servico = document.getElementById("servico").value;
-
-            if (!id_profissional || !id_servico) return;
-
-            carregarHorarios(id_profissional, id_servico);
-        });
-    }
-
-    
-    //  CARREGAR PROFISSIONAIS POR SERVIÇO
-    
-
-    async function carregarProfissionais(id_servico) {
-        try {
-            const response = await fetch(`${API_URL}/profissionais-por-servico?id_servico=${id_servico}`);
-            const profissionais = await response.json();
-
-            const select = document.getElementById("profissional");
-            select.innerHTML = `<option value="">Selecione o profissional</option>`;
-
-            profissionais.forEach(p => {
-                select.innerHTML += `<option value="${p.id_profissional}">${p.nome}</option>`;
+        function configurarEventos() {
+            document.getElementById("servico").addEventListener("change", async function () {
+                const id_servico = this.value;
+                if (!id_servico) return;
+                await carregarProfissionais(id_servico);
             });
 
-        } catch (e) {
-            console.error(e);
-            alert("Erro ao carregar profissionais.");
+            document.getElementById("profissional").addEventListener("change", function () {
+                const id_profissional = this.value;
+                const id_servico = document.getElementById("servico").value;
+                if (!id_profissional || !id_servico) return;
+                carregarHorarios(id_profissional, id_servico);
+            });
         }
-    }
 
-    
-    // 4. CARREGAR HORÁRIOS DISPONÍVEIS
-    
+        /* ======================================================
+           CARREGAR PROFISSIONAIS DO SERVIÇO
+        ====================================================== */
+        async function carregarProfissionais(id_servico) {
+            try {
+                const response = await fetch(`${API_URL}/profissionais-por-servico?id_servico=${id_servico}`);
+                const profissionais = await response.json();
 
-    async function carregarHorarios(id_profissional, id_servico) {
+                const select = document.getElementById("profissional");
+                select.innerHTML = `<option value="">Selecione o profissional</option>`;
 
-        const data = new Date().toISOString().split("T")[0]; // data de hoje
+                profissionais.forEach(p => {
+                    select.innerHTML += `<option value="${p.id_profissional}">${p.nome}</option>`;
+                });
 
-        try {
-            const response = await fetch(
-                `${API_URL}/horarios-disponiveis?data=${data}&id_profissional=${id_profissional}&id_servico=${id_servico}`
-            );
+            } catch (e) {
+                console.error(e);
+                alert("Erro ao carregar profissionais.");
+            }
+        }
 
-            const horarios = await response.json();
+        /* ======================================================
+           CARREGAR HORÁRIOS DISPONÍVEIS (NOVA ROTA)
+        ====================================================== */
+        async function carregarHorarios(id_profissional, id_servico) {
 
-            const form = document.getElementById("formHorarios");
-            form.innerHTML = "";
+            try {
+                const response = await fetch(
+                    `${API_URL}/horarios-disponiveis?id_profissional=${id_profissional}&id_servico=${id_servico}`
+                );
 
-            if (horarios.length === 0) {
-                form.innerHTML = "<p>Nenhum horário disponível.</p>";
+                const horarios = await response.json();
+                const form = document.getElementById("formHorarios");
+                form.innerHTML = "";
+
+                if (horarios.length === 0) {
+                    form.innerHTML = "<p>Nenhum horário disponível.</p>";
+                    return;
+                }
+
+                horarios.forEach(h => {
+                    form.innerHTML += `
+                        <label class="opcao">
+                            <input type="radio" name="horario" value="${h.data_hora}">
+                            <span>${h.hora_formatada} - ${h.data_formatada}</span>
+                        </label>
+                    `;
+                });
+
+                form.innerHTML += `<button type="submit" class="btn-agendar">AGENDAR</button>`;
+
+            } catch (e) {
+                console.error(e);
+                alert("Erro ao carregar horários.");
+            }
+        }
+
+        /* ======================================================
+           ENVIAR AGENDAMENTO + RECARREGAR HORÁRIOS
+        ====================================================== */
+        document.getElementById("formHorarios").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const radio = document.querySelector("input[name='horario']:checked");
+            if (!radio) {
+                Swal.fire({ icon: "warning", title: "Selecione um horário!" });
                 return;
             }
 
-            horarios.forEach(h => {
-                const label = document.createElement("label");
-                label.classList.add("opcao");
+            const token = getToken();
+            if (!token) {
+                Swal.fire({ icon: "error", title: "Faça login novamente" });
+                return;
+            }
 
-                label.innerHTML = `
-                    <input type="radio" name="horario" value="${h.data_hora}">
-                    <span>${h.hora_formatada}</span>
-                `;
+            const data_hora = radio.value;
+            const id_servico = document.getElementById("servico").value;
+            const id_profissional = document.getElementById("profissional").value;
 
-                form.appendChild(label);
-            });
+            const payload = { id_profissional, id_servico, data_hora };
 
-            const btn = document.createElement("button");
-            btn.type = "submit";
-            btn.classList.add("btn-agendar");
-            btn.textContent = "AGENDAR";
-            form.appendChild(btn);
+            try {
+                const response = await fetch(`${API_URL}/agenda/criar`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
 
-        } catch (e) {
-            console.error(e);
-            alert("Erro ao carregar horários.");
-        }
-    }
+                const result = await response.json();
 
-    
-    //ENVIAR AGENDAMENTO
-    
+                if (!response.ok) {
+                    Swal.fire({ icon: "error", title: "Erro", text: result.error || "Falha ao agendar." });
+                    return;
+                }
 
-    document.getElementById("formHorarios").addEventListener("submit", async function (e) {
-        e.preventDefault();
+                Swal.fire({
+                    icon: "success",
+                    title: "Agendado com sucesso!",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
 
-        const radio = document.querySelector("input[name='horario']:checked");
+                setTimeout(() => {
+                    carregarHorarios(id_profissional, id_servico);
+                }, 1200);
 
-        if (!radio) {
-            Swal.fire({
-                icon: "warning",
-                title: "Selecione um horário!"
-            });
-            return;
-        }
-
-        const token = getToken();
-        if (!token) {
-            Swal.fire({
-                icon: "error",
-                title: "Faça login novamente"
-            });
-            return;
-        }
-
-        const data_hora = radio.value;
-        const id_servico = document.getElementById("servico").value;
-        const id_profissional = document.getElementById("profissional").value;
-
-        const payload = {
-            id_profissional,
-            id_servico,
-            data_hora
-        };
-
-        try {
-            const response = await fetch(`${API_URL}/agenda/criar`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(payload)
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
+            } catch (e) {
+                console.error(e);
                 Swal.fire({
                     icon: "error",
                     title: "Erro",
-                    text: result.error || "Falha ao agendar."
+                    text: "Não foi possível criar o agendamento."
                 });
-                return;
             }
+        });
 
-            Swal.fire({
-                icon: "success",
-                title: "Agendado com sucesso!",
-                timer: 1500,
-                showConfirmButton: false
-            });
-
-        } catch (e) {
-            console.error(e);
-            Swal.fire({
-                icon: "error",
-                title: "Erro",
-                text: "Não foi possível criar o agendamento."
-            });
-        }
-    });
-</script>
+    </script>
 
 </body>
-
 </html>
