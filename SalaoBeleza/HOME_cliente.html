@@ -75,9 +75,9 @@
     </footer>
 
     <script>
-        /* ======================================================
-           MOSTRAR PRIMEIRO NOME DO USUÁRIO
-        ====================================================== */
+        
+           //MOSTRAR PRIMEIRO NOME DO USUÁRIO
+        
         document.addEventListener("DOMContentLoaded", () => {
             const nomeCompleto = localStorage.getItem("nome");
             const nomeSpan = document.getElementById("nome-usuario");
@@ -99,9 +99,9 @@
             configurarEventos();
         });
 
-        /* ======================================================
-           LOGOUT
-        ====================================================== */
+      
+          // LOGOUT
+        
         document.querySelector(".btn-logout").addEventListener("click", function (e) {
             e.preventDefault();
 
@@ -129,9 +129,9 @@
             });
         });
 
-        /* ======================================================
-           CARREGAR SERVIÇOS
-        ====================================================== */
+        
+            //CARREGAR SERVIÇOS
+        
         async function carregarServicos() {
             try {
                 const response = await fetch(`${API_URL}/servico`);
@@ -163,9 +163,9 @@
             });
         }
 
-        /* ======================================================
-           CARREGAR PROFISSIONAIS DO SERVIÇO
-        ====================================================== */
+        
+          // CARREGAR PROFISSIONAIS DO SERVIÇO
+        
         async function carregarProfissionais(id_servico) {
             try {
                 const response = await fetch(`${API_URL}/profissionais-por-servico?id_servico=${id_servico}`);
@@ -184,9 +184,9 @@
             }
         }
 
-        /* ======================================================
-           CARREGAR HORÁRIOS DISPONÍVEIS (NOVA ROTA)
-        ====================================================== */
+        
+         //  CARREGAR HORÁRIOS DISPONÍVEIS
+       
         async function carregarHorarios(id_profissional, id_servico) {
 
             try {
@@ -220,9 +220,9 @@
             }
         }
 
-        /* ======================================================
-           ENVIAR AGENDAMENTO + RECARREGAR HORÁRIOS
-        ====================================================== */
+        
+          // ENVIAR AGENDAMENTO + RECARREGAR HORÁRIOS
+        
         document.getElementById("formHorarios").addEventListener("submit", async function (e) {
             e.preventDefault();
 

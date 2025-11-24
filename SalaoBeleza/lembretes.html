@@ -9,8 +9,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap"
     rel="stylesheet">
-
-  <!-- Bibliotecas -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -149,7 +147,7 @@
             const div = document.createElement('div');
             div.classList.add('reserva-item');
             div.innerHTML = `
-              <span>✅ ${dataFormatada} - às ${hora} | ${ag.servico} (${ag.profissional})</span>
+              <span> ${dataFormatada} - às ${hora} | ${ag.servico} (${ag.profissional})</span>
               <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" 
                    alt="Excluir" 
                    class="btn-excluir" 
