@@ -217,44 +217,47 @@
     }
 
     async function carregarAgendamentos() {
-      try {
-        const idCadastro = getId();
-        const token = getToken();
-        const nome = getNome();
+  try {
+    const idCadastro = getId();
+    const token = getToken();
+    const nome = getNome();
 
-        if (!idCadastro) {
-          tabela.innerHTML = `
-            <tr>
-              <td colspan="7" style="text-align: center; padding: 20px; color: #d32f2f;">
-                ID de cadastro não encontrado. Faça login novamente.
-              </td>
-            </tr>
-          `;
-          return;
-        }
+    if (!idCadastro) {
+      tabela.innerHTML = `
+        <tr>
+          <td colspan="7" style="text-align: center; padding: 20px; color: #d32f2f;">
+            ID de cadastro não encontrado. Faça login novamente.
+          </td>
+        </tr>
+      `;
+      return;
+    }
 
-        if (!token) {
-          tabela.innerHTML = `
-            <tr>
-              <td colspan="7" style="text-align: center; padding: 20px; color: #d32f2f;">
-                Token não encontrado. Faça login novamente.
-              </td>
-            </tr>
-          `;
-          return;
-        }
+    if (!token) {
+      tabela.innerHTML = `
+        <tr>
+          <td colspan="7" style="text-align: center; padding: 20px; color: #d32f2f;">
+            Token não encontrado. Faça login novamente.
+          </td>
+        </tr>
+      `;
+      return;
+    }
 
-        if (nome) {
-          document.getElementById('nome-usuario').textContent = nome;
-        }
+    // ⭐ DICA BÔNUS APLICADA AQUI ⭐
+    if (nome) {
+      const primeiroNome = nome.split(' ')[0]; // pega só o primeiro nome
+      document.getElementById('nome-usuario').textContent = primeiroNome;
+    }
 
-        const response = await fetch(`${API_URL}/agenda?id_cadastro=${idCadastro}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
+    const response = await fetch(`${API_URL}/agenda?id_cadastro=${idCadastro}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
 
         if (response.status === 401) {
           localStorage.removeItem('token');
