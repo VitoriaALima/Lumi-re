@@ -173,10 +173,17 @@
           if (response.ok) {
             Swal.fire({
               icon: "success",
-              title: "Sucesso!",
-              text: result.message
+              title: "Dados atualizados!",
+              text: "Faça login novamente para continuar.",
+              timer: 2000,
+              showConfirmButton: false
             }).then(() => {
-              window.location.href = "HOME_cliente.html";
+              // 🔥 Desloga e redireciona
+              localStorage.clear();
+              sessionStorage.clear();
+              document.cookie = 'session=; Max-Age=0; path=/;';
+
+              window.location.href = "login.html";
             });
           } else {
             Swal.fire("Erro", result.error || "Erro ao atualizar os dados.", "error");
