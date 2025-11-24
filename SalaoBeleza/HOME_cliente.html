@@ -27,13 +27,14 @@
         <img src="assets/img/logo.png" alt="LUMIÉRE - Beleza | Estética | Bem-estar" class="logo">
         <nav>
         <a href="editar_perfil.html">PERFIL</a>
+        <a href="lembretes.html">LEMBRETES</a>
         <a href="HOME_cliente.html">HOME</a>
         <a class="btn-logout" style="cursor: pointer;">LOGOUT</a>
         </nav>
     </header>
 
     <section class="agendamento-container">
-        <h1>Bem-vindo(a)<br><span class="nome">Nome!</span></h1>
+        <h1>Bem-vindo(a) <span id="nome-usuario">Nome!</span></h1>
 
         <div class="selecionar-container">
             <div class="campo">
@@ -82,6 +83,21 @@
   </footer>
 
    <script>
+
+    // Exibir o nome do usuário no painel
+      document.addEventListener('DOMContentLoaded', function () {
+        const nomeCompleto = localStorage.getItem('nome'); // Pega o nome salvo no login
+        const nomeSpan = document.getElementById('nome-usuario');
+
+        if (nomeCompleto && nomeSpan) {
+          // Pega apenas o primeiro nome (antes do espaço)
+          const primeiroNome = nomeCompleto.split(' ')[0];
+          nomeSpan.textContent = primeiroNome;
+        } else if (nomeSpan) {
+          nomeSpan.textContent = "Usuário"; // fallback caso não haja nome salvo
+        }
+      });
+
     const API_URL = "http://10.92.3.171:5000";
 
     function getToken() {

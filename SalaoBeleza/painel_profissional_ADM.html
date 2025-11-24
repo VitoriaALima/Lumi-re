@@ -35,7 +35,7 @@
   <main>
     <section class="cadastro-container">
       <div class="decorative-line">
-        <h1>Bem-vindo(a) <span>Nome!</span></h1>
+        <h1>Bem-vindo(a) <span id="nome-usuario">Nome!</span></h1>
         <p class="subtitulo">Explore seus atendimentos visualize sua agenda de horários</p>
       </div>
 
@@ -93,6 +93,21 @@
   </footer>
 
   <script>
+
+      // Exibir o nome do usuário no painel
+      document.addEventListener('DOMContentLoaded', function () {
+        const nomeCompleto = localStorage.getItem('nome'); // Pega o nome salvo no login
+        const nomeSpan = document.getElementById('nome-usuario');
+
+        if (nomeCompleto && nomeSpan) {
+          // Pega apenas o primeiro nome (antes do espaço)
+          const primeiroNome = nomeCompleto.split(' ')[0];
+          nomeSpan.textContent = primeiroNome;
+        } else if (nomeSpan) {
+          nomeSpan.textContent = "Usuário"; // fallback caso não haja nome salvo
+        }
+      });
+
     const tabela = document.getElementById("tabela-body");
 
 
